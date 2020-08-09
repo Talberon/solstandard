@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            var unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             RemoveActionTilesOnUnmovableSpaces(mapLayer);
         }
@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) mapLayer])
             {
                 if (mapElement == null) continue;
-                if (!UnitMovingContext.CanEndMoveAtCoordinates(mapElement.MapCoordinates))
+                if (!UnitMovingPhase.CanEndMoveAtCoordinates(mapElement.MapCoordinates))
                 {
                     tilesToRemove.Add(mapElement);
                 }
@@ -86,13 +86,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Item has no uses remaining!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Item has no uses remaining!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

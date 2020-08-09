@@ -20,8 +20,8 @@ namespace SolStandard.Utility.Events.Network
         {
             if (gameState == GlobalContext.GameState.InGame)
             {
-                GlobalContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(direction);
-                GlobalContext.GameMapContext.UpdateUnitAttackRangePreview();
+                GlobalContext.WorldContext.MoveCursorAndSelectedUnitWithinMoveGrid(direction);
+                GlobalContext.WorldContext.UpdateUnitAttackRangePreview();
             }
 
             Complete = true;

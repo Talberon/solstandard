@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            var unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             RemoveActionTilesOnUnplaceableSpaces(mapLayer);
         }
@@ -73,7 +73,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer
+                GlobalContext.WorldContext.MapContainer
                     .AddNewToastAtMapCursor("Must target unoccupied tile in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
@@ -86,7 +86,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         private static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    (targetSlice.DynamicEntity != null || targetSlice.PreviewEntity != null) &&
                    targetSlice.CollideTile == null && targetSlice.TerrainEntity == null &&
                    targetSlice.UnitEntity == null;

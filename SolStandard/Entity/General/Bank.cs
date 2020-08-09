@@ -42,7 +42,7 @@ namespace SolStandard.Entity.General
 
         public static void Deposit(GameUnit depositer, int goldToDeposit)
         {
-            GlobalContext.InitiativeContext.DeductGoldFromTeam(goldToDeposit, depositer.Team);
+            GlobalContext.InitiativePhase.DeductGoldFromTeam(goldToDeposit, depositer.Team);
 
             switch (depositer.Team)
             {
@@ -57,16 +57,16 @@ namespace SolStandard.Entity.General
             }
 
             AssetManager.CoinSFX.Play();
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                 $"{depositer.Id} deposits {goldToDeposit}{Currency.CurrencyAbbreviation} to the bank!",
                 50
             );
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
         }
 
         public static void Withdraw(GameUnit depositer, int goldToWithdraw)
         {
-            GlobalContext.InitiativeContext.AddGoldToTeam(goldToWithdraw, depositer.Team);
+            GlobalContext.InitiativePhase.AddGoldToTeam(goldToWithdraw, depositer.Team);
 
             switch (depositer.Team)
             {
@@ -81,11 +81,11 @@ namespace SolStandard.Entity.General
             }
 
             AssetManager.CoinSFX.Play();
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                 $"{depositer.Id} withdraws {goldToWithdraw}{Currency.CurrencyAbbreviation} from the bank!",
                 50
             );
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
         }
 
         public static int GetTeamGoldInBank(Team team)

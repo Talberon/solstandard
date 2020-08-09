@@ -112,7 +112,7 @@ namespace SolStandard.Entity.Unit
         public UnitStatistics Stats { get; }
         public Team Team { get; }
         public Role Role { get; }
-        public bool IsActive => GlobalContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted;
+        public bool IsActive => GlobalContext.InitiativePhase.CurrentActiveTeam == Team && !IsExhausted;
         public IRenderable LargePortrait => largePortrait;
         public IRenderable MediumPortrait => mediumPortrait;
         public IRenderable SmallPortrait => smallPortrait;
@@ -239,7 +239,7 @@ namespace SolStandard.Entity.Unit
 
                 content[0, 0] = new Window(
                     new RenderText(AssetManager.StatFont, " ITEMS"),
-                    GameMapView.BlankTerrainWindowColor
+                    WorldHUD.BlankTerrainWindowColor
                 );
 
                 for (int i = 0; i < Inventory.Count; i++)
@@ -511,7 +511,7 @@ namespace SolStandard.Entity.Unit
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
 
-            if (UnitMovingContext.CanEndMoveAtCoordinates(destination) || ignoreCollision)
+            if (UnitMovingPhase.CanEndMoveAtCoordinates(destination) || ignoreCollision)
             {
                 MoveUnitToCoordinates(destination);
             }
@@ -554,7 +554,7 @@ namespace SolStandard.Entity.Unit
             KillIfDead();
 
             if (UnitEntity == null) return;
-            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.WorldContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Damage, GameDriver.CellSizeVector),
                 UnitEntity.MapCoordinates
             );
@@ -574,7 +574,7 @@ namespace SolStandard.Entity.Unit
             healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
 
             if (UnitEntity == null) return;
-            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.WorldContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverArmor, GameDriver.CellSizeVector),
                 UnitEntity.MapCoordinates
             );
@@ -595,7 +595,7 @@ namespace SolStandard.Entity.Unit
             healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
 
             if (UnitEntity == null) return;
-            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.WorldContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverHealth, GameDriver.CellSizeVector),
                 UnitEntity.MapCoordinates
             );
@@ -729,7 +729,7 @@ namespace SolStandard.Entity.Unit
                 return true;
             }
             
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 100);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 100);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -745,12 +745,12 @@ namespace SolStandard.Entity.Unit
             smallPortrait.DefaultColor = DeadPortraitColor;
             Logger.Debug("Unit " + Id + " is dead!");
             AssetManager.CombatDeathSFX.Play();
-            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.WorldContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Death, GameDriver.CellSizeVector),
                 MapEntity.MapCoordinates
             );
             MapEntity = null;
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
         }
 
         public bool IsAlive => Stats.CurrentHP > 0 && MapEntity != null;
@@ -807,7 +807,7 @@ namespace SolStandard.Entity.Unit
                     new List<IItem>(Inventory)
                 );
 
-            GlobalContext.InitiativeContext.DeductGoldFromTeam(CurrentBounty, Team);
+            GlobalContext.InitiativePhase.DeductGoldFromTeam(CurrentBounty, Team);
             CurrentBounty = 0;
             Inventory.Clear();
         }
@@ -868,7 +868,7 @@ namespace SolStandard.Entity.Unit
 
             foreach (SongStatus song in songs)
             {
-                var targetingContext = new UnitTargetingContext(song.SongSprite);
+                var targetingContext = new UnitTargetingPhase(song.SongSprite);
                 List<MapDistanceTile> auraTiles =
                     targetingContext.GetTargetingTiles(UnitEntity.MapCoordinates, song.AuraRange);
 

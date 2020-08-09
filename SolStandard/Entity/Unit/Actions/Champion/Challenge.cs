@@ -66,13 +66,13 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -84,7 +84,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             Vector2 pullTileCoordinates = DeterminePullPosition(actorCoordinates, targetCoordinates);
 
             return TargetIsUnitInRange(targetSlice, targetUnit) &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(pullTileCoordinates) &&
+                   UnitMovingPhase.CanEndMoveAtCoordinates(pullTileCoordinates) &&
                    targetUnit.IsMovable;
         }
 
@@ -121,7 +121,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
 
         private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {
-            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (WorldContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
             }

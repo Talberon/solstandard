@@ -49,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     "Invalid target! Place on movable tile without terrain entity in range.",
                     50
                 );
@@ -60,7 +60,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         private static bool CanPlaceRecallPointAtTarget(MapSlice targetSlice)
         {
             return targetSlice.TerrainEntity == null && targetSlice.DynamicEntity != null &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+                   UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
 
         private static RecallPoint GenerateRecallPoint(string sourceId, MapSlice targetSlice)

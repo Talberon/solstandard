@@ -6,12 +6,15 @@ using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
+using IWindow = SolStandard.NeoGFX.GUI.IWindow;
 
 namespace SolStandard.Containers.Components.World.SubContext.Status
 {
-    public class StatusScreenView : IUserInterface
+    public class StatusScreenHUD : IUserInterface, IHUDView
     {
         private const int WindowEdgeBuffer = 5;
         private const int WindowPadding = 10;
@@ -33,7 +36,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Status
         public string RedTeamResultText { private get; set; }
         public IRenderable ResultLabelContent { private get; set; }
 
-        public StatusScreenView()
+        public StatusScreenHUD()
         {
             BlueTeamResultText = " FIGHT!";
             RedTeamResultText = " FIGHT!";
@@ -287,6 +290,14 @@ namespace SolStandard.Containers.Components.World.SubContext.Status
         #endregion Positioning
 
 
+        public float Width { get; }
+        public float Height { get; }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             BlueTeamLeaderPortrait?.Draw(spriteBatch, BlueTeamLeaderPortraitPosition());
@@ -298,5 +309,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Status
             RedTeamUnitRoster?.Draw(spriteBatch, RedTeamUnitRosterPosition());
             RedTeamResult?.Draw(spriteBatch, RedTeamResultPosition());
         }
+
+        public List<IWindow> Windows { get; }
     }
 }

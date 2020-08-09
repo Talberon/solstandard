@@ -236,10 +236,10 @@ namespace SolStandard.Map.Elements.Cursor
 
         private void DrawInGameButtonPrompts(SpriteBatch spriteBatch)
         {
-            if (GlobalContext.GameMapContext.CanPressConfirm) DrawConfirmButtonPrompt(spriteBatch);
-            if (GlobalContext.GameMapContext.CanPressCancel) DrawCancelButtonPrompt(spriteBatch);
-            if (GlobalContext.GameMapContext.CanPressPreviewUnit) DrawPreviewUnitButtonPrompt(spriteBatch);
-            if (GlobalContext.GameMapContext.CanPressPreviewItem) DrawPreviewItemButtonPrompt(spriteBatch);
+            if (GlobalContext.WorldContext.CanPressConfirm) DrawConfirmButtonPrompt(spriteBatch);
+            if (GlobalContext.WorldContext.CanPressCancel) DrawCancelButtonPrompt(spriteBatch);
+            if (GlobalContext.WorldContext.CanPressPreviewUnit) DrawPreviewUnitButtonPrompt(spriteBatch);
+            if (GlobalContext.WorldContext.CanPressPreviewItem) DrawPreviewItemButtonPrompt(spriteBatch);
         }
 
         private void DrawConfirmButtonPrompt(SpriteBatch spriteBatch)

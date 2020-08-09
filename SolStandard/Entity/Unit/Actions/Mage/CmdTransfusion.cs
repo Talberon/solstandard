@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
         {
             if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

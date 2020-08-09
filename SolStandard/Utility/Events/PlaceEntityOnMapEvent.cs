@@ -27,7 +27,7 @@ namespace SolStandard.Utility.Events
             MapContainer.GameGrid[(int) mapLayer][(int) entityToPlace.MapCoordinates.X,
                 (int) entityToPlace.MapCoordinates.Y] = entityToPlace;
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(
                 "Placed " + entityToPlace.Name + "!",
                 entityToPlace.MapCoordinates,
                 50
@@ -35,7 +35,7 @@ namespace SolStandard.Utility.Events
             
             soundEffect.Play();
 
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
             
             Complete = true;
         }

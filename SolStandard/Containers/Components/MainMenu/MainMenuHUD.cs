@@ -1,18 +1,21 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.MainMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Monogame;
+using IWindow = SolStandard.NeoGFX.GUI.IWindow;
 
 namespace SolStandard.Containers.Components.MainMenu
 {
-    public class MainMenuView : IUserInterface
+    public class MainMenuHUD : IUserInterface, IHUDView
     {
         private const int WindowPadding = 10;
         public static readonly Color MenuColor = new Color(10, 35, 50, 100);
@@ -22,7 +25,7 @@ namespace SolStandard.Containers.Components.MainMenu
         private readonly IRenderable copyright;
         private readonly IRenderable controls;
 
-        public MainMenuView(IRenderable title)
+        public MainMenuHUD(IRenderable title)
         {
             this.title = title;
             MainMenu = GenerateMainMenu();
@@ -90,6 +93,14 @@ namespace SolStandard.Containers.Components.MainMenu
         }
 
 
+        public float Width { get; }
+        public float Height { get; }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             Vector2 centerScreen = GameDriver.ScreenSize / 2;
@@ -122,5 +133,7 @@ namespace SolStandard.Containers.Components.MainMenu
                 new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);
             MainMenu.Draw(spriteBatch, mainMenuPosition);
         }
+
+        public List<IWindow> Windows { get; }
     }
 }

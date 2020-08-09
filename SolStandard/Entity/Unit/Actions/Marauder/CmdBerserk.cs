@@ -65,7 +65,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
             if (!CanAffordCommandCost(actor, cmdCost))
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -73,7 +73,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
             if (Value < 1)
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     "Must specify at least 1 point of damage!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -88,7 +88,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                     actor.DamageUnit();
                 }
 
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor($"Dealt {Value} damage to self!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor($"Dealt {Value} damage to self!", 50);
                 AssetManager.CombatDamageSFX.Play();
 
                 GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
@@ -96,7 +96,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -136,7 +136,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
         private void UpdateSkillName()
         {
             Name = $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] {SkillName}: {Value} {UnitStatistics.Abbreviation[Stats.Hp]}";
-            GlobalContext.GameMapContext.RefreshCurrentActionMenuOption();
+            GlobalContext.WorldContext.RefreshCurrentActionMenuOption();
         }
     }
 }

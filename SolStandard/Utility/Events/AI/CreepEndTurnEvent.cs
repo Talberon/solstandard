@@ -16,15 +16,15 @@ namespace SolStandard.Utility.Events.AI
         {
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            if (GlobalContext.GameMapContext.SelectedUnit != null)
+            if (GlobalContext.WorldContext.SelectedUnit != null)
             {
-                GlobalContext.GameMapContext.SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
+                GlobalContext.WorldContext.SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
             }
 
             //IMPORTANT Do not allow tiles that have been triggered to trigger again or the risk of soft-locking via infinite triggers can occur
-            if (!GameMapContext.TriggerEffectTiles(EffectTriggerTime.EndOfTurn, true))
+            if (!WorldContext.TriggerEffectTiles(EffectTriggerTime.EndOfTurn, true))
             {
-                GlobalContext.GameMapContext.ResolveTurn();
+                GlobalContext.WorldContext.ResolveTurn();
                 MapContainer.ClearDynamicAndPreviewGrids();
             }
 

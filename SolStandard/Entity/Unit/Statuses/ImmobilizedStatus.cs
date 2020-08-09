@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
             target.UnitEntity.UnitSpriteSheet.SetFrameDelay(FrameDelay);
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,
                 50

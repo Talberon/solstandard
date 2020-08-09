@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
 
             if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -53,7 +53,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
                         targetUnit.DamageUnit(true);
                     }
 
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                         $"Assassinated {targetUnit.Id}!", 50
                     );
 
@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                         $"Target must have [{damageThreshold}] {UnitStatistics.Abbreviation[Stats.Hp]} or fewer!", 50
                     );
                     AssetManager.WarningSFX.Play();
@@ -70,7 +70,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

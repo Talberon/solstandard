@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
                 new MapDistanceTile(TileSprite, targetCoordinates);
 
-            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(targetCoordinates);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(targetCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -72,7 +72,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot cross here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot cross here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -80,7 +80,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private static bool CanCrossPath(MapSlice targetSlice)
         {
             return targetSlice.DynamicEntity != null &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+                   UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

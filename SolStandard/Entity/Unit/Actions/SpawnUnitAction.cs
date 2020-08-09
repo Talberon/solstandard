@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit.Actions
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -74,14 +74,14 @@ namespace SolStandard.Entity.Unit.Actions
             unitToSpawn.UnitEntity.SnapToCoordinates(mapCoordinates);
             unitToSpawn.ExhaustAndDisableUnit();
             GlobalContext.Units.Add(unitToSpawn);
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
             AssetManager.SkillBuffSFX.Play();
         }
 
         public static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)
         {
             return targetSlice.DynamicEntity != null && targetSlice.UnitEntity == null &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+                   UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

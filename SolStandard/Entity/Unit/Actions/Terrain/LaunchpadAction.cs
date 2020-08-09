@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            var unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             Blink.RemoveActionTilesOnUnmovableSpaces(mapLayer);
         }
@@ -53,7 +53,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't land here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't land here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

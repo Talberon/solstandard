@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) blockCoordinates.X, (int) blockCoordinates.Y] =
                 new MapDistanceTile(TileSprite, blockCoordinates);
 
-            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(blockCoordinates);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(blockCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -55,13 +55,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -73,7 +73,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 Vector2 oppositeCoordinates = DetermineOppositeTileOfUnit(
                     GlobalContext.ActiveUnit.UnitEntity.MapCoordinates, pushBlock.MapCoordinates);
 
-                return UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates) &&
+                return UnitMovingPhase.CanEndMoveAtCoordinates(oppositeCoordinates) &&
                        MapContainer.GetMapSliceAtCoordinates(oppositeCoordinates).TerrainEntity == null;
             }
         }

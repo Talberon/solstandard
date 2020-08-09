@@ -9,24 +9,24 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
 {
     public class ConnectOption : MenuOption
     {
-        private NetworkMenuView NetworkMenuView { get; }
+        private NetworkHUD NetworkHUD { get; }
         private const string Connect = "Connect";
 
-        public ConnectOption(Color color, NetworkMenuView networkMenuView) : base(
+        public ConnectOption(Color color, NetworkHUD networkHUD) : base(
             new RenderText(AssetManager.WindowFont, Connect), color, HorizontalAlignment.Centered
         )
         {
-            NetworkMenuView = networkMenuView;
+            NetworkHUD = networkHUD;
         }
 
         public override void Execute()
         {
-            NetworkMenuView.AttemptConnection();
+            NetworkHUD.AttemptConnection();
         }
 
         public override IRenderable Clone()
         {
-            return new ConnectOption(DefaultColor, NetworkMenuView);
+            return new ConnectOption(DefaultColor, NetworkHUD);
         }
     }
 }

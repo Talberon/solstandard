@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
             {
                 var targetDoor = targetSlice.TerrainEntity as Door;
                 targetDoor?.DealDamage(doorDamage);
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor($"Door takes [{doorDamage}] damage!",
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor($"Door takes [{doorDamage}] damage!",
                     50);
 
                 GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target door!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target door!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

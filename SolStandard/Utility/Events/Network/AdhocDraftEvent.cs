@@ -8,7 +8,7 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            GlobalContext.GameMapContext.OpenDraftMenu();
+            GlobalContext.WorldContext.OpenDraftMenu();
             Complete = true;
         }
     }

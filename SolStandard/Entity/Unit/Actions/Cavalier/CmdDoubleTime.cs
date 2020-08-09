@@ -42,7 +42,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
 
             if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -55,7 +55,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

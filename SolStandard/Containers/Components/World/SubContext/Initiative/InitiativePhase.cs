@@ -10,7 +10,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Containers.Components.World.SubContext.Initiative
 {
-    public class InitiativeContext
+    public class InitiativePhase
     {
         public List<GameUnit> Units { get; }
         public GameUnit CurrentActiveUnit { get; private set; }
@@ -24,7 +24,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Initiative
         private IRenderable CreepBanner { get; }
         private IRenderable NewRoundBanner { get; }
 
-        public InitiativeContext(List<GameUnit> unitList, Team firstTurn)
+        public InitiativePhase(List<GameUnit> unitList, Team firstTurn)
         {
             CurrentActiveTeam = firstTurn;
             FirstPlayer = firstTurn;
@@ -174,10 +174,10 @@ namespace SolStandard.Containers.Components.World.SubContext.Initiative
         {
             CurrentActiveTeam = TeamWithFewerRemainingUnits;
             CurrentActiveUnit = Units.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
-            GlobalContext.GameMapContext.ResetCursorToActiveUnit();
+            GlobalContext.WorldContext.ResetCursorToActiveUnit();
 
             Vector2 cursorMapCoordinates = GlobalContext.MapCursor.MapCoordinates;
-            GlobalContext.StatusScreenView.UpdateWindows();
+            GlobalContext.StatusScreenHUD.UpdateWindows();
 
             //Events
 

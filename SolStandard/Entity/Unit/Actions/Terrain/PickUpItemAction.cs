@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             MapContainer.GameGrid[(int) mapLayer][(int) itemCoordinates.X, (int) itemCoordinates.Y] =
                 new MapDistanceTile(TileSprite, itemCoordinates);
-            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(itemCoordinates);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(itemCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -49,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot pickup item here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot pickup item here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -50,7 +50,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     "Must place item on unoccupied space!",
                     50
                 );
@@ -60,7 +60,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         private static bool CanPlaceBombAtTarget(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.DynamicEntity != null && targetSlice.TerrainEntity == null;
         }
     }

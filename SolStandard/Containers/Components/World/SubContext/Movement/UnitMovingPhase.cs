@@ -6,15 +6,17 @@ using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility;
 
 namespace SolStandard.Containers.Components.World.SubContext.Movement
 {
-    public class UnitMovingContext
+    public class UnitMovingPhase
     {
         private readonly SpriteAtlas spriteAtlas;
 
-        public UnitMovingContext(SpriteAtlas spriteAtlas)
+        public UnitMovingPhase(SpriteAtlas spriteAtlas)
         {
             this.spriteAtlas = spriteAtlas;
         }
@@ -103,7 +105,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Movement
         private static bool CanPlaceMoveTileAtCoordinates(Vector2 coordinates,
             IEnumerable<MapDistanceTile> visitedTiles, Team team)
         {
-            if (!GameMapContext.CoordinatesWithinMapBounds(coordinates)) return false;
+            if (!WorldContext.CoordinatesWithinMapBounds(coordinates)) return false;
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
 
             if (slice.UnitEntity != null)
@@ -142,7 +144,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Movement
 
         public static bool CanEndMoveAtCoordinates(UnitEntity unitEntityEndingMove, Vector2 coordinates)
         {
-            if (!GameMapContext.CoordinatesWithinMapBounds(coordinates)) return false;
+            if (!WorldContext.CoordinatesWithinMapBounds(coordinates)) return false;
 
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
 

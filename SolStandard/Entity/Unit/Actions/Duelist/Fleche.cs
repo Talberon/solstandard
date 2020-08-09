@@ -73,12 +73,12 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                     return true;
                 }
 
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot move!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot move!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
             }
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target unit in range!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target unit in range!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -101,14 +101,14 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 return true;
             }
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must place unit in unoccupied space!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must place unit in unoccupied space!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
 
         private static bool TargetTileCanPlaceUnit(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.DynamicEntity != null;
         }
 

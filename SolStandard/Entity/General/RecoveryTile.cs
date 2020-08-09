@@ -70,7 +70,7 @@ namespace SolStandard.Entity.General
                     toastMessage = $"{unitOnTile.Id} recovers {amrPerTurn} {UnitStatistics.Abbreviation[Stats.Armor]}!";
                 }
 
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(
                     toastMessage,
                     unitOnTile.UnitEntity.MapCoordinates,
                     50

@@ -4,11 +4,11 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 
-namespace SolStandard.Containers.Components.EULA
+namespace SolStandard.Containers.Components.HowToPlay
 {
-    public class EULAView : ScrollingTextPaneView
+    public class HowToPlayHUD : ScrollingTextPaneHUD
     {
-        public EULAView() : base(AssetManager.WindowFont, AssetManager.EULAText, new WindowContentGrid(
+        public HowToPlayHUD() : base(AssetManager.WindowFont, AssetManager.HowToPlayText, new WindowContentGrid(
             new IRenderable[,]
             {
                 {
@@ -17,7 +17,12 @@ namespace SolStandard.Containers.Components.EULA
                         {
                             new RenderText(AssetManager.WindowFont, "Press"),
                             InputIconProvider.GetInputIcon(Input.Confirm, GameDriver.CellSize),
-                            new RenderText(AssetManager.WindowFont, " to accept the agreement."),
+                            new RenderText(AssetManager.WindowFont, " to view instructions in browser."),
+                        },
+                        {
+                            new RenderText(AssetManager.WindowFont, "Press"),
+                            InputIconProvider.GetInputIcon(Input.Cancel, GameDriver.CellSize),
+                            new RenderText(AssetManager.WindowFont, " to return to menu."),
                         }
                     })
                 },

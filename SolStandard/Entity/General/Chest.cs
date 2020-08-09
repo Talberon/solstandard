@@ -75,7 +75,7 @@ namespace SolStandard.Entity.General
         {
             if (SpecificItem == null)
             {
-                SpecificItem = GlobalContext.GameMapContext.MapContainer.GetRandomItemFromPool(ItemPool);
+                SpecificItem = GlobalContext.WorldContext.MapContainer.GetRandomItemFromPool(ItemPool);
             }
 
             if (SpecificItem == null) return;

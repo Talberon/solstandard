@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
             if (firstTile != null)
             {
-                GlobalContext.GameMapContext.MapContainer.MapCursor
+                GlobalContext.WorldContext.MapContainer.MapCursor
                     .SnapCameraAndCursorToCoordinates(firstTile.MapCoordinates);
             }
         }
@@ -50,11 +50,11 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 if (targetUnit.Inventory.Count > 0)
                 {
                     MapContainer.ClearDynamicAndPreviewGrids();
-                    GlobalContext.GameMapContext.OpenTakeItemMenu(targetUnit, true);
+                    GlobalContext.WorldContext.OpenTakeItemMenu(targetUnit, true);
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                         "Target has no items in inventory!", 50
                     );
                     AssetManager.WarningSFX.Play();
@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -74,7 +74,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             taker.AddItemToInventory(itemToTake);
             takenFrom.RemoveItemFromInventory(itemToTake);
             AssetManager.CombatBlockSFX.Play();
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor($"Took {itemToTake.Name}!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor($"Took {itemToTake.Name}!", 50);
         }
 
         private static void RemoveUnselectableOptionsFromGrid(Layer mapLayer, IEnumerable<MapElement> elements)

@@ -27,7 +27,7 @@ namespace SolStandard.Utility.Events
             GlobalContext.ActiveUnit.AddItemToInventory(item);
             RemoveItemFromMap(item, itemCoordinates);
             AssetManager.MenuConfirmSFX.Play();
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
 
             AddItemToUnitInventoryEvent.ItemToast(GlobalContext.ActiveUnit, item);
 

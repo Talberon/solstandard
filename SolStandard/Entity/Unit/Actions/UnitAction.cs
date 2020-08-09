@@ -47,9 +47,9 @@ namespace SolStandard.Entity.Unit.Actions
 
         public virtual void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            var unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
-            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
         }
 
         public abstract void ExecuteAction(MapSlice targetSlice);
@@ -102,7 +102,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         protected static bool CanMoveToTargetTile(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.DynamicEntity != null;
         }
 

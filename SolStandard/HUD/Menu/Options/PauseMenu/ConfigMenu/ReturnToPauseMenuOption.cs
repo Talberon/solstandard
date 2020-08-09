@@ -28,7 +28,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
             }
             else
             {
-                PauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Primary);
+                PauseScreenUtils.ChangeMenu(PauseScreenUtils.PauseMenus.Primary);
             }
         }
 

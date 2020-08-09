@@ -40,7 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target enemy in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

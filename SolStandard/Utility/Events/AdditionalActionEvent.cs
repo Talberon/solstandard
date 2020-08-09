@@ -15,7 +15,7 @@ namespace SolStandard.Utility.Events
             }
             else
             {
-                GameMapContext.FinishTurn(true);
+                WorldContext.FinishTurn(true);
             }
 
             Complete = true;
@@ -23,9 +23,9 @@ namespace SolStandard.Utility.Events
 
         public static void StartExtraAction(string message)
         {
-            GlobalContext.GameMapContext.ResetToActionMenu();
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(message, 50);
-            GameMapContext.UpdateWindowsEachTurn();
+            GlobalContext.WorldContext.ResetToActionMenu();
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(message, 50);
+            WorldContext.UpdateWindowsEachTurn();
         }
     }
 }

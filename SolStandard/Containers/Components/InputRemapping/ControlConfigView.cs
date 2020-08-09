@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Components.Global;
@@ -8,14 +9,17 @@ using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Monogame;
+using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
+using IWindow = SolStandard.NeoGFX.GUI.IWindow;
 
 namespace SolStandard.Containers.Components.InputRemapping
 {
-    public class ControlConfigView : IUserInterface
+    public class ControlConfigView : IUserInterface, IHUDView
     {
         private const int WindowPadding = 10;
         private static readonly Color PrimaryWindowColor = new Color(50, 50, 60);
@@ -181,6 +185,14 @@ namespace SolStandard.Containers.Components.InputRemapping
 
         #endregion
 
+        public float Width { get; }
+        public float Height { get; }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             switch (CurrentState)
@@ -203,5 +215,7 @@ namespace SolStandard.Containers.Components.InputRemapping
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        public List<IWindow> Windows { get; }
     }
 }

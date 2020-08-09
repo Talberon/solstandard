@@ -42,14 +42,14 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot place obstacle here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot place obstacle here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         private static bool CanPlaceObstacleAtTarget(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.TerrainEntity == null && targetSlice.DynamicEntity != null;
         }
     }

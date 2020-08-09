@@ -1,19 +1,22 @@
+using Microsoft.Xna.Framework;
 using SolStandard.Containers.Components.Credits;
 using SolStandard.Containers.Components.Global;
 using SolStandard.Map.Elements;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Components.HowToPlay
 {
-    public class HowToPlayContext
+    public class HowToPlayContext : IGameContext
     {
-        public ScrollingTextPaneView HowToPlayView { get; }
+        public ScrollingTextPaneHUD HowToPlayHUD { get; }
         private GlobalContext.GameState previousGameState;
         private const string HowToPlayPath = "/how-to-play";
 
         public HowToPlayContext()
         {
-            HowToPlayView = new HowToPlayView();
+            HowToPlayHUD = new HowToPlayHUD();
         }
 
         public void OpenView()
@@ -32,13 +35,20 @@ namespace SolStandard.Containers.Components.HowToPlay
 
         public void ScrollWindow(Direction direction)
         {
-            HowToPlayView.ScrollContents(direction);
+            HowToPlayHUD.ScrollContents(direction);
         }
 
         public void OpenBrowser()
         {
             AssetManager.MenuConfirmSFX.Play();
             CreditsContext.OpenBrowser(GameDriver.SolStandardUrl + HowToPlayPath);
+        }
+
+        public IHUDView View { get; }
+        public MenuContainer MenuContainer { get; }
+        public void Update(GameTime gameTime)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

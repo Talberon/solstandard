@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
                     targetSlice.MapCoordinates, 50);
                 AssetManager.WarningSFX.Play();
             }
@@ -88,7 +88,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
             //Check movement range
             var unitMovingContext =
-                new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
+                new UnitMovingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
             unitMovingContext.GenerateMoveGrid(creep.UnitEntity.MapCoordinates, creep.MvRange, creep.Team);
 
             //Generate a range ring around each unit on the map using this creep's AtkRange
@@ -96,7 +96,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
             var attackPositionsInRange = new List<KeyValuePair<GameUnit, Vector2>>();
             var unitTargetingContext =
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
+                new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
 
             foreach (GameUnit targetUnit in GlobalContext.Units)
             {

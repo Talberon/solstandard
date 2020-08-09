@@ -76,13 +76,13 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -104,7 +104,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
+                    if (!UnitMovingPhase.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
             }
@@ -123,7 +123,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
+                    if (!UnitMovingPhase.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
             }
@@ -142,7 +142,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
+                    if (!UnitMovingPhase.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
             }
@@ -161,7 +161,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
+                    if (!UnitMovingPhase.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
             }
@@ -198,7 +198,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         public static void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates,
             int distance, IRenderable tileSprite)
         {
-            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (WorldContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(tileSprite, tileCoordinates, distance));
             }

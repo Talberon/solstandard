@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             MapContainer.GameGrid[(int) mapLayer][(int) tileCoordinates.X, (int) tileCoordinates.Y] =
                 new MapDistanceTile(TileSprite, tileCoordinates);
-            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(tileCoordinates);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(tileCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -53,14 +53,14 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot be seized by this team!",
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot be seized by this team!",
                         50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid selection!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid selection!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

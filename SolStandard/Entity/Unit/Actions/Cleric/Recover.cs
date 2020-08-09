@@ -44,11 +44,11 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
                 string toastMessage = Name + "!" + Environment.NewLine +
                                       "Recovered [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
                                       "!";
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastMessage, 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(toastMessage, 50);
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

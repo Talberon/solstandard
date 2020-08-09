@@ -67,7 +67,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No consumables in inventory!",
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates("No consumables in inventory!",
                     targetSlice.MapCoordinates, 50);
                 AssetManager.WarningSFX.Play();
             }

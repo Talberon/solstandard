@@ -59,7 +59,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(
                     activeUnit.UnitEntity,
                     "No targets in range to trigger!",
                     50
@@ -74,7 +74,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
             IThreatRange threatRange = new AdHocThreatRange(new[] {1}, creep.MvRange);
 
-            new UnitTargetingContext(TileSprite).GenerateThreatGrid(creep.UnitEntity.MapCoordinates, threatRange);
+            new UnitTargetingPhase(TileSprite).GenerateThreatGrid(creep.UnitEntity.MapCoordinates, threatRange);
             List<MapElement> moveTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
             moveTiles.AddRange(MapContainer.GetMapElementsFromLayer(Layer.Preview));
             MapContainer.ClearDynamicAndPreviewGrids();

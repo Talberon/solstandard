@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            var unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             RemoveActionTilesOnUntargetableSpaces(mapLayer);
         }
@@ -100,7 +100,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't target here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't target here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

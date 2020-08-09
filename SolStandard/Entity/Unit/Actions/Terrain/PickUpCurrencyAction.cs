@@ -40,7 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot pick up money here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot pick up money here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

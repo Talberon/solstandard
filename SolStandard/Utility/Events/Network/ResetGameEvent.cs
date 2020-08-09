@@ -16,7 +16,7 @@ namespace SolStandard.Utility.Events.Network
             }
 
             AssetManager.MenuConfirmSFX.Play();
-            GlobalContext.Initialize(GlobalContext.MainMenuView, GlobalContext.NetworkMenuView);
+            GlobalContext.Initialize(GlobalContext.MainMenuHUD, GlobalContext.NetworkHUD);
 
             Complete = true;
         }

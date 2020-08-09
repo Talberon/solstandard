@@ -63,14 +63,14 @@ namespace SolStandard.Containers.Components.Global
         private const string MapDirectory = @"Content/TmxMaps/";
         private const string MapSelectFile = @"Map_Select_06.tmx";
 
-        public static BattleContext BattleContext { get; private set; }
+        public static CombatPhase CombatPhase { get; private set; }
         public static Scenario.Scenario Scenario { get; private set; }
         public static MapSelectContext MapSelectContext { get; private set; }
-        public static GameMapContext GameMapContext { get; private set; }
-        public static InitiativeContext InitiativeContext { get; private set; }
-        public static StatusScreenView StatusScreenView { get; private set; }
-        public static MainMenuView MainMenuView { get; private set; }
-        public static NetworkMenuView NetworkMenuView { get; private set; }
+        public static WorldContext WorldContext { get; private set; }
+        public static InitiativePhase InitiativePhase { get; private set; }
+        public static StatusScreenHUD StatusScreenHUD { get; private set; }
+        public static MainMenuHUD MainMenuHUD { get; private set; }
+        public static NetworkHUD NetworkHUD { get; private set; }
         public static StaticBackgroundView StaticBackgroundView { get; private set; }
         public static DraftContext DraftContext { get; private set; }
         public static DeploymentContext DeploymentContext { get; private set; }
@@ -99,23 +99,23 @@ namespace SolStandard.Containers.Components.Global
             GameState.Results => GetPlayerForTeam(ActiveTeam),
             GameState.Credits => PlayerIndex.One,
             GameState.ItemPreview => GetPlayerForTeam(ActiveTeam),
-            GameState.ControlConfig => ((InitiativeContext != null)
+            GameState.ControlConfig => ((InitiativePhase != null)
                 ? GetPlayerForTeam(ActiveTeam)
                 : PlayerIndex.One),
             GameState.HowToPlay => GetPlayerForTeam(ActiveTeam),
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView)
+        public static void Initialize(MainMenuHUD mainMenuHUD, NetworkHUD networkHUD)
         {
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.EndsWith("MapSelectTheme")));
-            MainMenuView = mainMenuView;
-            NetworkMenuView = networkMenuView;
+            MainMenuHUD = mainMenuHUD;
+            NetworkHUD = networkHUD;
             EULAContext = new EULAContext();
-            BattleContext = new BattleContext(new BattleView());
+            CombatPhase = new CombatPhase(new CombatHUD());
             DraftContext = new DraftContext();
             CodexContext = new CodexContext();
-            CreditsContext = new CreditsContext(new CreditsView());
+            CreditsContext = new CreditsContext(new CreditsHUD());
             ControlConfigContext = new ControlConfigContext(new ControlConfigView());
             StaticBackgroundView = new StaticBackgroundView();
             HowToPlayContext = new HowToPlayContext();
@@ -131,7 +131,7 @@ namespace SolStandard.Containers.Components.Global
             if (team != Team.Red && team != Team.Blue) throw new InvalidTeamException();
             P1Team = team;
             GameDriver.InitializeControlMappers(team);
-            MapSelectContext.MapSelectScreenView.UpdateTeamSelectWindow();
+            MapSelectContext.MapSelectHUD.UpdateTeamSelectWindow();
             AssetManager.MapUnitCancelSFX.Play();
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(5));
         }
@@ -142,12 +142,12 @@ namespace SolStandard.Containers.Components.Global
             GameState.MainMenu => MapSelectContext.MapContainer.MapCursor,
             GameState.NetworkMenu => MapSelectContext.MapContainer.MapCursor,
             GameState.MapSelect => MapSelectContext.MapContainer.MapCursor,
-            GameState.Deployment => GameMapContext.MapContainer.MapCursor,
-            GameState.ArmyDraft => GameMapContext.MapContainer.MapCursor,
-            GameState.PauseScreen => GameMapContext.MapContainer.MapCursor,
-            GameState.InGame => GameMapContext.MapContainer.MapCursor,
-            GameState.Results => GameMapContext.MapContainer.MapCursor,
-            GameState.ItemPreview => GameMapContext.MapContainer.MapCursor,
+            GameState.Deployment => WorldContext.MapContainer.MapCursor,
+            GameState.ArmyDraft => WorldContext.MapContainer.MapCursor,
+            GameState.PauseScreen => WorldContext.MapContainer.MapCursor,
+            GameState.InGame => WorldContext.MapContainer.MapCursor,
+            GameState.Results => WorldContext.MapContainer.MapCursor,
+            GameState.ItemPreview => WorldContext.MapContainer.MapCursor,
             GameState.Codex => null,
             GameState.Credits => null,
             GameState.HowToPlay => MapSelectContext.MapContainer.MapCursor,
@@ -160,27 +160,27 @@ namespace SolStandard.Containers.Components.Global
             GameState.MainMenu => MapSelectContext.MapContainer.MapCamera,
             GameState.NetworkMenu => MapSelectContext.MapContainer.MapCamera,
             GameState.MapSelect => MapSelectContext.MapContainer.MapCamera,
-            GameState.Deployment => GameMapContext.MapContainer.MapCamera,
-            GameState.ArmyDraft => GameMapContext.MapContainer.MapCamera,
-            GameState.PauseScreen => GameMapContext.MapContainer.MapCamera,
-            GameState.InGame => GameMapContext.MapContainer.MapCamera,
-            GameState.Results => GameMapContext.MapContainer.MapCamera,
-            GameState.ItemPreview => GameMapContext.MapContainer.MapCamera,
-            GameState.Codex => GameMapContext.MapContainer.MapCamera,
+            GameState.Deployment => WorldContext.MapContainer.MapCamera,
+            GameState.ArmyDraft => WorldContext.MapContainer.MapCamera,
+            GameState.PauseScreen => WorldContext.MapContainer.MapCamera,
+            GameState.InGame => WorldContext.MapContainer.MapCamera,
+            GameState.Results => WorldContext.MapContainer.MapCamera,
+            GameState.ItemPreview => WorldContext.MapContainer.MapCamera,
+            GameState.Codex => WorldContext.MapContainer.MapCamera,
             GameState.Credits => MapSelectContext.MapContainer.MapCamera,
             GameState.HowToPlay => MapSelectContext.MapContainer.MapCamera,
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        public static List<GameUnit> Units => InitiativeContext.Units;
+        public static List<GameUnit> Units => InitiativePhase.Units;
 
-        public static GameUnit ActiveUnit => InitiativeContext.CurrentActiveUnit;
+        public static GameUnit ActiveUnit => InitiativePhase.CurrentActiveUnit;
 
         public static Team ActiveTeam => CurrentGameState switch
         {
             GameState.ArmyDraft => DraftContext.CurrentTurn,
             GameState.Deployment => DeploymentContext.CurrentTurn,
-            _ => InitiativeContext.CurrentActiveTeam
+            _ => InitiativePhase.CurrentActiveTeam
         };
 
         public static void CenterCursorAndCamera()
@@ -200,7 +200,7 @@ namespace SolStandard.Containers.Components.Global
 
         public static void StartNewDeployment(List<GameUnit> blueArmy, List<GameUnit> redArmy, Team firstTurn)
         {
-            DeploymentContext = new DeploymentContext(blueArmy, redArmy, GameMapContext.MapContainer, firstTurn);
+            DeploymentContext = new DeploymentContext(blueArmy, redArmy, WorldContext.MapContainer, firstTurn);
             CurrentGameState = GameState.Deployment;
         }
 
@@ -217,11 +217,11 @@ namespace SolStandard.Containers.Components.Global
                 unit.ExhaustAndDisableUnit();
             }
 
-            GameMapContext.UpdateWindowsEachTurn();
-            InitiativeContext.StartFirstTurn();
-            GameMapContext.ResetTurnState();
+            WorldContext.UpdateWindowsEachTurn();
+            InitiativePhase.StartFirstTurn();
+            WorldContext.ResetTurnState();
 
-            StatusScreenView.UpdateWindows();
+            StatusScreenHUD.UpdateWindows();
         }
 
         public static void LoadMapSelect()
@@ -239,7 +239,7 @@ namespace SolStandard.Containers.Components.Global
                 AssetManager.UnitSprites,
                 GameDriver.TmxObjectTypeDefaults);
 
-            MapSelectContext = new MapSelectContext(new MapSelectScreenView(),
+            MapSelectContext = new MapSelectContext(new MapSelectHUD(),
                 new MapContainer(mapParser.LoadMapGrid(), AssetManager.MapCursorTexture));
 
             MapCursor.SnapCameraAndCursorToCoordinates(MapSelectContext.MapCenter);
@@ -274,7 +274,7 @@ namespace SolStandard.Containers.Components.Global
 
         private static void InjectCreepsIntoSpawnTiles()
         {
-            List<CreepEntity> summons = GameMapContext.MapContainer.MapSummons;
+            List<CreepEntity> summons = WorldContext.MapContainer.MapSummons;
 
             List<CreepDeployTile> creepDeployTiles = MapContainer.GetMapEntities()
                 .Where(entity => entity.GetType() == typeof(CreepDeployTile)).Cast<CreepDeployTile>().ToList();
@@ -315,19 +315,19 @@ namespace SolStandard.Containers.Components.Global
 
         private static void LoadStatusUI()
         {
-            StatusScreenView = new StatusScreenView();
+            StatusScreenHUD = new StatusScreenHUD();
         }
 
         private static void LoadMapContext(TmxMapParser mapParser)
         {
-            GameMapContext = new GameMapContext(
+            WorldContext = new WorldContext(
                 new MapContainer(
                     mapParser.LoadMapGrid(),
                     AssetManager.MapCursorTexture,
                     mapParser.LoadSummons(),
                     mapParser.LoadMapLoot()
                 ),
-                new GameMapView()
+                new WorldHUD()
             );
         }
 
@@ -335,7 +335,7 @@ namespace SolStandard.Containers.Components.Global
         {
             List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(mapParser.LoadUnits());
 
-            InitiativeContext = new InitiativeContext(unitsFromMap, firstTeam);
+            InitiativePhase = new InitiativePhase(unitsFromMap, firstTeam);
         }
 
         public static void UpdateCamera()

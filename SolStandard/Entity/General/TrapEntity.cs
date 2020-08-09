@@ -85,7 +85,7 @@ namespace SolStandard.Entity.General
             {
                 IsExpired = true;
 
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(
                     trapMessage + Environment.NewLine + "Trap is broken!", MapCoordinates, 80);
 
                 AssetManager.CombatDamageSFX.Play();
@@ -93,7 +93,7 @@ namespace SolStandard.Entity.General
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
                     80);
                 AssetManager.CombatDamageSFX.Play();
             }
@@ -114,7 +114,7 @@ namespace SolStandard.Entity.General
         {
             GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
             GlobalContext.MapCamera.SnapCameraCenterToCursor();
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
 
             ToggleTrap();
         }

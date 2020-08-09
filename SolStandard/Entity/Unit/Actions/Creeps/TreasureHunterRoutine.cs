@@ -84,7 +84,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't find any items in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't find any items in range!", 50);
                 AssetManager.WarningSFX.Play();
                 GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
             }
@@ -121,7 +121,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private KeyValuePair<IItem, Vector2>? FindUnobstructedItemInRange(Vector2 origin, int mvRange)
         {
-            new UnitMovingContext(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
+            new UnitMovingPhase(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
             List<MapElement> movementTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
 
             var itemsInRange = new List<KeyValuePair<IItem, Vector2>>();
@@ -134,7 +134,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
                 if (targetEntity is IActionTile && targetEntity is IItem item)
                 {
-                    if (UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates))
+                    if (UnitMovingPhase.CanEndMoveAtCoordinates(element.MapCoordinates))
                     {
                         itemsInRange.Add(new KeyValuePair<IItem, Vector2>(item, slice.MapCoordinates));
                     }
@@ -152,7 +152,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private KeyValuePair<Currency, Vector2>? FindUnobstructedCurrencyInRange(Vector2 origin, int mvRange)
         {
-            new UnitMovingContext(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
+            new UnitMovingPhase(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
             List<MapElement> movementTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
 
             var itemsInRange = new List<KeyValuePair<Currency, Vector2>>();
@@ -165,7 +165,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
                 if (!(targetEntity is IActionTile) || !(targetEntity is Currency entity)) continue;
 
-                if (UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates))
+                if (UnitMovingPhase.CanEndMoveAtCoordinates(element.MapCoordinates))
                 {
                     itemsInRange.Add(new KeyValuePair<Currency, Vector2>(entity, slice.MapCoordinates));
                 }

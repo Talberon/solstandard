@@ -6,16 +6,18 @@ using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility;
 
 namespace SolStandard.Containers.Components.World.SubContext.Targeting
 {
-    public class UnitTargetingContext
+    public class UnitTargetingPhase
     {
         private readonly IRenderable spriteAtlas;
         private readonly bool numbersVisible;
 
-        public UnitTargetingContext(IRenderable spriteAtlas, bool numbersVisible = false)
+        public UnitTargetingPhase(IRenderable spriteAtlas, bool numbersVisible = false)
         {
             this.spriteAtlas = spriteAtlas;
             this.numbersVisible = numbersVisible;
@@ -30,7 +32,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Targeting
 
         public void GenerateThreatGrid(Vector2 origin, IThreatRange threatRange, Team team = Team.Creep)
         {
-            new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark))
+            new UnitMovingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark))
                 .GenerateMoveGrid(origin, threatRange.MvRange, team);
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
@@ -139,7 +141,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Targeting
         {
             if (unavailableCoordinates.Contains(coordinates)) return false;
 
-            return GameMapContext.CoordinatesWithinMapBounds(coordinates);
+            return WorldContext.CoordinatesWithinMapBounds(coordinates);
         }
 
         private static void AddVisitedTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles, Layer layer)

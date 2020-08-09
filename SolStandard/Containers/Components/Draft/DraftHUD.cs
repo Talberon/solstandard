@@ -11,14 +11,17 @@ using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.DraftMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Monogame;
+using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
+using IWindow = SolStandard.NeoGFX.GUI.IWindow;
 
 namespace SolStandard.Containers.Components.Draft
 {
-    public class DraftView : IUserInterface
+    public class DraftHUD : IUserInterface, IHUDView
     {
         private static readonly Color DarkBackgroundColor = new Color(50, 50, 50, 180);
 
@@ -42,7 +45,7 @@ namespace SolStandard.Containers.Components.Draft
         private static IRenderable _draftCursor;
         private static IRenderable _commanderCursor;
 
-        public DraftView()
+        public DraftHUD()
         {
             UpdateCommanderPortrait(Role.Silhouette, Team.Creep);
 
@@ -420,6 +423,14 @@ namespace SolStandard.Containers.Components.Draft
         #endregion Positions
 
 
+        public float Width { get; }
+        public float Height { get; }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             BlueTeamUnits?.Draw(spriteBatch, BlueTeamUnitsPosition);
@@ -437,5 +448,7 @@ namespace SolStandard.Containers.Components.Draft
             ControlsText?.Draw(spriteBatch, ControlsTextPosition);
             ObjectivesWindow?.Draw(spriteBatch, ObjectivesWindowPosition);
         }
+
+        public List<IWindow> Windows { get; }
     }
 }

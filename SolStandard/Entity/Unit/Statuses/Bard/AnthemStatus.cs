@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
 
         public override void ApplyEffect(GameUnit target)
         {
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
             base.ApplyEffect(target);
         }
 

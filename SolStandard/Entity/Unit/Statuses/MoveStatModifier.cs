@@ -25,7 +25,7 @@ namespace SolStandard.Entity.Unit.Statuses
             AssetManager.SkillBuffSFX.Play();
             target.Stats.MvModifier += pointsToIncrease;
             target.UnitEntity.UnitSpriteSheet.SetFrameDelay(FastFrameDelay);
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
         }
 
         protected override void ExecuteEffect(GameUnit target)

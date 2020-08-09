@@ -41,7 +41,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) bankCoordinates.X, (int) bankCoordinates.Y] =
                 new MapDistanceTile(TileSprite, bankCoordinates);
 
-            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(bankCoordinates);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(bankCoordinates);
         }
 
         private static WindowContentGrid GenerateActionDescription()
@@ -123,19 +123,19 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     }
                     else
                     {
-                        GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not enough Gold in bank!", 50);
+                        GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not enough Gold in bank!", 50);
                         AssetManager.WarningSFX.Play();
                     }
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot withdraw Gold here!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot withdraw Gold here!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No Gold specified!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("No Gold specified!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -151,7 +151,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             Name = DescriptionTag + Value + Currency.CurrencyAbbreviation;
             Description = GenerateActionDescription();
 
-            GlobalContext.GameMapContext.RefreshCurrentActionMenuOption();
+            GlobalContext.WorldContext.RefreshCurrentActionMenuOption();
         }
     }
 }

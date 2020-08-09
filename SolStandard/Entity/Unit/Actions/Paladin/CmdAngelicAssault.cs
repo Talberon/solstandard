@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
         {
             if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -88,12 +88,12 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
                     return true;
                 }
 
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No space to land!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("No space to land!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
             }
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -118,7 +118,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
                 return true;
             }
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid landing space!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid landing space!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }

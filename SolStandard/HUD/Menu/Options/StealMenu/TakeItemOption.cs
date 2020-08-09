@@ -45,7 +45,7 @@ namespace SolStandard.HUD.Menu.Options.StealMenu
 
         public override void Execute()
         {
-            GlobalContext.GameMapContext.ClearStealItemMenu();
+            GlobalContext.WorldContext.ClearStealItemMenu();
             TakeItemAction.TakeItemFromInventory(GlobalContext.ActiveUnit, target, itemToTake);
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
 

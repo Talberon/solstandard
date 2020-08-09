@@ -201,7 +201,7 @@ namespace SolStandard.Map
 
         public static MapSlice GetMapSliceAtCoordinates(Vector2 coordinates)
         {
-            if (GameMapContext.CoordinatesWithinMapBounds(coordinates))
+            if (WorldContext.CoordinatesWithinMapBounds(coordinates))
             {
                 int column = (int) coordinates.X;
                 int row = (int) coordinates.Y;

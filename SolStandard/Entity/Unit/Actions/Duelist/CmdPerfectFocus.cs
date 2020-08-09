@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
 
             if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -59,7 +59,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                     }
                     else
                     {
-                        GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Max focus points reached!", 50);
+                        GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Max focus points reached!", 50);
                         AssetManager.WarningSFX.Play();
                     }
                 }
@@ -78,7 +78,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -34,7 +34,7 @@ namespace SolStandard.HUD.Menu.Options
 
         public override void Execute()
         {
-            GameMapContext.GameMapView.ActionMenuContext.OpenSubMenu(submenu);
+            WorldContext.WorldHUD.ActionMenuContext.OpenSubMenu(submenu);
         }
 
         public override IRenderable Clone()

@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     MapContainer
                             .GameGrid[(int) mapLayer][(int) entity.MapCoordinates.X, (int) entity.MapCoordinates.Y] =
                         new MapDistanceTile(TileSprite, entity.MapCoordinates);
-                    GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(entity.MapCoordinates);
+                    GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(entity.MapCoordinates);
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't transport here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't transport here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

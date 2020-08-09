@@ -48,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) vendorCoordinates.X, (int) vendorCoordinates.Y] =
                 new MapDistanceTile(TileSprite, vendorCoordinates);
 
-            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(vendorCoordinates);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(vendorCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -72,13 +72,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can not afford item!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can not afford item!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -89,7 +89,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private bool ActiveTeamCanAffordItem()
         {
-            return GlobalContext.InitiativeContext.GetGoldForTeam(GlobalContext.ActiveTeam) >= Price;
+            return GlobalContext.InitiativePhase.GetGoldForTeam(GlobalContext.ActiveTeam) >= Price;
         }
 
         private bool TargetIsVendor(MapSlice targetSlice)

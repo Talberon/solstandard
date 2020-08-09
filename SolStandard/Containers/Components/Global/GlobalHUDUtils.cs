@@ -6,7 +6,7 @@ using SolStandard.Utility;
 
 namespace SolStandard.Containers.Components.Global
 {
-    public static class GlobalHudView
+    public static class GlobalHUDUtils
     {
         private const int WindowPadding = 10;
         private const int NotificationDurationInFrames = 180;

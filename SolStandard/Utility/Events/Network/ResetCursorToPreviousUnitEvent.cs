@@ -9,7 +9,7 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            GlobalContext.GameMapContext.ResetCursorToPreviousUnitOnTeam();
+            GlobalContext.WorldContext.ResetCursorToPreviousUnitOnTeam();
             AssetManager.MapUnitCancelSFX.Play();
             Complete = true;
         }

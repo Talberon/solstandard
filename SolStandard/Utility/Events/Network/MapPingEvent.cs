@@ -12,7 +12,7 @@ namespace SolStandard.Utility.Events.Network
         {
             Vector2 coordinates = (GlobalContext.MapCursor != null) ? GlobalContext.MapCursor.MapCoordinates : Vector2.Zero;
 
-            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.WorldContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Ping, GameDriver.CellSizeVector),
                 coordinates
             );
