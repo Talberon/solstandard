@@ -8,7 +8,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 
-namespace SolStandard.Containers.Components.World.SubContext
+namespace SolStandard.Containers.Components.World.SubContext.Movement
 {
     public class UnitMovingContext
     {

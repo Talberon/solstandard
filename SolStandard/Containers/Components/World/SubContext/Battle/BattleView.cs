@@ -9,7 +9,7 @@ using SolStandard.HUD.Window.Content.Combat;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Containers.Components.World.SubContext
+namespace SolStandard.Containers.Components.World.SubContext.Battle
 {
     public class BattleView : IUserInterface
     {

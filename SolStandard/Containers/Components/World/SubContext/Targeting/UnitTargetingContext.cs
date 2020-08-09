@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 
-namespace SolStandard.Containers.Components.World.SubContext
+namespace SolStandard.Containers.Components.World.SubContext.Targeting
 {
     public class UnitTargetingContext
     {

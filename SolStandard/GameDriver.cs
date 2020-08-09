@@ -13,6 +13,7 @@ using SolStandard.Containers.Components.MainMenu;
 using SolStandard.Containers.Components.Network;
 using SolStandard.Containers.Components.World;
 using SolStandard.Containers.Components.World.SubContext;
+using SolStandard.Containers.Components.World.SubContext.Pause;
 using SolStandard.Containers.Scenario;
 using SolStandard.Entity.Unit;
 using SolStandard.NeoUtility.Controls.Inputs.Prefabs;
@@ -195,8 +196,12 @@ namespace SolStandard
         {
             return playerIndex switch
             {
-                PlayerIndex.One => ((GlobalContext.P1Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
-                PlayerIndex.Two => ((GlobalContext.P2Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
+                PlayerIndex.One => ((GlobalContext.P1Team == Team.Blue)
+                    ? _blueTeamControlMapper
+                    : _redTeamControlMapper),
+                PlayerIndex.Two => ((GlobalContext.P2Team == Team.Blue)
+                    ? _blueTeamControlMapper
+                    : _redTeamControlMapper),
                 _ => GetControlMapperForPlayer(PlayerIndex.One)
             };
         }
@@ -294,8 +299,12 @@ namespace SolStandard
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.D1)) DebugMode = true;
                 if (Keyboard.GetState().IsKeyDown(Keys.D2)) DebugMode = false;
-            }
 
+                if (new InputKey(Keys.D0).Pressed)
+                {
+                    MusicBox.Pause();
+                }
+            }
 
             if (new InputKey(Keys.F10).Pressed)
             {
@@ -307,11 +316,61 @@ namespace SolStandard
                 UseBorderlessFullscreen();
             }
 
-            if (new InputKey(Keys.D0).Pressed)
-            {
-                MusicBox.Pause();
-            }
+            HandleInput();
+            UpdateCamera();
 
+            base.Update(gameTime);
+        }
+
+        private static void UpdateCamera()
+        {
+            switch (GlobalContext.CurrentGameState)
+            {
+                case GlobalContext.GameState.EULAConfirm:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.MainMenu:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.NetworkMenu:
+                    break;
+                case GlobalContext.GameState.ArmyDraft:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.Deployment:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.MapSelect:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.PauseScreen:
+                    break;
+                case GlobalContext.GameState.InGame:
+                    GlobalContext.GameMapContext.UpdateHoverContextWindows();
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.Codex:
+                    break;
+                case GlobalContext.GameState.Credits:
+                    break;
+                case GlobalContext.GameState.Results:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.ItemPreview:
+                    break;
+                case GlobalContext.GameState.ControlConfig:
+                    GlobalContext.ControlConfigContext.Update();
+                    break;
+                case GlobalContext.GameState.HowToPlay:
+                    GlobalContext.UpdateCamera();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private static void HandleInput()
+        {
             if (GlobalEventQueue.UpdateEventsEveryFrame())
             {
                 ControlMapper activeController = GetControlMapperForPlayer(GlobalContext.ActivePlayer);
@@ -372,52 +431,6 @@ namespace SolStandard
                         throw new ArgumentOutOfRangeException();
                 }
             }
-
-            switch (GlobalContext.CurrentGameState)
-            {
-                case GlobalContext.GameState.EULAConfirm:
-                    GlobalContext.UpdateCamera();
-                    break;
-                case GlobalContext.GameState.MainMenu:
-                    GlobalContext.UpdateCamera();
-                    break;
-                case GlobalContext.GameState.NetworkMenu:
-                    break;
-                case GlobalContext.GameState.ArmyDraft:
-                    GlobalContext.UpdateCamera();
-                    break;
-                case GlobalContext.GameState.Deployment:
-                    GlobalContext.UpdateCamera();
-                    break;
-                case GlobalContext.GameState.MapSelect:
-                    GlobalContext.UpdateCamera();
-                    break;
-                case GlobalContext.GameState.PauseScreen:
-                    break;
-                case GlobalContext.GameState.InGame:
-                    GlobalContext.GameMapContext.UpdateHoverContextWindows();
-                    GlobalContext.UpdateCamera();
-                    break;
-                case GlobalContext.GameState.Codex:
-                    break;
-                case GlobalContext.GameState.Credits:
-                    break;
-                case GlobalContext.GameState.Results:
-                    GlobalContext.UpdateCamera();
-                    break;
-                case GlobalContext.GameState.ItemPreview:
-                    break;
-                case GlobalContext.GameState.ControlConfig:
-                    GlobalContext.ControlConfigContext.Update();
-                    break;
-                case GlobalContext.GameState.HowToPlay:
-                    GlobalContext.UpdateCamera();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            base.Update(gameTime);
         }
 
         /// <summary>

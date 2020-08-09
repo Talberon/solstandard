@@ -8,7 +8,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Containers.Components.World.SubContext
+namespace SolStandard.Containers.Components.World.SubContext.Initiative
 {
     public class InitiativeContext
     {

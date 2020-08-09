@@ -13,7 +13,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Utility;
 
-namespace SolStandard.Containers.Components.World.SubContext
+namespace SolStandard.Containers.Components.World.SubContext.ActionMenu
 {
     public static class UnitContextualActionMenuContext
     {
