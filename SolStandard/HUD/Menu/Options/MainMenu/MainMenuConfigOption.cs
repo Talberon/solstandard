@@ -18,7 +18,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
         public override void Execute()
         {
             ReturnToPauseMenuOption.FromMainMenu = true;
-            PauseScreenView.OpenScreen(PauseScreenView.PauseMenus.PauseConfig);
+            PauseScreenUtils.OpenScreen(PauseScreenUtils.PauseMenus.PauseConfig);
         }
 
         public override IRenderable Clone()

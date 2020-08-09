@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

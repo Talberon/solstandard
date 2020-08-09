@@ -73,19 +73,19 @@ namespace SolStandard.Entity.Unit.Actions.Item
                     }
                     else
                     {
-                        GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
+                        GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
                         AssetManager.WarningSFX.Play();
                     }
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Item is broken!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Item is broken!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -93,7 +93,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {
-            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (WorldContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
             }

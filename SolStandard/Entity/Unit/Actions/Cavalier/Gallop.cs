@@ -72,13 +72,13 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

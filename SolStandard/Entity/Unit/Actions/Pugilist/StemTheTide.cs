@@ -67,21 +67,21 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                     }
                     else
                     {
-                        GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                        GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                             $"Target does not have {FlowStrike.BuffName} stacks!", 50);
                         AssetManager.WarningSFX.Play();
                     }
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                         $"Target does not have {FlowStrike.BuffName} stacks!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

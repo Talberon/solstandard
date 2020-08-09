@@ -1,13 +1,16 @@
+using Microsoft.Xna.Framework;
 using SolStandard.Containers.Components.Global;
 using SolStandard.Map.Elements;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Components.EULA
 {
-    public class EULAContext
+    public class EULAContext : IGameContext
     {
         private const string EULAFileName = "EULA_Confirmed";
-        public ScrollingTextPaneView EULAView { get; }
+        public ScrollingTextPaneHUD EULAHUD { get; }
 
         public bool EULAConfirmed { get; private set; }
 
@@ -15,7 +18,7 @@ namespace SolStandard.Containers.Components.EULA
         {
             var savedEula = GameDriver.FileIO.Load<bool?>(EULAFileName);
             EULAConfirmed = savedEula != null && savedEula == true;
-            EULAView = new EULAView();
+            EULAHUD = new EULAHUD();
         }
 
         public void ConfirmEULAPrompt()
@@ -28,7 +31,14 @@ namespace SolStandard.Containers.Components.EULA
 
         public void ScrollWindow(Direction direction)
         {
-            EULAView.ScrollContents(direction);
+            EULAHUD.ScrollContents(direction);
+        }
+
+        public IHUDView View { get; }
+        public MenuContainer MenuContainer { get; }
+        public void Update(GameTime gameTime)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

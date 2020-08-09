@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     (int) switchTile.MapCoordinates.Y] =
                 new MapDistanceTile(TileSprite, switchTile.MapCoordinates);
 
-            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(
                 switchTile.MapCoordinates);
         }
 
@@ -74,12 +74,12 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             {
                 if (!TargetingSwitch(targetSlice))
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a target switch!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a target switch!", 50);
                 }
 
                 if (!NothingObstructingSwitchTarget(targetTriggerables))
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Switch target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Switch target is obstructed!", 50);
                 }
 
                 AssetManager.WarningSFX.Play();

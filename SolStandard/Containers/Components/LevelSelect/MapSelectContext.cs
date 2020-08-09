@@ -8,23 +8,25 @@ using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Components.LevelSelect
 {
-    public class MapSelectContext
+    public class MapSelectContext : IGameContext
     {
-        public readonly MapSelectScreenView MapSelectScreenView;
+        public readonly MapSelectHUD MapSelectHUD;
         public readonly MapContainer MapContainer;
         private readonly List<SelectMapEntity> mapSelectEntities;
         private SelectMapEntity currentMapEntity;
 
-        public MapSelectContext(MapSelectScreenView mapSelectScreenView, MapContainer mapContainer)
+        public MapSelectContext(MapSelectHUD mapSelectHUD, MapContainer mapContainer)
         {
-            MapSelectScreenView = mapSelectScreenView;
+            MapSelectHUD = mapSelectHUD;
             MapContainer = mapContainer;
-            MapSelectScreenView.UpdateTeamSelectWindow();
+            MapSelectHUD.UpdateTeamSelectWindow();
             mapSelectEntities = MapContainer.GetMapEntities().Where(entity => entity is SelectMapEntity)
                 .Cast<SelectMapEntity>().ToList();
             currentMapEntity = mapSelectEntities.Last();
@@ -40,7 +42,7 @@ namespace SolStandard.Containers.Components.LevelSelect
         {
             MapSlice cursorSlice = MapContainer.GetMapSliceAtCursor();
 
-            MapSelectScreenView.UpdateMapInfoWindow(CursorAtMapSelectFeature(cursorSlice)
+            MapSelectHUD.UpdateMapInfoWindow(CursorAtMapSelectFeature(cursorSlice)
                 ? cursorSlice.TerrainEntity.TerrainInfo
                 : null);
         }
@@ -164,6 +166,13 @@ namespace SolStandard.Containers.Components.LevelSelect
         {
             return cursorSlice.TerrainEntity != null &&
                    cursorSlice.TerrainEntity.Type == EntityTypes.SelectMap.ToString();
+        }
+
+        public IHUDView View { get; }
+        public MenuContainer MenuContainer { get; }
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
         }
     }
 }

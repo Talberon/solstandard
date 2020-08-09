@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
 
             if (!CanAffordCommandCost(actor, cmdCost))
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -68,7 +68,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target unoccupied tile!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target unoccupied tile!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -18,12 +18,12 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GlobalContext.InitiativeContext.AddGoldToTeam(gold, GlobalContext.ActiveTeam);
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+            GlobalContext.InitiativePhase.AddGoldToTeam(gold, GlobalContext.ActiveTeam);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                 $"{GlobalContext.ActiveTeam} team got {gold} {Currency.CurrencyAbbreviation}!", 50
             );
             AssetManager.CoinSFX.Play();
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
             Complete = true;
         }
     }

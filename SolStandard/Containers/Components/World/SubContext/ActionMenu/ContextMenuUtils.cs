@@ -15,7 +15,7 @@ using SolStandard.Utility;
 
 namespace SolStandard.Containers.Components.World.SubContext.ActionMenu
 {
-    public static class UnitContextualActionMenuContext
+    public static class ContextMenuUtils
     {
         public static List<ActionOption> ActiveUnitContextOptions(Color windowColor)
         {

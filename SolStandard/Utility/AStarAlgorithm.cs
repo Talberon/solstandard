@@ -95,8 +95,8 @@ namespace SolStandard.Utility
             var west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
 
             if (
-                GameMapContext.CoordinatesWithinMapBounds(north) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(north) || north == destination ||
+                WorldContext.CoordinatesWithinMapBounds(north) &&
+                (UnitMovingPhase.CanEndMoveAtCoordinates(north) || north == destination ||
                  FriendlyUnitIsStandingHere(north, walkThroughAllies, alliedTeam))
             )
             {
@@ -106,8 +106,8 @@ namespace SolStandard.Utility
             }
 
             if (
-                GameMapContext.CoordinatesWithinMapBounds(south) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(south) || south == destination ||
+                WorldContext.CoordinatesWithinMapBounds(south) &&
+                (UnitMovingPhase.CanEndMoveAtCoordinates(south) || south == destination ||
                  FriendlyUnitIsStandingHere(south, walkThroughAllies, alliedTeam))
             )
             {
@@ -117,8 +117,8 @@ namespace SolStandard.Utility
             }
 
             if (
-                GameMapContext.CoordinatesWithinMapBounds(east) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(east) || east == destination ||
+                WorldContext.CoordinatesWithinMapBounds(east) &&
+                (UnitMovingPhase.CanEndMoveAtCoordinates(east) || east == destination ||
                  FriendlyUnitIsStandingHere(east, walkThroughAllies, alliedTeam))
             )
             {
@@ -128,8 +128,8 @@ namespace SolStandard.Utility
             }
 
             if (
-                GameMapContext.CoordinatesWithinMapBounds(west) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(west) || west == destination ||
+                WorldContext.CoordinatesWithinMapBounds(west) &&
+                (UnitMovingPhase.CanEndMoveAtCoordinates(west) || west == destination ||
                  FriendlyUnitIsStandingHere(west, walkThroughAllies, alliedTeam))
             )
             {

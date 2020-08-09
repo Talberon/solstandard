@@ -69,7 +69,7 @@ namespace SolStandard.Entity.Unit
         {
             foreach (string itemName in inventoryItems)
             {
-                IItem unitItem = GlobalContext.GameMapContext.MapContainer.MapLoot.Find(item => item.Name == itemName);
+                IItem unitItem = GlobalContext.WorldContext.MapContainer.MapLoot.Find(item => item.Name == itemName);
                 unit.AddItemToInventory(unitItem);
             }
         }

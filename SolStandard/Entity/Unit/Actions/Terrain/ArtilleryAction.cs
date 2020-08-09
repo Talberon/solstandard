@@ -40,7 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

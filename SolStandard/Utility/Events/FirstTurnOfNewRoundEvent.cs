@@ -5,18 +5,18 @@ namespace SolStandard.Utility.Events
 {
     public class FirstTurnOfNewRoundEvent : IEvent
     {
-        private readonly InitiativeContext initiativeContext;
+        private readonly InitiativePhase initiativePhase;
 
-        public FirstTurnOfNewRoundEvent(InitiativeContext initiativeContext)
+        public FirstTurnOfNewRoundEvent(InitiativePhase initiativePhase)
         {
-            this.initiativeContext = initiativeContext;
+            this.initiativePhase = initiativePhase;
         }
 
         public bool Complete { get; private set; }
 
         public void Continue()
         {
-            initiativeContext.StartFirstTurnOfNewRound();
+            initiativePhase.StartFirstTurnOfNewRound();
             Complete = true;
         }
     }

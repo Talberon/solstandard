@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Components.Global;
@@ -6,13 +7,16 @@ using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Animation;
 using SolStandard.HUD.Window.Content;
+using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
+using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
+using IWindow = SolStandard.NeoGFX.GUI.IWindow;
 
 namespace SolStandard.Containers.Components.LevelSelect
 {
-    public class MapSelectScreenView : IUserInterface
+    public class MapSelectHUD : IUserInterface, IHUDView
     {
         private Window instructionWindow;
         private AnimatedRenderable mapInfoWindow;
@@ -26,7 +30,7 @@ namespace SolStandard.Containers.Components.LevelSelect
         private static readonly Color MapInfoWindowColor = new Color(50, 50, 50, 200);
         private static readonly Color SelectedTeamColor = new Color(150, 135, 13, 200);
 
-        public MapSelectScreenView()
+        public MapSelectHUD()
         {
             SetUpWindows();
         }
@@ -134,6 +138,14 @@ namespace SolStandard.Containers.Components.LevelSelect
                     LeftSideWindowAnimation);
         }
 
+        public float Width { get; }
+        public float Height { get; }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             //Top-Left Corner
@@ -151,5 +163,7 @@ namespace SolStandard.Containers.Components.LevelSelect
                 )
             );
         }
+
+        public List<IWindow> Windows { get; }
     }
 }

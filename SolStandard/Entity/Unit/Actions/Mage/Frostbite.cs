@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            var unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             RemoveActionTilesOnUnplaceableSpaces(mapLayer);
         }
@@ -77,13 +77,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

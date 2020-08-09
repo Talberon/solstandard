@@ -11,9 +11,9 @@ namespace SolStandard.Utility.Events.Network
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        private readonly BattleContext.BattleState battleState;
+        private readonly CombatPhase.BattleState battleState;
 
-        public CombatNotifyStateCompleteEvent(BattleContext.BattleState battleState)
+        public CombatNotifyStateCompleteEvent(CombatPhase.BattleState battleState)
         {
             this.battleState = battleState;
         }
@@ -32,9 +32,9 @@ namespace SolStandard.Utility.Events.Network
             }
             else
             {
-                GlobalContext.BattleContext.PeerCanContinue = true;
+                GlobalContext.CombatPhase.PeerCanContinue = true;
                 Logger.Debug("Received completed battlestate from peer: " + battleState +
-                                ". Current state: " + GlobalContext.BattleContext.CurrentState);
+                                ". Current state: " + GlobalContext.CombatPhase.CurrentState);
             }
 
             Complete = true;

@@ -10,12 +10,15 @@ using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.CodexMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
+using IWindow = SolStandard.NeoGFX.GUI.IWindow;
 
 namespace SolStandard.Containers.Components.Codex
 {
-    public class CodexView : IUserInterface
+    public class CodexView : IUserInterface, IHUDView
     {
         public static readonly Color CodexWindowColor = new Color(50, 50, 50, 180);
         public readonly TwoDimensionalMenu UnitListMenu;
@@ -199,6 +202,14 @@ namespace SolStandard.Containers.Components.Codex
 
         #endregion Positions
 
+        public float Width { get; }
+        public float Height { get; }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             UnitListMenu?.Draw(spriteBatch, UnitListMenuPosition());
@@ -207,5 +218,7 @@ namespace SolStandard.Containers.Components.Codex
             unitDetailWindow.Draw(spriteBatch, UnitDetailWindowPosition());
             unitActionListWindow?.Draw(spriteBatch, UnitActionListWindowPosition());
         }
+
+        public List<IWindow> Windows { get; }
     }
 }

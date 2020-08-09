@@ -48,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop/give item here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot drop/give item here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                        )
                    && itemTile != null
                    && targetSlice.DynamicEntity != null
-                   && UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+                   && UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

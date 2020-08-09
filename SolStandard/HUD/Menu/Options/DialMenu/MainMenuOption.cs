@@ -11,26 +11,26 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
     public class MainMenuOption : MenuOption
     {
         private readonly ISpriteFont font;
-        private NetworkMenuView NetworkMenuView { get; }
+        private NetworkHUD NetworkHUD { get; }
         private const string MainMenu = "Menu";
 
-        public MainMenuOption(ISpriteFont font, Color color, NetworkMenuView networkMenuView) : base(
+        public MainMenuOption(ISpriteFont font, Color color, NetworkHUD networkHUD) : base(
             new RenderText(font, MainMenu), color, HorizontalAlignment.Centered
         )
         {
             this.font = font;
-            NetworkMenuView = networkMenuView;
+            NetworkHUD = networkHUD;
         }
 
         public override void Execute()
         {
             GlobalContext.CurrentGameState = GlobalContext.GameState.MainMenu;
-            NetworkMenuView.ResetIPAddress();
+            NetworkHUD.ResetIPAddress();
         }
 
         public override IRenderable Clone()
         {
-            return new MainMenuOption(font, DefaultColor, NetworkMenuView);
+            return new MainMenuOption(font, DefaultColor, NetworkHUD);
         }
     }
 }

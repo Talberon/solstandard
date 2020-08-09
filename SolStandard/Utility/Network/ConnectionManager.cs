@@ -138,7 +138,7 @@ namespace SolStandard.Utility.Network
                                 break;
                             case NetConnectionStatus.InitiatedConnect:
                                 Logger.Debug("Initiating connection...");
-                                GlobalHudView.AddNotification("Initiating connection...");
+                                GlobalHUDUtils.AddNotification("Initiating connection...");
                                 break;
                             case NetConnectionStatus.ReceivedInitiation:
                                 Logger.Debug("Received Initiation...");
@@ -148,21 +148,21 @@ namespace SolStandard.Utility.Network
                                 break;
                             case NetConnectionStatus.RespondedConnect:
                                 Logger.Debug("Connecting...");
-                                GlobalHudView.AddNotification("Connecting...");
+                                GlobalHUDUtils.AddNotification("Connecting...");
                                 break;
                             case NetConnectionStatus.Connected:
                                 Logger.Debug("Connected!");
-                                GlobalHudView.AddNotification("Connected to peer!");
+                                GlobalHUDUtils.AddNotification("Connected to peer!");
                                 ConnectionEstablished(peer);
                                 break;
                             case NetConnectionStatus.Disconnecting:
                                 Logger.Debug("Disconnecting...");
-                                GlobalHudView.AddNotification("Disconnecting...");
+                                GlobalHUDUtils.AddNotification("Disconnecting...");
                                 break;
                             case NetConnectionStatus.Disconnected:
                                 Logger.Debug("Disconnected!");
                                 Logger.Debug(received.ReadString());
-                                GlobalHudView.AddNotification("Disconnected from peer!");
+                                GlobalHUDUtils.AddNotification("Disconnected from peer!");
                                 break;
                             default:
                                 throw new ArgumentOutOfRangeException();

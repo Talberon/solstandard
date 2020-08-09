@@ -85,7 +85,7 @@ namespace SolStandard.Entity.General
         {
             GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
             GlobalContext.MapCamera.SnapCameraCenterToCursor();
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
             ToggleOpen();
         }
 

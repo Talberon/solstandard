@@ -36,40 +36,40 @@ namespace SolStandard.Containers.Scenario
 
         public void EndGame()
         {
-            GlobalContext.StatusScreenView.ResultLabelContent = VictoryLabelContent;
+            GlobalContext.StatusScreenHUD.ResultLabelContent = VictoryLabelContent;
 
             if (RedTeamWins)
             {
-                GlobalContext.StatusScreenView.RedTeamResultText = "RED TEAM WINS!";
-                GlobalContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
+                GlobalContext.StatusScreenHUD.RedTeamResultText = "RED TEAM WINS!";
+                GlobalContext.StatusScreenHUD.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
                 TransferToResultsScreen();
             }
 
             if (BlueTeamWins)
             {
-                GlobalContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM WINS!";
-                GlobalContext.StatusScreenView.RedTeamResultText = "RED TEAM IS DEFEATED...";
+                GlobalContext.StatusScreenHUD.BlueTeamResultText = "BLUE TEAM WINS!";
+                GlobalContext.StatusScreenHUD.RedTeamResultText = "RED TEAM IS DEFEATED...";
                 TransferToResultsScreen();
             }
 
             if (GameIsADraw)
             {
-                GlobalContext.StatusScreenView.BlueTeamResultText = "DRAW...";
-                GlobalContext.StatusScreenView.RedTeamResultText = "DRAW...";
+                GlobalContext.StatusScreenHUD.BlueTeamResultText = "DRAW...";
+                GlobalContext.StatusScreenHUD.RedTeamResultText = "DRAW...";
                 TransferToResultsScreen();
             }
 
             if (CoOpVictory)
             {
-                GlobalContext.StatusScreenView.BlueTeamResultText = "CO-OP VICTORY!";
-                GlobalContext.StatusScreenView.RedTeamResultText = "CO-OP VICTORY!";
+                GlobalContext.StatusScreenHUD.BlueTeamResultText = "CO-OP VICTORY!";
+                GlobalContext.StatusScreenHUD.RedTeamResultText = "CO-OP VICTORY!";
                 TransferToResultsScreen();
             }
 
             if (AllPlayersLose)
             {
-                GlobalContext.StatusScreenView.BlueTeamResultText = "YOU LOSE...";
-                GlobalContext.StatusScreenView.RedTeamResultText = "YOU LOSE...";
+                GlobalContext.StatusScreenHUD.BlueTeamResultText = "YOU LOSE...";
+                GlobalContext.StatusScreenHUD.RedTeamResultText = "YOU LOSE...";
                 TransferToResultsScreen();
             }
         }

@@ -7,13 +7,15 @@ using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.Components.Draft
 {
-    public class DraftContext
+    public class DraftContext : IGameContext
     {
         private enum DraftPhase
         {
@@ -24,7 +26,7 @@ namespace SolStandard.Containers.Components.Draft
 
         private DraftPhase currentPhase;
 
-        public DraftView DraftView { get; }
+        public DraftHUD DraftHUD { get; }
 
         private List<GameUnit> BlueUnits { get; set; }
         private List<GameUnit> RedUnits { get; set; }
@@ -42,7 +44,7 @@ namespace SolStandard.Containers.Components.Draft
 
         public DraftContext()
         {
-            DraftView = new DraftView();
+            DraftHUD = new DraftHUD();
         }
 
 
@@ -74,20 +76,20 @@ namespace SolStandard.Containers.Components.Draft
             blueUnitCount = new Dictionary<Role, int>();
             redUnitCount = new Dictionary<Role, int>();
 
-            DraftView.UpdateCommanderPortrait(Role.Silhouette, Team.Creep);
-            DraftView.UpdateTeamUnitsWindow(new List<IRenderable> {RenderBlank.Blank}, Team.Blue);
-            DraftView.UpdateTeamUnitsWindow(new List<IRenderable> {RenderBlank.Blank}, Team.Red);
-            DraftView.UpdateUnitSelectMenu(firstTurn, GetRolesEnabled(blueUnitCount, maxDuplicateUnitType));
+            DraftHUD.UpdateCommanderPortrait(Role.Silhouette, Team.Creep);
+            DraftHUD.UpdateTeamUnitsWindow(new List<IRenderable> {RenderBlank.Blank}, Team.Blue);
+            DraftHUD.UpdateTeamUnitsWindow(new List<IRenderable> {RenderBlank.Blank}, Team.Red);
+            DraftHUD.UpdateUnitSelectMenu(firstTurn, GetRolesEnabled(blueUnitCount, maxDuplicateUnitType));
 
-            DraftView.UpdateHelpWindow(
+            DraftHUD.UpdateHelpWindow(
                 "SELECT A UNIT" + Environment.NewLine +
                 "Max Units: " + Team.Blue + " " + blueMaxUnits + "/" + Team.Red + " " + redMaxUnits +
                 Environment.NewLine +
                 "Max Dupes: " + maxUnitDuplicates
             );
 
-            DraftView.UpdateObjectivesWindow(scenario.ScenarioInfo());
-            DraftView.UpdateControlsTextWindow();
+            DraftHUD.UpdateObjectivesWindow(scenario.ScenarioInfo());
+            DraftHUD.UpdateControlsTextWindow();
         }
 
         public void MoveCursor(Direction direction)
@@ -136,9 +138,9 @@ namespace SolStandard.Containers.Components.Draft
             {
                 return currentPhase switch
                 {
-                    DraftPhase.UnitSelect => DraftView.UnitSelect,
-                    DraftPhase.CommanderSelect => DraftView.CommanderSelect,
-                    _ => DraftView.UnitSelect
+                    DraftPhase.UnitSelect => DraftHUD.UnitSelect,
+                    DraftPhase.CommanderSelect => DraftHUD.CommanderSelect,
+                    _ => DraftHUD.UnitSelect
                 };
             }
         }
@@ -148,10 +150,10 @@ namespace SolStandard.Containers.Components.Draft
             switch (currentPhase)
             {
                 case DraftPhase.UnitSelect:
-                    DraftView.UnitSelect.SelectOption();
+                    DraftHUD.UnitSelect.SelectOption();
                     break;
                 case DraftPhase.CommanderSelect:
-                    DraftView.CommanderSelect.SelectOption();
+                    DraftHUD.CommanderSelect.SelectOption();
                     break;
                 case DraftPhase.DraftComplete:
                     FinishDraftPhase();
@@ -172,18 +174,18 @@ namespace SolStandard.Containers.Components.Draft
             unit.IsCommander = true;
             unit.UnitEntity.IsCommander = true;
             unit.Actions = UnitGenerator.GetUnitActions(unit.Role, unit.IsCommander);
-            DraftView.UpdateCommanderPortrait(unit.Role, unit.Team);
+            DraftHUD.UpdateCommanderPortrait(unit.Role, unit.Team);
             PassTurnCommanderSelect();
 
             if (!AllCommandersHaveBeenSelected)
             {
-                DraftView.UpdateCommanderSelect(GetTeamUnits(CurrentTurn), CurrentTurn);
+                DraftHUD.UpdateCommanderSelect(GetTeamUnits(CurrentTurn), CurrentTurn);
             }
             else
             {
-                DraftView.HideCommanderSelect();
+                DraftHUD.HideCommanderSelect();
                 currentPhase = DraftPhase.DraftComplete;
-                DraftView.UpdateHelpWindow("DRAFT COMPLETE." + Environment.NewLine +
+                DraftHUD.UpdateHelpWindow("DRAFT COMPLETE." + Environment.NewLine +
                                            "PRESS " + Input.Confirm.ToString().ToUpper() + " TO CONTINUE.");
             }
         }
@@ -204,7 +206,7 @@ namespace SolStandard.Containers.Components.Draft
             UpdateSelectedUnitWindow(role, team);
             PassTurnUnitSelect();
 
-            DraftView.UpdateUnitSelectMenu(
+            DraftHUD.UpdateUnitSelectMenu(
                 CurrentTurn,
                 GetRolesEnabled(GetUnitTypeCountForTeam(CurrentTurn), maxDuplicateUnitType)
             );
@@ -237,14 +239,14 @@ namespace SolStandard.Containers.Components.Draft
                     .Select(unit => unit.UnitEntity.UnitSpriteSheet.Resize(new Vector2(spriteSize)))
                     .ToList();
 
-            DraftView.UpdateTeamUnitsWindow(unitSprites, team);
+            DraftHUD.UpdateTeamUnitsWindow(unitSprites, team);
         }
 
         private void StartCommanderSelectPhase()
         {
-            DraftView.HideUnitSelect();
-            DraftView.UpdateCommanderSelect(GetTeamUnits(CurrentTurn), CurrentTurn);
-            DraftView.UpdateHelpWindow("SELECT A COMMANDER.");
+            DraftHUD.HideUnitSelect();
+            DraftHUD.UpdateCommanderSelect(GetTeamUnits(CurrentTurn), CurrentTurn);
+            DraftHUD.UpdateHelpWindow("SELECT A COMMANDER.");
             currentPhase = DraftPhase.CommanderSelect;
         }
 
@@ -328,5 +330,12 @@ namespace SolStandard.Containers.Components.Draft
                 Role.Rogue,
                 Role.Archer,
             };
+
+        public IHUDView View { get; }
+        public MenuContainer MenuContainer { get; }
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

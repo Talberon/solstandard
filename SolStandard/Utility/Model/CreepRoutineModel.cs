@@ -167,7 +167,7 @@ namespace SolStandard.Utility.Model
 
         private static CreepEntity FindSummonByName(string summonName)
         {
-            return GlobalContext.GameMapContext.MapContainer.MapSummons.Find(creep => creep.Name == summonName);
+            return GlobalContext.WorldContext.MapContainer.MapSummons.Find(creep => creep.Name == summonName);
         }
 
         public static CreepRoutineModel GetModelForCreep(Dictionary<string, string> unitProperties)

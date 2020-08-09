@@ -8,7 +8,7 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            GlobalContext.GameMapContext.FinishMoving();
+            GlobalContext.WorldContext.FinishMoving();
             Complete = true;
         }
     }

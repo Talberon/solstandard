@@ -13,7 +13,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Components.World.SubContext.Pause
 {
-    public static class PauseScreenView
+    public static class PauseScreenUtils
     {
         public enum PauseMenus
         {

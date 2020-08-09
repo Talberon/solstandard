@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

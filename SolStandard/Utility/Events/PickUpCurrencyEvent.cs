@@ -27,19 +27,19 @@ namespace SolStandard.Utility.Events
             }
             else
             {
-                GlobalContext.InitiativeContext.AddGoldToTeam(currency.Value, GlobalContext.ActiveTeam);
+                GlobalContext.InitiativePhase.AddGoldToTeam(currency.Value, GlobalContext.ActiveTeam);
             }
 
             RemoveItemFromMap();
             AssetManager.CoinSFX.Play();
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
 
-            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.WorldContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.FallingCoins, GameDriver.CellSizeVector),
                 GlobalContext.ActiveUnit.UnitEntity.MapCoordinates
             );
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                 $"{GlobalContext.ActiveUnit.Id} picked up {currency.Value}{Currency.CurrencyAbbreviation}!", 50);
             Complete = true;
         }

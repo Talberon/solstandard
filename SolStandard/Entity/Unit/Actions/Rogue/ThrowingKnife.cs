@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

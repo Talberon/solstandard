@@ -54,20 +54,20 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Opposite tile is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Opposite tile is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         private static bool OppositeTileIsMovable(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+            return UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

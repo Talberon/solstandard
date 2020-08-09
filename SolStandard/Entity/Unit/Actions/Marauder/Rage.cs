@@ -41,7 +41,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             {
                 if (UnitIsAtMaxHP(targetUnit))
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                         UnitStatistics.Abbreviation[Stats.Hp] + " is maxed out!",
                         50
                     );
@@ -65,7 +65,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

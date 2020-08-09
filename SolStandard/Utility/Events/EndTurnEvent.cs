@@ -23,9 +23,9 @@ namespace SolStandard.Utility.Events
                     ?.StartAdditionalAction();
             }
             //IMPORTANT Do not allow tiles that have been triggered to trigger again or the risk of soft-locking via infinite triggers can occur
-            else if (!GameMapContext.TriggerEffectTiles(EffectTriggerTime.EndOfTurn, false))
+            else if (!WorldContext.TriggerEffectTiles(EffectTriggerTime.EndOfTurn, false))
             {
-                GameMapContext.FinishTurn(false);
+                WorldContext.FinishTurn(false);
             }
 
             Complete = true;

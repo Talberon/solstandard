@@ -17,7 +17,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameMapContext.RemoveExpiredEffectTiles(effectTiles);
+            WorldContext.RemoveExpiredEffectTiles(effectTiles);
             Complete = true;
         }
     }

@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -42,7 +42,7 @@ namespace SolStandard.Entity.Unit.Actions
         private static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)
         {
             return targetSlice.DynamicEntity != null && targetSlice.UnitEntity == null &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+                   UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

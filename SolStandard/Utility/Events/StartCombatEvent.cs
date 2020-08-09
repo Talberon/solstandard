@@ -27,13 +27,13 @@ namespace SolStandard.Utility.Events
             GameUnit attackingUnit = GlobalContext.ActiveUnit;
             GameUnit defendingUnit = targetUnit;
 
-            GlobalContext.BattleContext.StartNewCombat(attackingUnit, defendingUnit, attackerStatsOverride,
+            GlobalContext.CombatPhase.StartNewCombat(attackingUnit, defendingUnit, attackerStatsOverride,
                 defendingUnit.Stats, freeAction);
 
             AssetManager.CombatStartSFX.Play();
 
             
-            GlobalContext.GameMapContext.CurrentTurnState = GameMapContext.TurnState.UnitActing;
+            GlobalContext.WorldContext.CurrentTurnState = WorldContext.TurnState.UnitActing;
             Complete = true;
         }
     }

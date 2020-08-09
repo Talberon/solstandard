@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
                     targetSlice.MapCoordinates, 50);
                 AssetManager.WarningSFX.Play();
             }

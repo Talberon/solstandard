@@ -35,7 +35,7 @@ namespace SolStandard.Utility.Events
             {
                 Logger.Error("Seize could not be found in the victory conditions {0}", e);
                 AssetManager.ErrorSFX.Play();
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     "Seize is not a valid victory condition!", 50);
             }
 
@@ -44,12 +44,12 @@ namespace SolStandard.Utility.Events
                 switch (seizingTeam)
                 {
                     case Team.Red:
-                        GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                        GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                             "Red team seizes the objective!", 100);
                         seize.RedSeizedObjective = true;
                         break;
                     case Team.Blue:
-                        GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                        GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                             "Blue team seizes the objective!", 100);
                         seize.BlueSeizedObjective = true;
                         break;

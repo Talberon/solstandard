@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Components.Draft;
 using SolStandard.Containers.Components.Global;
-using SolStandard.Containers.Components.World.SubContext;
 using SolStandard.Containers.Components.World.SubContext.ActionMenu;
 using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Containers.Scenario;
@@ -37,7 +36,7 @@ namespace SolStandard.Containers.Components.World
      * GameMapContext is where the HUD elements for the SelectMapEntity Scene are handled.
      * HUD Elements in this case includes various map-screen windows.
      */
-    public class GameMapView : IUserInterface, IHUDView
+    public class WorldHUD : IUserInterface, IHUDView
     {
         private enum MenuType
         {
@@ -92,7 +91,7 @@ namespace SolStandard.Containers.Components.World
 
         private MenuType visibleMenu;
 
-        public GameMapView()
+        public WorldHUD()
         {
             cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
@@ -215,8 +214,8 @@ namespace SolStandard.Containers.Components.World
         public void GenerateDraftMenu(Team team)
         {
             AdHocDraftMenu = new TwoDimensionalMenu(
-                DraftView.GetAdHocUnitOptionsForTeam(team, new Dictionary<Role, bool>()),
-                DraftView.DraftCursor,
+                DraftHUD.GetAdHocUnitOptionsForTeam(team, new Dictionary<Role, bool>()),
+                DraftHUD.DraftCursor,
                 TeamUtility.DetermineTeamWindowColor(team),
                 TwoDimensionalMenu.CursorType.Frame
             );
@@ -291,15 +290,15 @@ namespace SolStandard.Containers.Components.World
             ISpriteFont font = AssetManager.WindowFont;
 
             var blueGoldWindow = new Window(
-                new RenderText(font, $"Blue: {GlobalContext.InitiativeContext.GetGoldForTeam(Team.Blue)}G"),
+                new RenderText(font, $"Blue: {GlobalContext.InitiativePhase.GetGoldForTeam(Team.Blue)}G"),
                 TeamUtility.DetermineTeamWindowColor(Team.Blue));
 
             var redGoldWindow = new Window(
-                new RenderText(font, $"Red: {GlobalContext.InitiativeContext.GetGoldForTeam(Team.Red)}G"),
+                new RenderText(font, $"Red: {GlobalContext.InitiativePhase.GetGoldForTeam(Team.Red)}G"),
                 TeamUtility.DetermineTeamWindowColor(Team.Red));
 
 
-            bool blueIsFirst = GlobalContext.InitiativeContext.TeamWithFewerRemainingUnits == Team.Blue;
+            bool blueIsFirst = GlobalContext.InitiativePhase.TeamWithFewerRemainingUnits == Team.Blue;
             IRenderable firstIcon = MiscIconProvider.GetMiscIcon(MiscIcon.First, GameDriver.CellSizeVector);
             IRenderable secondIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Second, GameDriver.CellSizeVector);
 
@@ -330,7 +329,7 @@ namespace SolStandard.Containers.Components.World
 
             IMenu contextMenu = BuildContextMenu(windowColor);
 
-            List<ActionOption> skillOptions = UnitContextualActionMenuContext.ActiveUnitSkillOptions(windowColor);
+            List<ActionOption> skillOptions = ContextMenuUtils.ActiveUnitSkillOptions(windowColor);
             ActionOption basicAttackOption = skillOptions.FirstOrDefault(option => option.Action is BasicAttack);
             ActionOption waitOption =
                 skillOptions.FirstOrDefault(option => option.Action is Wait || option.Action is Focus);
@@ -394,7 +393,7 @@ namespace SolStandard.Containers.Components.World
 
         private IMenu BuildInventoryMenu(Color windowColor)
         {
-            MenuOption[,] inventoryOptions = UnitContextualActionMenuContext.GenerateInventoryMenuOptions(windowColor);
+            MenuOption[,] inventoryOptions = ContextMenuUtils.GenerateInventoryMenuOptions(windowColor);
             return (inventoryOptions.Length > 0)
                 ? new TwoDimensionalMenu(inventoryOptions, cursorSprite, windowColor,
                     TwoDimensionalMenu.CursorType.Pointer)
@@ -413,7 +412,7 @@ namespace SolStandard.Containers.Components.World
         {
             // ReSharper disable once CoVariantArrayConversion
             MenuOption[] contextOptions =
-                UnitContextualActionMenuContext.ActiveUnitContextOptions(windowColor).ToArray();
+                ContextMenuUtils.ActiveUnitContextOptions(windowColor).ToArray();
             IMenu contextMenu = null;
             if (contextOptions.Length > 0) contextMenu = new VerticalMenu(contextOptions, cursorSprite, windowColor);
             return contextMenu;
@@ -464,7 +463,7 @@ namespace SolStandard.Containers.Components.World
         private void GenerateActionMenuDescription(Color windowColor)
         {
             ActionMenuDescriptionWindow = new Window(
-                UnitContextualActionMenuContext.GetActionDescriptionForCurrentMenuOption(ActionMenuContext.CurrentMenu),
+                ContextMenuUtils.GetActionDescriptionForCurrentMenuOption(ActionMenuContext.CurrentMenu),
                 windowColor
             );
         }
@@ -514,7 +513,7 @@ namespace SolStandard.Containers.Components.World
             }
             else
             {
-                bool canMove = UnitMovingContext.CanEndMoveAtCoordinates(hoverSlice.MapCoordinates);
+                bool canMove = UnitMovingPhase.CanEndMoveAtCoordinates(hoverSlice.MapCoordinates);
 
                 var noEntityContent = new WindowContentGrid(
                     new[,]

@@ -9,9 +9,9 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
 {
     public class PasteIPAddressOption : MenuOption
     {
-        private readonly NetworkMenuView menu;
+        private readonly NetworkHUD menu;
 
-        public PasteIPAddressOption(Color menuColor, NetworkMenuView menu) : base(
+        public PasteIPAddressOption(Color menuColor, NetworkHUD menu) : base(
             new RenderText(AssetManager.WindowFont, "Paste IP"),
             menuColor,
             HorizontalAlignment.Centered

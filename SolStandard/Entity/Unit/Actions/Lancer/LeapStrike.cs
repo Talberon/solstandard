@@ -54,11 +54,11 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             IRenderable tileSprite)
         {
             int[] adjustedRange = actionRange.Where(range => range <= GlobalContext.ActiveUnit.Stats.Mv).ToArray();
-            var unitTargetingContext = new UnitTargetingContext(tileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(tileSprite);
 
             if (adjustedRange.Length > 0) unitTargetingContext.GenerateTargetingGrid(origin, adjustedRange, mapLayer);
 
-            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -98,12 +98,12 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     return true;
                 }
 
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No space to land!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("No space to land!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
             }
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -125,7 +125,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                 return true;
             }
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid landing space!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid landing space!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -182,7 +182,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         public static bool CoordinatesAreObstructed(Vector2 coordinatesToCheck)
         {
             MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
-            return !UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates);
+            return !UnitMovingPhase.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates);
         }
 
         public static void CreateLandingSpacesAroundTarget(MapDistanceTile.TileType tileType, Vector2 targetCoordinates)
@@ -211,7 +211,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         private static void AddTileWithinMapBounds(MapDistanceTile.TileType tileType,
             ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {
-            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (WorldContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(MapDistanceTile.GetTileSprite(tileType), tileCoordinates, distance));
             }

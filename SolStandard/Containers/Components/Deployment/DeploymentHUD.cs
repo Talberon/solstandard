@@ -9,14 +9,17 @@ using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Monogame;
+using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
+using IWindow = SolStandard.NeoGFX.GUI.IWindow;
 
 namespace SolStandard.Containers.Components.Deployment
 {
-    public class DeploymentView : IUserInterface
+    public class DeploymentHUD : IUserInterface, IHUDView
     {
         private const int WindowEdgePadding = 10;
         private static readonly Color DarkBackgroundColor = new Color(50, 50, 50, 180);
@@ -31,7 +34,7 @@ namespace SolStandard.Containers.Components.Deployment
         private Window EntityWindow { get; set; }
         private Window HelpText { get; }
 
-        public DeploymentView(List<GameUnit> blueArmy, List<GameUnit> redArmy, GameUnit currentUnit, Scenario.Scenario scenario)
+        public DeploymentHUD(List<GameUnit> blueArmy, List<GameUnit> redArmy, GameUnit currentUnit, Scenario.Scenario scenario)
         {
             UpdateRosterLists(blueArmy, redArmy, currentUnit);
             ObjectiveWindow = scenario.ScenarioInfo(HorizontalAlignment.Centered);
@@ -40,7 +43,7 @@ namespace SolStandard.Containers.Components.Deployment
 
         public void SetEntityWindow(MapSlice hoverSlice)
         {
-            EntityWindow = GameMapView.GenerateEntityWindow(hoverSlice);
+            EntityWindow = WorldHUD.GenerateEntityWindow(hoverSlice);
         }
 
         public void UpdateHoverUnitWindows(GameUnit hoverMapUnit)
@@ -53,8 +56,8 @@ namespace SolStandard.Containers.Components.Deployment
             else
             {
                 Color windowColor = TeamUtility.DetermineTeamWindowColor(hoverMapUnit.Team);
-                UnitPortraitWindow = GameMapView.GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
-                UnitDetailWindow = GameMapView.GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
+                UnitPortraitWindow = WorldHUD.GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
+                UnitDetailWindow = WorldHUD.GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
             }
         }
 
@@ -123,11 +126,11 @@ namespace SolStandard.Containers.Components.Deployment
 
                 if (unitList[i] == currentUnit)
                 {
-                    units[0, i] = GameMapView.SingleUnitContent(unitList[i], hpBarHeight, HighlightColor);
+                    units[0, i] = WorldHUD.SingleUnitContent(unitList[i], hpBarHeight, HighlightColor);
                 }
                 else
                 {
-                    units[0, i] = GameMapView.SingleUnitContent(unitList[i], hpBarHeight, null);
+                    units[0, i] = WorldHUD.SingleUnitContent(unitList[i], hpBarHeight, null);
                 }
             }
 
@@ -141,7 +144,7 @@ namespace SolStandard.Containers.Components.Deployment
 
         public void GenerateItemDetailWindow(List<IItem> items, Color color)
         {
-            ItemDetailWindow = GameMapView.GenerateItemsWindow(items, color);
+            ItemDetailWindow = WorldHUD.GenerateItemsWindow(items, color);
         }
 
         public void CloseItemDetailWindow()
@@ -202,6 +205,14 @@ namespace SolStandard.Containers.Components.Deployment
 
         #endregion
 
+        public float Width { get; }
+        public float Height { get; }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             ObjectiveWindow?.Draw(spriteBatch, ObjectiveWindowPosition);
@@ -216,5 +227,7 @@ namespace SolStandard.Containers.Components.Deployment
 
             ItemDetailWindow?.Draw(spriteBatch, ItemDetailWindowPosition);
         }
+
+        public List<IWindow> Windows { get; }
     }
 }

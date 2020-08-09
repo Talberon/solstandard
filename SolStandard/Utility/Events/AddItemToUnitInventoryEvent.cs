@@ -42,7 +42,7 @@ namespace SolStandard.Utility.Events
                 }
             );
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(itemToast, 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(itemToast, 50);
         }
     }
 }

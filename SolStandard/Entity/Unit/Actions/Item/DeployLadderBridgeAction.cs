@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     "Must place item on immovable empty space!",
                     50
                 );
@@ -55,7 +55,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         private static bool CanPlaceLadderBridgeAtTarget(MapSlice targetSlice)
         {
-            return !UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return !UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.TerrainEntity == null && targetSlice.DynamicEntity != null;
         }
     }

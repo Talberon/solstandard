@@ -1,6 +1,6 @@
 namespace SolStandard.Containers.Components.Global
 {
-    public struct BonusStatistics
+    public readonly struct BonusStatistics
     {
         public readonly int AtkBonus;
         public readonly int RetBonus;

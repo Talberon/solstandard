@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Statuses.Pugilist
             AssetManager.SkillBuffSFX.Play();
             target.Stats.AtkModifier += FlowStacks;
             target.Stats.RetModifier += FlowStacks;
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
         }
 
         protected override void ExecuteEffect(GameUnit target)

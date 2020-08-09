@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

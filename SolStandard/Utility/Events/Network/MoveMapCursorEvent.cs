@@ -28,7 +28,7 @@ namespace SolStandard.Utility.Events.Network
                     GlobalContext.MapSelectContext.HoverOverEntity();
                     break;
                 case GlobalContext.GameState.InGame:
-                    GlobalContext.GameMapContext.MoveCursorOnMap(direction);
+                    GlobalContext.WorldContext.MoveCursorOnMap(direction);
                     break;
             }
 

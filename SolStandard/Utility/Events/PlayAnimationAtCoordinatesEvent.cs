@@ -18,7 +18,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(animation, mapCoordinates);
+            GlobalContext.WorldContext.PlayAnimationAtCoordinates(animation, mapCoordinates);
             Complete = true;
         }
     }

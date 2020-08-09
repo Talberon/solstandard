@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Statuses
         {
             AssetManager.SkillBuffSFX.Play();
             target.Stats.AtkModifier -= pointsToReduce;
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
         }
 
         protected override void ExecuteEffect(GameUnit target)

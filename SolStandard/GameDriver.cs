@@ -139,9 +139,9 @@ namespace SolStandard
         {
             //Start Server
             string serverIP = ConnectionManager.StartServer();
-            GlobalContext.NetworkMenuView.UpdateStatus(serverIP, true, serverIP != null);
-            GlobalContext.NetworkMenuView.GenerateHostMenu();
-            GlobalContext.NetworkMenuView.RemoveDialMenu();
+            GlobalContext.NetworkHUD.UpdateStatus(serverIP, true, serverIP != null);
+            GlobalContext.NetworkHUD.GenerateHostMenu();
+            GlobalContext.NetworkHUD.RemoveDialMenu();
             GlobalContext.CurrentGameState = GlobalContext.GameState.NetworkMenu;
         }
 
@@ -149,9 +149,9 @@ namespace SolStandard
         {
             //Start Client
             ConnectionManager.StartClient(serverIPAddress, ConnectionManager.NetworkPort);
-            GlobalContext.NetworkMenuView.UpdateStatus(serverIPAddress, false);
-            GlobalContext.NetworkMenuView.GenerateDialMenu();
-            GlobalContext.NetworkMenuView.RemoveHostMenu();
+            GlobalContext.NetworkHUD.UpdateStatus(serverIPAddress, false);
+            GlobalContext.NetworkHUD.GenerateDialMenu();
+            GlobalContext.NetworkHUD.RemoveHostMenu();
             GlobalContext.CurrentGameState = GlobalContext.GameState.NetworkMenu;
         }
 
@@ -247,11 +247,11 @@ namespace SolStandard
 
             InitializeControllers();
 
-            var mainMenu = new MainMenuView(mainMenuTitleSprite);
-            var networkMenu = new NetworkMenuView(mainMenuTitleSprite);
+            var mainMenu = new MainMenuHUD(mainMenuTitleSprite);
+            var networkMenu = new NetworkHUD(mainMenuTitleSprite);
 
 
-            PauseScreenView.Initialize(this);
+            PauseScreenUtils.Initialize(this);
 
             GlobalContext.Initialize(mainMenu, networkMenu);
             InitializeControlMappers(GlobalContext.P1Team);
@@ -346,7 +346,7 @@ namespace SolStandard
                 case GlobalContext.GameState.PauseScreen:
                     break;
                 case GlobalContext.GameState.InGame:
-                    GlobalContext.GameMapContext.UpdateHoverContextWindows();
+                    GlobalContext.WorldContext.UpdateHoverContextWindows();
                     GlobalContext.UpdateCamera();
                     break;
                 case GlobalContext.GameState.Codex:
@@ -379,7 +379,7 @@ namespace SolStandard
                     case PlayerIndex.One:
                         if (ConnectionManager.ConnectedAsServer)
                         {
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
                         else if (ConnectionManager.ConnectedAsClient)
                         {
@@ -387,14 +387,14 @@ namespace SolStandard
                         }
                         else
                         {
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
 
                         break;
                     case PlayerIndex.Two:
                         if (ConnectionManager.ConnectedAsClient)
                         {
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
                         else if (ConnectionManager.ConnectedAsServer)
                         {
@@ -402,7 +402,7 @@ namespace SolStandard
                         }
                         else
                         {
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
 
                         break;
@@ -411,7 +411,7 @@ namespace SolStandard
                         if (ConnectionManager.ConnectedAsServer)
                         {
                             //Only allow host to proceed through AI phase
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
                         else if (ConnectionManager.ConnectedAsClient)
                         {
@@ -420,12 +420,12 @@ namespace SolStandard
                         else
                         {
                             //Either player can proceed offline
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
 
                         break;
                     case PlayerIndex.Four:
-                        ControlContext.ListenForInputs(activeController);
+                        InputListener.ListenForInputs(activeController);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -475,7 +475,7 @@ namespace SolStandard
                     break;
                 case GlobalContext.GameState.InGame:
                     DrawInGameMap();
-                    if (GlobalContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
+                    if (GlobalContext.WorldContext.CurrentTurnState == WorldContext.TurnState.UnitActing)
                     {
                         DrawColorEntireScreen(ActionFade);
                     }
@@ -524,28 +524,28 @@ namespace SolStandard
         private void DrawPauseMenu()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            PauseScreenView.Draw(spriteBatch);
+            PauseScreenUtils.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawEULAPrompt()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GlobalContext.EULAContext.EULAView.Draw(spriteBatch);
+            GlobalContext.EULAContext.EULAHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawMainMenu()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GlobalContext.MainMenuView.Draw(spriteBatch);
+            GlobalContext.MainMenuHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawNetworkMenu()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GlobalContext.NetworkMenuView.Draw(spriteBatch);
+            GlobalContext.NetworkHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -562,14 +562,14 @@ namespace SolStandard
         private void DrawMapSelectHUD()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GlobalContext.MapSelectContext.MapSelectScreenView.Draw(spriteBatch);
+            GlobalContext.MapSelectContext.MapSelectHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawDraftMenu()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GlobalContext.DraftContext.DraftView.Draw(spriteBatch);
+            GlobalContext.DraftContext.DraftHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -577,7 +577,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            GlobalContext.StatusScreenView.Draw(spriteBatch);
+            GlobalContext.StatusScreenHUD.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -586,7 +586,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            GlobalContext.CreditsContext.CreditsView.Draw(spriteBatch);
+            GlobalContext.CreditsContext.CreditsHUD.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -595,7 +595,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            GlobalContext.HowToPlayContext.HowToPlayView.Draw(spriteBatch);
+            GlobalContext.HowToPlayContext.HowToPlayHUD.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -611,7 +611,7 @@ namespace SolStandard
         private void DrawDeploymentHUD()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GlobalContext.DeploymentContext.DeploymentView.Draw(spriteBatch);
+            GlobalContext.DeploymentContext.DeploymentHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -635,7 +635,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
                 GlobalContext.MapCamera.CameraMatrix);
-            GlobalContext.GameMapContext.MapContainer.Draw(spriteBatch);
+            GlobalContext.WorldContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -643,13 +643,13 @@ namespace SolStandard
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            if (GlobalContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
+            if (GlobalContext.WorldContext.CurrentTurnState == WorldContext.TurnState.UnitActing)
             {
-                GlobalContext.BattleContext.Draw(spriteBatch);
+                GlobalContext.CombatPhase.Draw(spriteBatch);
             }
             else
             {
-                GameMapContext.GameMapView.Draw(spriteBatch);
+                WorldContext.WorldHUD.Draw(spriteBatch);
             }
 
             spriteBatch.End();
@@ -658,7 +658,7 @@ namespace SolStandard
         private void DrawSystemHUD()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GlobalHudView.Draw(spriteBatch);
+            GlobalHUDUtils.Draw(spriteBatch);
             spriteBatch.End();
         }
     }

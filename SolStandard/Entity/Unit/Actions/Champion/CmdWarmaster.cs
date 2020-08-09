@@ -72,7 +72,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
 
             if (!CanAffordCommandCost(actor, cmdCost))
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
@@ -86,7 +86,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 return true;
             }
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -102,12 +102,12 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                     return true;
                 }
 
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid tile!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a valid tile!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
             }
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't move!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't move!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }

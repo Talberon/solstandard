@@ -23,11 +23,11 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GlobalContext.InitiativeContext.AddGoldToTeam(spoils.Gold, GlobalContext.ActiveTeam);
+            GlobalContext.InitiativePhase.AddGoldToTeam(spoils.Gold, GlobalContext.ActiveTeam);
 
             if (unitTakingSpoils.IsAlive && spoils.Gold > 0)
             {
-                GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
+                GlobalContext.WorldContext.PlayAnimationAtCoordinates(
                     AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.FallingCoins, GameDriver.CellSizeVector),
                     unitTakingSpoils.UnitEntity.MapCoordinates
                 );
@@ -40,7 +40,7 @@ namespace SolStandard.Utility.Events
 
             RemoveItemFromMap();
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Retrieved spoils!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Retrieved spoils!", 50);
             AssetManager.MenuConfirmSFX.Play();
 
             Complete = true;

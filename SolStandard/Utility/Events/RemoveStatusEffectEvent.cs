@@ -24,7 +24,7 @@ namespace SolStandard.Utility.Events
                 AssetManager.SkillBuffSFX.Play();
                 effectToRemove.RemoveEffect(targetUnit);
                 targetUnit.StatusEffects.Remove(effectToRemove);
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     "Removed status: " + effectToRemove.Name,
                     50
                 );
@@ -32,7 +32,7 @@ namespace SolStandard.Utility.Events
             else
             {
                 AssetManager.WarningSFX.Play();
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     "Can not remove status unit does not have! <" + effectToRemove.Name + ">",
                     50
                 );

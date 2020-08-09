@@ -52,7 +52,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -79,7 +79,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {
-            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (WorldContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
             }

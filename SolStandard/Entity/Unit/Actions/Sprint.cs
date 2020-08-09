@@ -42,13 +42,13 @@ namespace SolStandard.Entity.Unit.Actions
             int lowerMv = sprintingUnit.Stats.Mv < maxDistance ? sprintingUnit.Stats.Mv : maxDistance;
 
             var unitMovingContext =
-                new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement));
+                new UnitMovingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement));
             unitMovingContext.GenerateMoveGrid(origin, lowerMv, sprintingUnit.Team);
 
             //Delete the origin space to prevent players standing still and wasting action.
             MapContainer.GameGrid[(int) mapLayer][(int) origin.X, (int) origin.Y] = null;
 
-            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -62,13 +62,13 @@ namespace SolStandard.Entity.Unit.Actions
                 }
                 else
                 {
-                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid tile!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a valid tile!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't move!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't move!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

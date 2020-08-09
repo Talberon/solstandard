@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using NLog;
 using SolStandard.Containers.Components.Global;
-using SolStandard.Containers.Components.World.SubContext;
 using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Entity;
@@ -28,7 +27,7 @@ using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.Components.World
 {
-    public class GameMapContext : IGameContext
+    public class WorldContext : IGameContext
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -62,13 +61,13 @@ namespace SolStandard.Containers.Components.World
         
         public GameUnit SelectedUnit { get; private set; }
         private Vector2 selectedUnitOriginalPosition;
-        public static GameMapView GameMapView { get; private set; }
+        public static WorldHUD WorldHUD { get; private set; }
         public MapContainer MapContainer { get; }
         private int TurnCounter { get; set; }
         private int RoundCounter { get; set; }
         private bool CanCancelAction { get; set; }
         private GameUnit HoverUnit { get; set; }
-        private static bool ShowingItemPreview => GameMapView.ItemDetailWindow != null;
+        private static bool ShowingItemPreview => WorldHUD.ItemDetailWindow != null;
 
         private readonly Dictionary<Direction, UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitAnimationState>
@@ -79,10 +78,10 @@ namespace SolStandard.Containers.Components.World
                 {Direction.Left, UnitAnimationState.WalkLeft}
             };
 
-        public GameMapContext(MapContainer mapContainer, GameMapView gameMapController)
+        public WorldContext(MapContainer mapContainer, WorldHUD gameMapController)
         {
             MapContainer = mapContainer;
-            GameMapView = gameMapController;
+            WorldHUD = gameMapController;
             CurrentTurnState = TurnState.SelectUnit;
             selectedUnitOriginalPosition = new Vector2();
             TurnCounter = 1;
@@ -153,17 +152,17 @@ namespace SolStandard.Containers.Components.World
 
         public static void UpdateWindowsEachTurn()
         {
-            GameMapView.GenerateInitiativeWindow();
-            GameMapView.GenerateObjectiveWindow();
+            WorldHUD.GenerateInitiativeWindow();
+            WorldHUD.GenerateObjectiveWindow();
         }
 
         public static void FinishTurn(bool skipProcs)
         {
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            if (GlobalContext.GameMapContext.SelectedUnit != null)
+            if (GlobalContext.WorldContext.SelectedUnit != null)
             {
-                GlobalContext.GameMapContext.SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
+                GlobalContext.WorldContext.SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
 
                 if (!skipProcs)
                 {
@@ -181,7 +180,7 @@ namespace SolStandard.Containers.Components.World
             }
 
             SetPromptWindowText("Confirm End Turn");
-            GlobalContext.GameMapContext.CurrentTurnState = TurnState.ResolvingTurn;
+            GlobalContext.WorldContext.CurrentTurnState = TurnState.ResolvingTurn;
         }
 
         public void ResolveTurn()
@@ -192,7 +191,7 @@ namespace SolStandard.Containers.Components.World
 
             GlobalContext.Scenario.CheckForWinState();
             ConfirmPromptWindow();
-            GlobalContext.InitiativeContext.PassTurnToNextUnit();
+            GlobalContext.InitiativePhase.PassTurnToNextUnit();
             UpdateWindowsEachTurn();
 
             ResetTurnState();
@@ -203,7 +202,7 @@ namespace SolStandard.Containers.Components.World
                 EndTurnIfUnitIsDead();
             }
 
-            GlobalContext.StatusScreenView.UpdateWindows();
+            GlobalContext.StatusScreenHUD.UpdateWindows();
 
             StartTurn();
             ResetCursorToActiveUnit();
@@ -213,7 +212,7 @@ namespace SolStandard.Containers.Components.World
         {
             CanCancelAction = true;
 
-            if (GlobalContext.GameMapContext.SelectedUnit == null) return;
+            if (GlobalContext.WorldContext.SelectedUnit == null) return;
 
             IEnumerable<ITurnProc> activeUnitTurnProcs = GlobalContext.ActiveUnit.StatusEffects
                 .Where(effect => effect is ITurnProc)
@@ -283,15 +282,15 @@ namespace SolStandard.Containers.Components.World
 
         private static void ShowActionMenu()
         {
-            GameMapView.GenerateActionMenus();
-            GameMapView.GenerateCurrentMenuDescription();
+            WorldHUD.GenerateActionMenus();
+            WorldHUD.GenerateCurrentMenuDescription();
 
             GenerateActionPreviewGrid();
         }
 
         public void ResetCursorToNextUnitOnTeam()
         {
-            GlobalContext.InitiativeContext.SelectNextUnitOnActiveTeam();
+            GlobalContext.InitiativePhase.SelectNextUnitOnActiveTeam();
 
             if (GlobalContext.ActiveUnit.UnitEntity == null) return;
 
@@ -301,7 +300,7 @@ namespace SolStandard.Containers.Components.World
 
         public void ResetCursorToPreviousUnitOnTeam()
         {
-            GlobalContext.InitiativeContext.SelectPreviousUnitOnActiveTeam();
+            GlobalContext.InitiativePhase.SelectPreviousUnitOnActiveTeam();
 
             if (GlobalContext.ActiveUnit.UnitEntity == null) return;
 
@@ -337,14 +336,14 @@ namespace SolStandard.Containers.Components.World
             {
                 if (CurrentTurnState != TurnState.UnitDecidingAction) return;
 
-                if (GameMapView.ActionMenuContext.IsAtRootMenu)
+                if (WorldHUD.ActionMenuContext.IsAtRootMenu)
                 {
                     CancelActionMenuAndReturnToOrigin();
                 }
                 else
                 {
-                    GameMapView.ActionMenuContext.GoToPreviousMenu();
-                    GameMapView.GenerateCurrentMenuDescription();
+                    WorldHUD.ActionMenuContext.GoToPreviousMenu();
+                    WorldHUD.GenerateCurrentMenuDescription();
                     AssetManager.MapUnitCancelSFX.Play();
                 }
             }
@@ -357,7 +356,7 @@ namespace SolStandard.Containers.Components.World
         private void CancelActionMenuAndReturnToOrigin()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            GameMapView.CloseCombatMenu();
+            WorldHUD.CloseCombatMenu();
             RevertToPreviousState();
             CancelMove();
         }
@@ -382,7 +381,7 @@ namespace SolStandard.Containers.Components.World
             }
             else
             {
-                if (GameMapView.ActionMenuContext.IsAtRootMenu)
+                if (WorldHUD.ActionMenuContext.IsAtRootMenu)
                 {
                     MapContainer.AddNewToastAtMapCursor("Can't cancel action!", 50);
 
@@ -390,7 +389,7 @@ namespace SolStandard.Containers.Components.World
                 }
                 else
                 {
-                    GameMapView.ActionMenuContext.GoToPreviousMenu();
+                    WorldHUD.ActionMenuContext.GoToPreviousMenu();
                     AssetManager.MapUnitCancelSFX.Play();
                 }
             }
@@ -400,7 +399,7 @@ namespace SolStandard.Containers.Components.World
         {
             GlobalContext.ActiveUnit.CancelArmedSkill();
             ResetCursorToActiveUnit();
-            GameMapView.ActionMenuContext.Unhide();
+            WorldHUD.ActionMenuContext.Unhide();
             RevertToPreviousState();
             AssetManager.MapUnitCancelSFX.Play();
         }
@@ -418,7 +417,7 @@ namespace SolStandard.Containers.Components.World
                 );
 
                 MapContainer.ClearPreviewGrid();
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateTargetingGrid(
                         SelectedUnit.UnitEntity.MapCoordinates,
                         SelectedUnit.Stats.CurrentAtkRange,
@@ -444,7 +443,7 @@ namespace SolStandard.Containers.Components.World
             //Select the unit. Store it somewhere.
             SelectedUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
 
-            if (GlobalContext.InitiativeContext.SelectActiveUnit(SelectedUnit)) return true;
+            if (GlobalContext.InitiativePhase.SelectActiveUnit(SelectedUnit)) return true;
             //If the entity selected isn't the active unit, don't select it.
             SelectedUnit = null;
             AssetManager.WarningSFX.Play();
@@ -469,7 +468,7 @@ namespace SolStandard.Containers.Components.World
                 }
             };
             var promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
-            GameMapView.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(0, 150));
+            WorldHUD.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(0, 150));
         }
 
 
@@ -484,13 +483,13 @@ namespace SolStandard.Containers.Components.World
 
         private static void ConfirmPromptWindow()
         {
-            GameMapView.CloseUserPromptWindow();
+            WorldHUD.CloseUserPromptWindow();
         }
 
         private void GenerateMoveGrid(Vector2 origin, GameUnit selectedUnit, SpriteAtlas spriteAtlas)
         {
             selectedUnitOriginalPosition = origin;
-            var unitMovingContext = new UnitMovingContext(spriteAtlas);
+            var unitMovingContext = new UnitMovingPhase(spriteAtlas);
             unitMovingContext.GenerateMoveGrid(origin, selectedUnit.Stats.Mv, selectedUnit.Team);
         }
 
@@ -514,7 +513,7 @@ namespace SolStandard.Containers.Components.World
         public void UpdateUnitAttackRangePreview()
         {
             MapContainer.ClearPreviewGrid();
-            new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+            new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                 .GenerateTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.CurrentAtkRange,
                     Layer.Preview);
         }
@@ -529,25 +528,25 @@ namespace SolStandard.Containers.Components.World
             {
                 if (hoverMapUnit != GlobalContext.ActiveUnit)
                 {
-                    GameMapView.UpdateLeftPortraitAndDetailWindows(GlobalContext.ActiveUnit);
-                    GameMapView.UpdateRightPortraitAndDetailWindows(hoverMapUnit);
+                    WorldHUD.UpdateLeftPortraitAndDetailWindows(GlobalContext.ActiveUnit);
+                    WorldHUD.UpdateRightPortraitAndDetailWindows(hoverMapUnit);
                 }
                 else
                 {
-                    GameMapView.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
-                    GameMapView.UpdateRightPortraitAndDetailWindows(null);
+                    WorldHUD.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
+                    WorldHUD.UpdateRightPortraitAndDetailWindows(null);
                 }
             }
             else
             {
                 UpdateThreatRangePreview(hoverMapUnit, hoverSlice);
 
-                GameMapView.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
-                GameMapView.UpdateRightPortraitAndDetailWindows(null);
+                WorldHUD.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
+                WorldHUD.UpdateRightPortraitAndDetailWindows(null);
             }
 
             //Terrain (Entity) Window
-            GameMapView.SetEntityWindow(hoverSlice);
+            WorldHUD.SetEntityWindow(hoverSlice);
 
             HoverUnit = hoverMapUnit;
         }
@@ -559,22 +558,22 @@ namespace SolStandard.Containers.Components.World
             {
                 if (MapContainer.GetMapElementsFromLayer(Layer.Dynamic).Count != 0 && HoverUnit == hoverMapUnit) return;
 
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit, hoverMapUnit.Team);
             }
             else if (hoverSlice.TerrainEntity is IThreatRange entityThreat)
             {
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
             }
             else if (hoverSlice.TerrainEntity is IActionTile actionTile)
             {
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
+                new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
                     .GenerateTargetingGrid(hoverSlice.MapCoordinates, actionTile.InteractRange, Layer.Preview);
             }
             else if (hoverSlice.ItemEntity is IActionTile itemActionTile)
             {
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
+                new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
                     .GenerateTargetingGrid(hoverSlice.MapCoordinates, itemActionTile.InteractRange, Layer.Preview);
             }
         }
@@ -607,8 +606,8 @@ namespace SolStandard.Containers.Components.World
 
         public void MoveActionMenuCursor(MenuCursorDirection direction)
         {
-            GameMapView.CurrentMenu.MoveMenuCursor(direction);
-            GameMapView.GenerateCurrentMenuDescription();
+            WorldHUD.CurrentMenu.MoveMenuCursor(direction);
+            WorldHUD.GenerateCurrentMenuDescription();
 
             GenerateActionPreviewGrid();
         }
@@ -619,24 +618,24 @@ namespace SolStandard.Containers.Components.World
             MapContainer.ClearDynamicAndPreviewGrids();
 
             //FIXME This part of the code shouldn't know so much about the menu?
-            if (GameMapView?.CurrentMenu?.CurrentOption is ActionOption)
+            if (WorldHUD?.CurrentMenu?.CurrentOption is ActionOption)
             {
-                GameMapView.CurrentMenu.CurrentOption.Execute();
-                GameMapView.ActionMenuContext.Hide();
+                WorldHUD.CurrentMenu.CurrentOption.Execute();
+                WorldHUD.ActionMenuContext.Hide();
                 CurrentTurnState = TurnState.UnitTargeting;
                 SelectedUnit.SetUnitAnimation(UnitAnimationState.Active);
             }
             else
             {
-                GameMapView?.CurrentMenu?.CurrentOption.Execute();
-                GameMapView?.GenerateCurrentMenuDescription();
+                WorldHUD?.CurrentMenu?.CurrentOption.Execute();
+                WorldHUD?.GenerateCurrentMenuDescription();
                 GenerateActionPreviewGrid();
             }
         }
 
         public void RefreshCurrentActionMenuOption()
         {
-            GameMapView.CurrentMenu.CurrentOption.Refresh();
+            WorldHUD.CurrentMenu.CurrentOption.Refresh();
         }
 
         public void IncrementCurrentAdjustableAction(int value)
@@ -653,7 +652,7 @@ namespace SolStandard.Containers.Components.World
 
         private static IIncrementableAction CurrentIncrementableAction()
         {
-            if (!(GameMapView.CurrentMenu.CurrentOption is ActionOption currentActionOption)) return null;
+            if (!(WorldHUD.CurrentMenu.CurrentOption is ActionOption currentActionOption)) return null;
             return currentActionOption.Action as IIncrementableAction;
         }
 
@@ -735,52 +734,52 @@ namespace SolStandard.Containers.Components.World
         public void OpenTakeItemMenu(GameUnit targetToTakeFrom, bool freeAction)
         {
             CurrentTurnState = TurnState.TakeItem;
-            GameMapView.GenerateTakeItemMenu(targetToTakeFrom, freeAction);
+            WorldHUD.GenerateTakeItemMenu(targetToTakeFrom, freeAction);
             AssetManager.MenuConfirmSFX.Play();
         }
 
         public void MoveMenuCursor(MenuCursorDirection direction)
         {
-            GameMapView.CurrentMenu.MoveMenuCursor(direction);
+            WorldHUD.CurrentMenu.MoveMenuCursor(direction);
         }
 
         public void SelectMenuOption()
         {
-            GameMapView.CurrentMenu.SelectOption();
+            WorldHUD.CurrentMenu.SelectOption();
         }
 
         public void ClearStealItemMenu()
         {
-            GameMapView.CloseStealItemMenu();
+            WorldHUD.CloseStealItemMenu();
             MapContainer.ClearDynamicAndPreviewGrids();
         }
 
         public void CancelStealItemMenu()
         {
-            GameMapView.CloseStealItemMenu();
+            WorldHUD.CloseStealItemMenu();
             GlobalContext.ActiveUnit.CancelArmedSkill();
             ResetCursorToActiveUnit();
-            GameMapView.GenerateActionMenus();
+            WorldHUD.GenerateActionMenus();
             CurrentTurnState = TurnState.UnitDecidingAction;
         }
 
         public void OpenDraftMenu()
         {
             CurrentTurnState = TurnState.AdHocDraft;
-            GameMapView.GenerateDraftMenu(GlobalContext.ActiveTeam);
+            WorldHUD.GenerateDraftMenu(GlobalContext.ActiveTeam);
             AssetManager.MenuConfirmSFX.Play();
         }
 
         public void ClearDraftMenu()
         {
-            GameMapView.CloseAdHocDraftMenu();
+            WorldHUD.CloseAdHocDraftMenu();
             MapContainer.ClearDynamicAndPreviewGrids();
         }
 
         private static void GenerateActionPreviewGrid()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            if (GameMapView.CurrentMenu.CurrentOption is ActionOption actionOption)
+            if (WorldHUD.CurrentMenu.CurrentOption is ActionOption actionOption)
             {
                 actionOption.Action.GenerateActionGrid(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates, Layer.Preview);
             }
@@ -804,7 +803,7 @@ namespace SolStandard.Containers.Components.World
             if (ShowingItemPreview)
             {
                 AssetManager.MapUnitCancelSFX.Play();
-                GameMapView.CloseItemDetailWindow();
+                WorldHUD.CloseItemDetailWindow();
                 GlobalContext.CurrentGameState = GlobalContext.GameState.InGame;
             }
             else
@@ -816,7 +815,7 @@ namespace SolStandard.Containers.Components.World
                 if (items.Count > 0)
                 {
                     AssetManager.MapUnitSelectSFX.Play();
-                    GameMapView.GenerateItemDetailWindow(items);
+                    WorldHUD.GenerateItemDetailWindow(items);
                     GlobalContext.CurrentGameState = GlobalContext.GameState.ItemPreview;
                 }
                 else
@@ -847,7 +846,7 @@ namespace SolStandard.Containers.Components.World
                     items.AddRange(vendor.Items);
                     break;
                 case Chest chest:
-                    items.AddRange(GlobalContext.GameMapContext.MapContainer.GetPoolItems(chest.ItemPool));
+                    items.AddRange(GlobalContext.WorldContext.MapContainer.GetPoolItems(chest.ItemPool));
                     break;
             }
 

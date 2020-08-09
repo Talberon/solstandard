@@ -17,13 +17,13 @@ namespace SolStandard.Utility.Events
         {
             GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(targetCameraPosition);
 
-            if (GlobalContext.GameMapContext.MapContainer.MapCursor.IsOnScreen)
+            if (GlobalContext.WorldContext.MapContainer.MapCursor.IsOnScreen)
             {
-                GlobalContext.GameMapContext.MapContainer.MapCamera.CenterCameraToCursor();
+                GlobalContext.WorldContext.MapContainer.MapCamera.CenterCameraToCursor();
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
+                GlobalContext.WorldContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
             }
 
             Complete = true;

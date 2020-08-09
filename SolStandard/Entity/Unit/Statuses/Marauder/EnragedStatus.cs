@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Statuses.Marauder
             target.Stats.AtkModifier += atkModifier;
             target.Stats.RetModifier -= atkModifier;
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,
                 50

@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers.Components.Draft;
 using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Components.Codex
 {
-    public class CodexContext
+    public class CodexContext : IGameContext
     {
         public static List<GameUnit> UnitArchetypes => _unitArchetypes ??= GenerateUnitArchetypes();
         private static List<GameUnit> _unitArchetypes;
@@ -44,12 +47,12 @@ namespace SolStandard.Containers.Components.Codex
                     GlobalContext.GameState.MainMenu => GlobalContext.P1Team,
                     GlobalContext.GameState.ArmyDraft => GlobalContext.DraftContext.CurrentTurn,
                     GlobalContext.GameState.Deployment => GlobalContext.DeploymentContext.CurrentTurn,
-                    GlobalContext.GameState.PauseScreen => GlobalContext.InitiativeContext.CurrentActiveTeam,
-                    GlobalContext.GameState.InGame => GlobalContext.InitiativeContext.CurrentActiveTeam,
+                    GlobalContext.GameState.PauseScreen => GlobalContext.InitiativePhase.CurrentActiveTeam,
+                    GlobalContext.GameState.InGame => GlobalContext.InitiativePhase.CurrentActiveTeam,
                     GlobalContext.GameState.NetworkMenu => GlobalContext.P1Team,
                     GlobalContext.GameState.MapSelect => GlobalContext.P1Team,
                     GlobalContext.GameState.Results => GlobalContext.P1Team,
-                    GlobalContext.GameState.ItemPreview => GlobalContext.InitiativeContext.CurrentActiveTeam,
+                    GlobalContext.GameState.ItemPreview => GlobalContext.InitiativePhase.CurrentActiveTeam,
                     GlobalContext.GameState.Credits => GlobalContext.P1Team,
                     _ => throw new ArgumentOutOfRangeException(nameof(previousGameState),
                         $"Should not have arrived here via {previousGameState} state!")
@@ -84,6 +87,13 @@ namespace SolStandard.Containers.Components.Codex
         public void ShowUnitDetails(GameUnit unit)
         {
             CodexView.ShowUnitDetails(unit);
+        }
+
+        public IHUDView View { get; }
+        public MenuContainer MenuContainer { get; }
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,14 +9,17 @@ using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.DialMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Network;
 using TextCopy;
+using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
+using IWindow = SolStandard.NeoGFX.GUI.IWindow;
 
 namespace SolStandard.Containers.Components.Network
 {
-    public class NetworkMenuView : IUserInterface
+    public class NetworkHUD : IUserInterface, IHUDView
     {
         private readonly IRenderable title;
         private readonly IRenderable versionNumber;
@@ -25,7 +29,7 @@ namespace SolStandard.Containers.Components.Network
         private string inputIPAddress;
         private string hostIPAddress;
 
-        public NetworkMenuView(IRenderable title)
+        public NetworkHUD(IRenderable title)
         {
             this.title = title;
             versionNumber = new RenderText(AssetManager.WindowFont, $"v{GameDriver.VersionNumber}");
@@ -40,7 +44,7 @@ namespace SolStandard.Containers.Components.Network
 
         public void GenerateDialMenu()
         {
-            Color menuColor = MainMenuView.MenuColor;
+            Color menuColor = MainMenuHUD.MenuColor;
 
             DialMenu = new TwoDimensionalMenu(
                 new MenuOption[,]
@@ -84,7 +88,7 @@ namespace SolStandard.Containers.Components.Network
 
         public void GenerateHostMenu()
         {
-            Color menuColor = MainMenuView.MenuColor;
+            Color menuColor = MainMenuHUD.MenuColor;
 
             HostMenu = new TwoDimensionalMenu(
                 new MenuOption[,]
@@ -160,7 +164,7 @@ namespace SolStandard.Containers.Components.Network
                     2,
                     HorizontalAlignment.Centered
                 ),
-                MainMenuView.MenuColor, HorizontalAlignment.Centered
+                MainMenuHUD.MenuColor, HorizontalAlignment.Centered
             );
         }
 
@@ -225,6 +229,14 @@ namespace SolStandard.Containers.Components.Network
             ResetIPAddress();
         }
 
+        public float Width { get; }
+        public float Height { get; }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             (float halfScreenWidth, _) = GameDriver.ScreenSize / 2;
@@ -269,5 +281,7 @@ namespace SolStandard.Containers.Components.Network
                 new Vector2(GameDriver.ScreenSize.X - versionNumber.Width - windowPadding, windowPadding)
             );
         }
+
+        public List<IWindow> Windows { get; }
     }
 }

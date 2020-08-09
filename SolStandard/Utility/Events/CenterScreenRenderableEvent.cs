@@ -25,11 +25,11 @@ namespace SolStandard.Utility.Events
             
             frameCounter++;
 
-            GameMapContext.GameMapView.RenderCenterScreen(content);
+            WorldContext.WorldHUD.RenderCenterScreen(content);
 
             if (frameCounter <= frameLifetime) return;
 
-            GameMapContext.GameMapView.StopRenderingCenterScreenContent();
+            WorldContext.WorldHUD.StopRenderingCenterScreenContent();
             Complete = true;
         }
     }

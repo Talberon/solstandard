@@ -6,9 +6,9 @@ using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.Components.Credits
 {
-    public class CreditsView : ScrollingTextPaneView
+    public class CreditsHUD : ScrollingTextPaneHUD
     {
-        public CreditsView() : base(AssetManager.WindowFont, AssetManager.CreditsText, new WindowContentGrid(
+        public CreditsHUD() : base(AssetManager.WindowFont, AssetManager.CreditsText, new WindowContentGrid(
             new IRenderable[,]
             {
                 {

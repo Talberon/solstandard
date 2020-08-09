@@ -12,14 +12,16 @@ using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Components.Deployment
 {
-    public class DeploymentContext
+    public class DeploymentContext : IGameContext
     {
-        public DeploymentView DeploymentView { get; }
+        public DeploymentHUD DeploymentHUD { get; }
         private readonly List<GameUnit> blueArmy;
         private readonly List<GameUnit> redArmy;
         private readonly MapContainer map;
@@ -28,7 +30,7 @@ namespace SolStandard.Containers.Components.Deployment
         public bool CanPressConfirm => HoveringOverDeployTile;
 
         private bool HoveringOverDeployTile =>
-            GlobalContext.GameMapContext.MapContainer.GetMapSliceAtCursor().TerrainEntity is DeployTile;
+            GlobalContext.WorldContext.MapContainer.GetMapSliceAtCursor().TerrainEntity is DeployTile;
 
         public DeploymentContext(List<GameUnit> blueArmy, List<GameUnit> redArmy, MapContainer map, Team firstTurn)
         {
@@ -37,7 +39,7 @@ namespace SolStandard.Containers.Components.Deployment
             this.map = map;
             CurrentTurn = firstTurn;
             currentUnit = GetArmy(CurrentTurn).First();
-            DeploymentView = new DeploymentView(blueArmy, redArmy, currentUnit, GlobalContext.Scenario);
+            DeploymentHUD = new DeploymentHUD(blueArmy, redArmy, currentUnit, GlobalContext.Scenario);
             MoveToNextDeploymentTile();
         }
 
@@ -51,7 +53,7 @@ namespace SolStandard.Containers.Components.Deployment
             int nextIndex = (currentUnitIndex + 1 > activeArmy.Count - 1) ? 0 : currentUnitIndex + 1;
 
             currentUnit = activeArmy[nextIndex];
-            DeploymentView.UpdateRosterLists(blueArmy, redArmy, currentUnit);
+            DeploymentHUD.UpdateRosterLists(blueArmy, redArmy, currentUnit);
         }
 
         public void SelectPreviousUnit()
@@ -64,7 +66,7 @@ namespace SolStandard.Containers.Components.Deployment
             int nextIndex = (currentUnitIndex - 1 < 0) ? activeArmy.Count - 1 : currentUnitIndex - 1;
 
             currentUnit = activeArmy[nextIndex];
-            DeploymentView.UpdateRosterLists(blueArmy, redArmy, currentUnit);
+            DeploymentHUD.UpdateRosterLists(blueArmy, redArmy, currentUnit);
         }
 
         public void TryDeployUnit()
@@ -74,7 +76,7 @@ namespace SolStandard.Containers.Components.Deployment
                 AssetManager.MapUnitCancelSFX.Play();
                 PlaceUnitInTile();
                 PassTurn();
-                DeploymentView.UpdateRosterLists(blueArmy, redArmy, currentUnit);
+                DeploymentHUD.UpdateRosterLists(blueArmy, redArmy, currentUnit);
                 MoveToNextDeploymentTile();
             }
             else
@@ -96,7 +98,7 @@ namespace SolStandard.Containers.Components.Deployment
 
             GlobalContext.Units.Add(currentUnit);
             GetArmy(currentUnit.Team).Remove(currentUnit);
-            DeploymentView.UpdateRosterLists(blueArmy, redArmy, currentUnit);
+            DeploymentHUD.UpdateRosterLists(blueArmy, redArmy, currentUnit);
         }
 
         public void MoveCursorOnMap(Direction direction)
@@ -107,28 +109,28 @@ namespace SolStandard.Containers.Components.Deployment
 
         private void UpdateHoverView()
         {
-            MapSlice hoverSlice = GlobalContext.GameMapContext.MapContainer.GetMapSliceAtCursor();
+            MapSlice hoverSlice = GlobalContext.WorldContext.MapContainer.GetMapSliceAtCursor();
             GameUnit hoverUnit = UnitSelector.SelectUnit(hoverSlice.UnitEntity);
 
             MapContainer.ClearDynamicAndPreviewGrids();
 
             if (hoverUnit != null)
             {
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverUnit, hoverUnit.Team);
             }
 
-            DeploymentView.UpdateHoverUnitWindows(hoverUnit);
+            DeploymentHUD.UpdateHoverUnitWindows(hoverUnit);
             UpdateItemPreview(hoverSlice);
 
-            DeploymentView.SetEntityWindow(hoverSlice);
+            DeploymentHUD.SetEntityWindow(hoverSlice);
         }
 
         private void UpdateItemPreview(MapSlice hoverSlice)
         {
-            List<IItem> items = GameMapContext.CollectItemsFromSlice(hoverSlice);
+            List<IItem> items = WorldContext.CollectItemsFromSlice(hoverSlice);
 
-            Color windowColor = GameMapView.ItemTerrainWindowColor;
+            Color windowColor = WorldHUD.ItemTerrainWindowColor;
 
             GameUnit hoverUnit = UnitSelector.SelectUnit(hoverSlice.UnitEntity);
             if (hoverUnit != null)
@@ -138,11 +140,11 @@ namespace SolStandard.Containers.Components.Deployment
 
             if (items.Count > 0)
             {
-                DeploymentView.GenerateItemDetailWindow(items, windowColor);
+                DeploymentHUD.GenerateItemDetailWindow(items, windowColor);
             }
             else
             {
-                DeploymentView.CloseItemDetailWindow();
+                DeploymentHUD.CloseItemDetailWindow();
             }
         }
 
@@ -171,8 +173,8 @@ namespace SolStandard.Containers.Components.Deployment
                 if (opposingArmy.Count == 0)
                 {
                     GlobalContext.CurrentGameState = GlobalContext.GameState.InGame;
-                    GlobalContext.InitiativeContext.StartFirstTurn();
-                    GameMapContext.UpdateWindowsEachTurn();
+                    GlobalContext.InitiativePhase.StartFirstTurn();
+                    WorldContext.UpdateWindowsEachTurn();
                 }
                 else
                 {
@@ -214,6 +216,13 @@ namespace SolStandard.Containers.Components.Deployment
                 return cursorSlice.TerrainEntity is DeployTile deployTile && !deployTile.Occupied &&
                        deployTile.DeployTeam == currentUnit.Team;
             }
+        }
+
+        public IHUDView View { get; }
+        public MenuContainer MenuContainer { get; }
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
         }
     }
 }

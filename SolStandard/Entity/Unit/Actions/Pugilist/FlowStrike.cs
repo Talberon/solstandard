@@ -76,7 +76,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             }
             else
             {
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

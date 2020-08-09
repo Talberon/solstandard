@@ -42,11 +42,11 @@ namespace SolStandard.Utility.Events
                         }
                     }
                 );
-                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
                 AssetManager.DropItemSFX.Play();
             }
 
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
 
             Complete = true;
         }

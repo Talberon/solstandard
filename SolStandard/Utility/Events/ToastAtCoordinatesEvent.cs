@@ -30,7 +30,7 @@ namespace SolStandard.Utility.Events
         {
             soundEffect?.Play();
 
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(
                 message,
                 toastCoordinates,
                 duration

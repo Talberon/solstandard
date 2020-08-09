@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Statuses.Duelist
         public override void ApplyEffect(GameUnit target)
         {
             AssetManager.SkillBuffSFX.Play();
-            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,
                 50

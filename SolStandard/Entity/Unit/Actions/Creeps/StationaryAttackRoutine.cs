@@ -61,7 +61,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark))
+            new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark))
                 .GenerateTargetingGrid(actor.UnitEntity.MapCoordinates,
                     actor.AtkRange);
 

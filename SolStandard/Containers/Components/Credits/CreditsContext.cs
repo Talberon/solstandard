@@ -1,21 +1,24 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers.Components.Global;
 using SolStandard.Map.Elements;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Components.Credits
 {
-    public class CreditsContext
+    public class CreditsContext : IGameContext
     {
-        public readonly ScrollingTextPaneView CreditsView;
+        public readonly ScrollingTextPaneHUD CreditsHUD;
         private GlobalContext.GameState previousGameState;
         private const string CreditsPath = "/credits";
 
-        public CreditsContext(ScrollingTextPaneView creditsView)
+        public CreditsContext(ScrollingTextPaneHUD creditsHUD)
         {
-            CreditsView = creditsView;
+            CreditsHUD = creditsHUD;
         }
 
         public void OpenView()
@@ -34,7 +37,7 @@ namespace SolStandard.Containers.Components.Credits
 
         public void ScrollWindow(Direction direction)
         {
-            CreditsView.ScrollContents(direction);
+            CreditsHUD.ScrollContents(direction);
         }
 
         public void OpenBrowser()
@@ -63,6 +66,13 @@ namespace SolStandard.Containers.Components.Credits
                     "This operating system is not supported. Use Windows/Linux/OSX to use this feature."
                 );
             }
+        }
+
+        public IHUDView View { get; }
+        public MenuContainer MenuContainer { get; }
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
         }
     }
 }
