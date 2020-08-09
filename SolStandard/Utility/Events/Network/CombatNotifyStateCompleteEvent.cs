@@ -31,9 +31,9 @@ namespace SolStandard.Utility.Events.Network
             }
             else
             {
-                GameContext.BattleContext.PeerCanContinue = true;
+                GlobalContext.BattleContext.PeerCanContinue = true;
                 Logger.Debug("Received completed battlestate from peer: " + battleState +
-                                ". Current state: " + GameContext.BattleContext.CurrentState);
+                                ". Current state: " + GlobalContext.BattleContext.CurrentState);
             }
 
             Complete = true;

@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Statuses.Mage
         {
             AssetManager.SkillBuffSFX.Play();
             target.Stats.BlkModifier += blkModifier;
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
         }
 
         protected override void ExecuteEffect(GameUnit target)
@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Statuses.Mage
             target.RecoverArmor(amrPerTurn);
             target.RecoverHP(hpPerTurn);
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 $"{target.Id} regenerates {amrPerTurn} {UnitStatistics.Abbreviation[Stats.Armor]} and {hpPerTurn} {UnitStatistics.Abbreviation[Stats.Hp]}!",
                 50

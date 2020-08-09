@@ -35,11 +35,11 @@ namespace SolStandard.Entity.General
         {
             HP -= damage;
             AssetManager.CombatDamageSFX.Play();
-            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Damage, GameDriver.CellSizeVector),
                 MapCoordinates
             );
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
                 Name + " takes " + damage + " damage!",
                 MapCoordinates, 50);
 
@@ -54,7 +54,7 @@ namespace SolStandard.Entity.General
             //Remove self from the map
             MapContainer.GameGrid[(int) Layer.Entities][(int) MapCoordinates.X, (int) MapCoordinates.Y] = null;
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("Destroyed!", MapCoordinates, 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("Destroyed!", MapCoordinates, 50);
         }
 
         private void DropSpoils()

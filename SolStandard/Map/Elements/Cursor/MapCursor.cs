@@ -28,8 +28,8 @@ namespace SolStandard.Map.Elements.Cursor
         private SpriteAtlas SpriteAtlas => (SpriteAtlas) Sprite;
 
         public Vector2 CenterCursorScreenCoordinates =>
-            (CurrentDrawCoordinates + (_cursorSize / 2) + GameContext.MapCamera.TargetPosition) *
-            GameContext.MapCamera.TargetZoom;
+            (CurrentDrawCoordinates + (_cursorSize / 2) + GlobalContext.MapCamera.TargetPosition) *
+            GlobalContext.MapCamera.TargetZoom;
 
         // ReSharper disable once SuggestBaseTypeForParameter
         public MapCursor(SpriteAtlas sprite, Vector2 mapCoordinates, Vector2 mapSize) : base(sprite, mapCoordinates)
@@ -65,7 +65,7 @@ namespace SolStandard.Map.Elements.Cursor
         public void SnapCameraAndCursorToCoordinates(Vector2 coordinates)
         {
             SnapToCoordinates(coordinates);
-            GameContext.MapCamera.SnapCameraCenterToCursor();
+            GlobalContext.MapCamera.SnapCameraCenterToCursor();
         }
 
         public void MoveCursorInDirection(Direction direction)
@@ -90,15 +90,15 @@ namespace SolStandard.Map.Elements.Cursor
 
             PreventCursorLeavingMapBounds();
             AssetManager.MapCursorMoveSFX.Play();
-            GameContext.MapCamera.StartMovingCameraToCursor();
+            GlobalContext.MapCamera.StartMovingCameraToCursor();
         }
 
         public bool IsOnScreen
         {
             get
             {
-                Vector2 cursorCoordinates = MapCoordinates * GameDriver.CellSize * GameContext.MapCamera.TargetZoom;
-                Vector2 screenPosition = -GameContext.MapCamera.CurrentPosition;
+                Vector2 cursorCoordinates = MapCoordinates * GameDriver.CellSize * GlobalContext.MapCamera.TargetZoom;
+                Vector2 screenPosition = -GlobalContext.MapCamera.CurrentPosition;
                 Vector2 screenBounds = screenPosition + GameDriver.ScreenSize;
 
                 bool isOnScreen = cursorCoordinates.X > screenPosition.X &&
@@ -138,10 +138,10 @@ namespace SolStandard.Map.Elements.Cursor
 
         private void UpdateCursorTeam()
         {
-            switch (GameContext.ActivePlayer)
+            switch (GlobalContext.ActivePlayer)
             {
                 case PlayerIndex.One:
-                    switch (GameContext.P1Team)
+                    switch (GlobalContext.P1Team)
                     {
                         case Team.Blue:
                             SpriteAtlas.SetCellIndex((int) CursorColor.Blue);
@@ -155,7 +155,7 @@ namespace SolStandard.Map.Elements.Cursor
 
                     break;
                 case PlayerIndex.Two:
-                    switch (GameContext.P2Team)
+                    switch (GlobalContext.P2Team)
                     {
                         case Team.Blue:
                             SpriteAtlas.SetCellIndex((int) CursorColor.Blue);
@@ -185,38 +185,38 @@ namespace SolStandard.Map.Elements.Cursor
             UpdateRenderCoordinates();
             Sprite.Draw(spriteBatch, CurrentDrawCoordinates, colorOverride);
 
-            switch (GameContext.CurrentGameState)
+            switch (GlobalContext.CurrentGameState)
             {
-                case GameContext.GameState.EULAConfirm:
+                case GlobalContext.GameState.EULAConfirm:
                     break;
-                case GameContext.GameState.MainMenu:
+                case GlobalContext.GameState.MainMenu:
                     break;
-                case GameContext.GameState.NetworkMenu:
+                case GlobalContext.GameState.NetworkMenu:
                     break;
-                case GameContext.GameState.ArmyDraft:
+                case GlobalContext.GameState.ArmyDraft:
                     break;
-                case GameContext.GameState.Deployment:
+                case GlobalContext.GameState.Deployment:
                     DrawDeploymentButtonPrompts(spriteBatch);
                     break;
-                case GameContext.GameState.MapSelect:
+                case GlobalContext.GameState.MapSelect:
                     DrawMapSelectButtonPrompts(spriteBatch);
                     break;
-                case GameContext.GameState.PauseScreen:
+                case GlobalContext.GameState.PauseScreen:
                     break;
-                case GameContext.GameState.InGame:
+                case GlobalContext.GameState.InGame:
                     DrawInGameButtonPrompts(spriteBatch);
                     break;
-                case GameContext.GameState.Results:
+                case GlobalContext.GameState.Results:
                     break;
-                case GameContext.GameState.Codex:
+                case GlobalContext.GameState.Codex:
                     break;
-                case GameContext.GameState.ItemPreview:
+                case GlobalContext.GameState.ItemPreview:
                     break;
-                case GameContext.GameState.Credits:
+                case GlobalContext.GameState.Credits:
                     break;
-                case GameContext.GameState.ControlConfig:
+                case GlobalContext.GameState.ControlConfig:
                     break;
-                case GameContext.GameState.HowToPlay:
+                case GlobalContext.GameState.HowToPlay:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -226,20 +226,20 @@ namespace SolStandard.Map.Elements.Cursor
 
         private void DrawMapSelectButtonPrompts(SpriteBatch spriteBatch)
         {
-            if (GameContext.MapSelectContext.CanPressConfirm) DrawConfirmButtonPrompt(spriteBatch);
+            if (GlobalContext.MapSelectContext.CanPressConfirm) DrawConfirmButtonPrompt(spriteBatch);
         }
 
         private void DrawDeploymentButtonPrompts(SpriteBatch spriteBatch)
         {
-            if (GameContext.DeploymentContext.CanPressConfirm) DrawConfirmButtonPrompt(spriteBatch);
+            if (GlobalContext.DeploymentContext.CanPressConfirm) DrawConfirmButtonPrompt(spriteBatch);
         }
 
         private void DrawInGameButtonPrompts(SpriteBatch spriteBatch)
         {
-            if (GameContext.GameMapContext.CanPressConfirm) DrawConfirmButtonPrompt(spriteBatch);
-            if (GameContext.GameMapContext.CanPressCancel) DrawCancelButtonPrompt(spriteBatch);
-            if (GameContext.GameMapContext.CanPressPreviewUnit) DrawPreviewUnitButtonPrompt(spriteBatch);
-            if (GameContext.GameMapContext.CanPressPreviewItem) DrawPreviewItemButtonPrompt(spriteBatch);
+            if (GlobalContext.GameMapContext.CanPressConfirm) DrawConfirmButtonPrompt(spriteBatch);
+            if (GlobalContext.GameMapContext.CanPressCancel) DrawCancelButtonPrompt(spriteBatch);
+            if (GlobalContext.GameMapContext.CanPressPreviewUnit) DrawPreviewUnitButtonPrompt(spriteBatch);
+            if (GlobalContext.GameMapContext.CanPressPreviewItem) DrawPreviewItemButtonPrompt(spriteBatch);
         }
 
         private void DrawConfirmButtonPrompt(SpriteBatch spriteBatch)

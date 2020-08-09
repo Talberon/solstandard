@@ -37,7 +37,7 @@ namespace SolStandard.Containers.Components.InputRemapping
         private IController metakeyboard;
         private IController metaP1Gamepad;
         private IController metaP2Gamepad;
-        private GameContext.GameState previousGameState;
+        private GlobalContext.GameState previousGameState;
 
         private Device currentListeningDevice;
         private Input currentListeningInput;
@@ -108,17 +108,17 @@ namespace SolStandard.Containers.Components.InputRemapping
 
         public void OpenMenu()
         {
-            if (GameContext.CurrentGameState == GameContext.GameState.ControlConfig) return;
+            if (GlobalContext.CurrentGameState == GlobalContext.GameState.ControlConfig) return;
 
-            previousGameState = GameContext.CurrentGameState;
-            GameContext.CurrentGameState = GameContext.GameState.ControlConfig;
+            previousGameState = GlobalContext.CurrentGameState;
+            GlobalContext.CurrentGameState = GlobalContext.GameState.ControlConfig;
             view.CurrentState = ControlMenuState.DeviceSelect;
         }
 
         private void CloseMenu()
         {
             AssetManager.MapUnitCancelSFX.Play();
-            GameContext.CurrentGameState = previousGameState;
+            GlobalContext.CurrentGameState = previousGameState;
         }
 
         public void MoveMenuCursor(MenuCursorDirection direction)
@@ -229,7 +229,7 @@ namespace SolStandard.Containers.Components.InputRemapping
                 GameDriver.KeyboardParser = new GameControlParser(metakeyboard);
                 GameDriver.P1GamepadParser = new GameControlParser(metaP1Gamepad);
                 GameDriver.P2GamepadParser = new GameControlParser(metaP2Gamepad);
-                GameDriver.InitializeControlMappers(GameContext.P1Team);
+                GameDriver.InitializeControlMappers(GlobalContext.P1Team);
                 InitializeMetaControls();
                 GlobalHudView.AddNotification("Saved control inputs.");
                 frameCooldown = CooldownInterval;

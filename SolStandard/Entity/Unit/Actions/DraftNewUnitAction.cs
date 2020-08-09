@@ -28,12 +28,12 @@ namespace SolStandard.Entity.Unit.Actions
         {
             if (TargetIsUnoccupiedTileInRange(targetSlice))
             {
-                GameContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
+                GlobalContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
                 GlobalEventQueue.QueueSingleEvent(new AdhocDraftEvent());
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

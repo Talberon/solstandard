@@ -82,7 +82,7 @@ namespace SolStandard.Entity.General.Item
         private static Window FreeContractWindow => SpecificUnitWindow(Role.Silhouette, Team.Creep);
 
         protected override IRenderable EntityInfo => (forSpecificUnit)
-            ? SpecificUnitWindow(specificRole, GameContext.ActiveTeam)
+            ? SpecificUnitWindow(specificRole, GlobalContext.ActiveTeam)
             : FreeContractWindow;
     }
 }

@@ -26,7 +26,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
             SelfBonus = selfBonus;
             this.auraRange = auraRange;
             SongSprite = AnimatedSpriteProvider.GetAnimatedSprite(AnimationType.SongHymn, GameDriver.CellSizeVector,
-                SongAnimationFrameDelay, GetSongColor(GameContext.ActiveTeam));
+                SongAnimationFrameDelay, GetSongColor(GlobalContext.ActiveTeam));
         }
 
         protected static Color GetSongColor(Team team)
@@ -64,7 +64,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
 
         protected static bool UnitIsAffectedBySong(GameUnit unitAffected, SongStatus song)
         {
-            GameUnit singer = GameContext.Units.FirstOrDefault(unit => unit.StatusEffects.Contains(song));
+            GameUnit singer = GlobalContext.Units.FirstOrDefault(unit => unit.StatusEffects.Contains(song));
 
             if (singer == null || unitAffected == null || !singer.IsAlive || !unitAffected.IsAlive) return false;
 

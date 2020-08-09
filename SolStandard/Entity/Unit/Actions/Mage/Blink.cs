@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             {
                 if (CanMoveToTargetTile(targetSlice))
                 {
-                    UnitEntity targetEntity = GameContext.ActiveUnit.UnitEntity;
+                    UnitEntity targetEntity = GlobalContext.ActiveUnit.UnitEntity;
 
                     MapContainer.ClearDynamicAndPreviewGrids();
 
@@ -74,7 +74,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                     eventQueue.Enqueue(new HideUnitEvent(targetEntity));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new BlinkCoordinatesEvent(
-                        GameContext.ActiveUnit.UnitEntity,
+                        GlobalContext.ActiveUnit.UnitEntity,
                         targetSlice.MapCoordinates
                     ));
                     eventQueue.Enqueue(new UnhideUnitEvent(targetEntity));
@@ -84,13 +84,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Item has no uses remaining!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Item has no uses remaining!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -8,7 +8,7 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            GameContext.DeploymentContext.SelectNextUnit();
+            GlobalContext.DeploymentContext.SelectNextUnit();
             Complete = true;
         }
     }

@@ -73,7 +73,7 @@ namespace SolStandard.Entity.General
 
                 if (!TargetTileIsObstructed)
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,
                         "LAUNCHED!", 50);
                     (Sprite as AnimatedSpriteSheet)?.PlayOnce();
                     MoveUnitToCoordinates(unitOnSpring, trapLaunchCoordinates);
@@ -81,14 +81,14 @@ namespace SolStandard.Entity.General
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,
                         "Destination is obstructed; can't launch!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
                     "No unit on spring!", MapCoordinates, 50);
                 AssetManager.WarningSFX.Play();
             }

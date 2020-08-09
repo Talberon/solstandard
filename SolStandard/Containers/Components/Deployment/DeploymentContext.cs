@@ -27,7 +27,7 @@ namespace SolStandard.Containers.Components.Deployment
         public bool CanPressConfirm => HoveringOverDeployTile;
 
         private bool HoveringOverDeployTile =>
-            GameContext.GameMapContext.MapContainer.GetMapSliceAtCursor().TerrainEntity is DeployTile;
+            GlobalContext.GameMapContext.MapContainer.GetMapSliceAtCursor().TerrainEntity is DeployTile;
 
         public DeploymentContext(List<GameUnit> blueArmy, List<GameUnit> redArmy, MapContainer map, Team firstTurn)
         {
@@ -36,7 +36,7 @@ namespace SolStandard.Containers.Components.Deployment
             this.map = map;
             CurrentTurn = firstTurn;
             currentUnit = GetArmy(CurrentTurn).First();
-            DeploymentView = new DeploymentView(blueArmy, redArmy, currentUnit, GameContext.Scenario);
+            DeploymentView = new DeploymentView(blueArmy, redArmy, currentUnit, GlobalContext.Scenario);
             MoveToNextDeploymentTile();
         }
 
@@ -93,7 +93,7 @@ namespace SolStandard.Containers.Components.Deployment
                 currentUnit.UnitEntity.SnapToCoordinates(map.MapCursor.MapCoordinates);
             }
 
-            GameContext.Units.Add(currentUnit);
+            GlobalContext.Units.Add(currentUnit);
             GetArmy(currentUnit.Team).Remove(currentUnit);
             DeploymentView.UpdateRosterLists(blueArmy, redArmy, currentUnit);
         }
@@ -106,7 +106,7 @@ namespace SolStandard.Containers.Components.Deployment
 
         private void UpdateHoverView()
         {
-            MapSlice hoverSlice = GameContext.GameMapContext.MapContainer.GetMapSliceAtCursor();
+            MapSlice hoverSlice = GlobalContext.GameMapContext.MapContainer.GetMapSliceAtCursor();
             GameUnit hoverUnit = UnitSelector.SelectUnit(hoverSlice.UnitEntity);
 
             MapContainer.ClearDynamicAndPreviewGrids();
@@ -169,8 +169,8 @@ namespace SolStandard.Containers.Components.Deployment
                 List<GameUnit> opposingArmy = GetArmy(OpposingTeam(CurrentTurn));
                 if (opposingArmy.Count == 0)
                 {
-                    GameContext.CurrentGameState = GameContext.GameState.InGame;
-                    GameContext.InitiativeContext.StartFirstTurn();
+                    GlobalContext.CurrentGameState = GlobalContext.GameState.InGame;
+                    GlobalContext.InitiativeContext.StartFirstTurn();
                     GameMapContext.UpdateWindowsEachTurn();
                 }
                 else

@@ -46,11 +46,11 @@ namespace SolStandard.Entity.Unit.Actions
                 string toastMessage = "Guard!" + Environment.NewLine +
                                       "Recovered [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
                                       "!";
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastMessage, 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastMessage, 50);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

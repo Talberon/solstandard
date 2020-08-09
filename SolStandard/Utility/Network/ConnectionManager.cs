@@ -186,7 +186,7 @@ namespace SolStandard.Utility.Network
 
         private void ConnectionEstablished(NetPeer peer)
         {
-            GameContext.LoadMapSelect();
+            GlobalContext.LoadMapSelect();
 
             if (ConnectedAsServer)
             {

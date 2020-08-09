@@ -69,7 +69,7 @@ namespace SolStandard.Entity.General.Item
         public void Consume(GameUnit targetUnit)
         {
             IsBroken = true;
-            GameContext.ActiveUnit.RemoveItemFromInventory(this);
+            GlobalContext.ActiveUnit.RemoveItemFromInventory(this);
 
             switch (statistic)
             {

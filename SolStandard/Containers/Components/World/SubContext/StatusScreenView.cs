@@ -42,14 +42,14 @@ namespace SolStandard.Containers.Components.World.SubContext
 
         public void UpdateWindows()
         {
-            if (GameContext.Units.Any(unit => unit.Team == Team.Blue))
+            if (GlobalContext.Units.Any(unit => unit.Team == Team.Blue))
             {
                 GenerateBlueTeamLeaderPortraitWindow();
                 GenerateBlueTeamUnitRosterWindow();
                 GenerateBlueTeamResultWindow(BlueTeamResultText);
             }
 
-            if (GameContext.Units.Any(unit => unit.Team == Team.Red))
+            if (GlobalContext.Units.Any(unit => unit.Team == Team.Red))
             {
                 GenerateRedTeamLeaderPortraitWindow();
                 GenerateRedTeamUnitRosterWindow();
@@ -134,7 +134,7 @@ namespace SolStandard.Containers.Components.World.SubContext
 
         private static GameUnit FindTeamLeader(Team team)
         {
-            return GameContext.Units.Find(unit => unit.Team == team && unit.IsCommander);
+            return GlobalContext.Units.Find(unit => unit.Team == team && unit.IsCommander);
         }
 
         private static IRenderable[,] LeaderContent(GameUnit leader)
@@ -151,7 +151,7 @@ namespace SolStandard.Containers.Components.World.SubContext
 
         private IRenderable[,] GenerateUnitRoster(Team team)
         {
-            List<GameUnit> teamUnits = GameContext.Units.FindAll(unit => unit.Team == team);
+            List<GameUnit> teamUnits = GlobalContext.Units.FindAll(unit => unit.Team == team);
 
             var unitRosterGrid = new IRenderable[1, teamUnits.Count];
 

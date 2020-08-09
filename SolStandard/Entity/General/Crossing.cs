@@ -37,7 +37,7 @@ namespace SolStandard.Entity.General
 
         private bool UnitOnOppositeCrossDirection(Direction directionToCross)
         {
-            Vector2 unitCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+            Vector2 unitCoordinates = GlobalContext.ActiveUnit.UnitEntity.MapCoordinates;
 
             return directionToCross switch
             {

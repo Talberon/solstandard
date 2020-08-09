@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions
         private static IRenderable UnitIcon(Role role)
         {
             ITexture2D unitPortrait = UnitGenerator.GetUnitPortrait(role,
-                (GameContext.ActiveUnit != null) ? GameContext.ActiveTeam : Team.Blue);
+                (GlobalContext.ActiveUnit != null) ? GlobalContext.ActiveTeam : Team.Blue);
             return new SpriteAtlas(unitPortrait,
                 new Vector2(unitPortrait.Width, unitPortrait.Height),
                 GameDriver.CellSizeVector
@@ -43,7 +43,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             if (TargetIsUnoccupiedTileInRange(targetSlice))
             {
-                if (spawnItem != null) GameContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
+                if (spawnItem != null) GlobalContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
 
                 var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
@@ -52,7 +52,7 @@ namespace SolStandard.Entity.Unit.Actions
                 eventQueue.Enqueue(
                     new SpawnUnitEvent(
                         unitRole,
-                        GameContext.ActiveTeam,
+                        GlobalContext.ActiveTeam,
                         targetSlice.MapCoordinates
                     )
                 );
@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -72,8 +72,8 @@ namespace SolStandard.Entity.Unit.Actions
             GameUnit unitToSpawn = UnitGenerator.GenerateAdHocUnit(role, team, false);
             unitToSpawn.UnitEntity.SnapToCoordinates(mapCoordinates);
             unitToSpawn.ExhaustAndDisableUnit();
-            GameContext.Units.Add(unitToSpawn);
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
+            GlobalContext.Units.Add(unitToSpawn);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
             AssetManager.SkillBuffSFX.Play();
         }
 

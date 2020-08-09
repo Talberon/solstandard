@@ -106,7 +106,7 @@ namespace SolStandard.Containers.Scenario.Objectives
                 //Escaping player must have their commander exit the map via an escape point
                 //Commander is not allowed to escape until all other units on the team are defeated or have escaped
                 List<GameUnit> remainingEscapeTeamUnits =
-                    GameContext.Units.Where(unit => unit.Team == escapeTeam).ToList();
+                    GlobalContext.Units.Where(unit => unit.Team == escapeTeam).ToList();
                 EscapedUnits.ForEach(unit => remainingEscapeTeamUnits.Remove(unit));
                 bool allNonCommandersEscapedOrDefeated =
                     remainingEscapeTeamUnits.TrueForAll(unit => !unit.IsAlive && !unit.IsCommander);

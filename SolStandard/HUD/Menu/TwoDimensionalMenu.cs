@@ -173,7 +173,7 @@ namespace SolStandard.HUD.Menu
             if (!IsVisible) return;
             menuWindow.Draw(spriteBatch, position, colorOverride);
 
-            Color cursorColor = TeamUtility.DetermineTeamCursorColor(GameContext.ActiveTeam);
+            Color cursorColor = TeamUtility.DetermineTeamCursorColor(GlobalContext.ActiveTeam);
             cursorSprite.Draw(spriteBatch, position + cursorPosition, cursorColor);
             
             ConfirmButton.Draw(spriteBatch,

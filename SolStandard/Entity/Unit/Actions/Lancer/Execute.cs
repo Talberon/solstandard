@@ -36,13 +36,13 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            Range = GameContext.ActiveUnit.Stats.CurrentAtkRange;
+            Range = GlobalContext.ActiveUnit.Stats.CurrentAtkRange;
             base.GenerateActionGrid(origin, mapLayer);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit attacker = GameContext.ActiveUnit;
+            GameUnit attacker = GlobalContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             int atkDamage = ApplyPercentageRoundedUp(attacker.Stats.Atk, damagePercent);
@@ -66,7 +66,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

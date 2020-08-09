@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         {
             var attackTiles = new List<MapDistanceTile>();
 
-            int limitedGallopDistance = Math.Min(chargeDistance, GameContext.ActiveUnit.Stats.Mv);
+            int limitedGallopDistance = Math.Min(chargeDistance, GlobalContext.ActiveUnit.Stats.Mv);
 
             for (int i = limitedGallopDistance; i > 1; i--)
             {
@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                 if (!PathIsObstructed(targetSlice, targetUnit))
                 {
                     Queue<IEvent> eventQueue = PathingUtil.MoveToCoordinates(
-                        GameContext.ActiveUnit,
+                        GlobalContext.ActiveUnit,
                         targetUnit.UnitEntity.MapCoordinates,
                         true,
                         false,
@@ -75,13 +75,13 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -92,14 +92,14 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             if (TargetIsNorth(targetSlice))
             {
                 int distanceToTarget = Convert.ToInt32(
-                    GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y - targetSlice.MapCoordinates.Y
+                    GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y - targetSlice.MapCoordinates.Y
                 );
 
                 for (int northDistance = 1; northDistance < distanceToTarget; northDistance++)
                 {
                     var coordinatesToCheck = new Vector2(
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.X,
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y - northDistance
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X,
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y - northDistance
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
@@ -111,14 +111,14 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             if (TargetIsSouth(targetSlice))
             {
                 int distanceToTarget = Convert.ToInt32(
-                    targetSlice.MapCoordinates.Y - GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y
+                    targetSlice.MapCoordinates.Y - GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y
                 );
 
                 for (int southDistance = 1; southDistance < distanceToTarget; southDistance++)
                 {
                     var coordinatesToCheck = new Vector2(
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.X,
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y + southDistance
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X,
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y + southDistance
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
@@ -130,14 +130,14 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             if (TargetIsEast(targetSlice))
             {
                 int distanceToTarget = Convert.ToInt32(
-                    targetSlice.MapCoordinates.X - GameContext.ActiveUnit.UnitEntity.MapCoordinates.X
+                    targetSlice.MapCoordinates.X - GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X
                 );
 
                 for (int eastDistance = 1; eastDistance < distanceToTarget; eastDistance++)
                 {
                     var coordinatesToCheck = new Vector2(
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.X + eastDistance,
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X + eastDistance,
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
@@ -149,14 +149,14 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             if (TargetIsWest(targetSlice))
             {
                 int distanceToTarget = Convert.ToInt32(
-                    GameContext.ActiveUnit.UnitEntity.MapCoordinates.X - targetSlice.MapCoordinates.X
+                    GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X - targetSlice.MapCoordinates.X
                 );
 
                 for (int westDistance = 1; westDistance < distanceToTarget; westDistance++)
                 {
                     var coordinatesToCheck = new Vector2(
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.X - westDistance,
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X - westDistance,
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
@@ -175,22 +175,22 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         private static bool TargetIsNorth(MapSlice targetSlice)
         {
-            return targetSlice.MapCoordinates.Y < GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y;
+            return targetSlice.MapCoordinates.Y < GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y;
         }
 
         private static bool TargetIsSouth(MapSlice targetSlice)
         {
-            return targetSlice.MapCoordinates.Y > GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y;
+            return targetSlice.MapCoordinates.Y > GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y;
         }
 
         private static bool TargetIsEast(MapSlice targetSlice)
         {
-            return targetSlice.MapCoordinates.X > GameContext.ActiveUnit.UnitEntity.MapCoordinates.X;
+            return targetSlice.MapCoordinates.X > GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X;
         }
 
         private static bool TargetIsWest(MapSlice targetSlice)
         {
-            return targetSlice.MapCoordinates.X < GameContext.ActiveUnit.UnitEntity.MapCoordinates.X;
+            return targetSlice.MapCoordinates.X < GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X;
         }
 
 

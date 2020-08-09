@@ -10,9 +10,9 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            Vector2 coordinates = (GameContext.MapCursor != null) ? GameContext.MapCursor.MapCoordinates : Vector2.Zero;
+            Vector2 coordinates = (GlobalContext.MapCursor != null) ? GlobalContext.MapCursor.MapCoordinates : Vector2.Zero;
 
-            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Ping, GameDriver.CellSizeVector),
                 coordinates
             );

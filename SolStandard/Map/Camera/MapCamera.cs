@@ -140,13 +140,13 @@ namespace SolStandard.Map.Camera
 
         public void SnapCameraCenterToCursor()
         {
-            CenterCameraToPoint(GameContext.MapCursor.CenterPixelPoint);
+            CenterCameraToPoint(GlobalContext.MapCursor.CenterPixelPoint);
             currentPosition = targetPosition;
         }
 
         public void CenterCameraToCursor()
         {
-            CenterCameraToPoint(GameContext.MapCursor.CenterPixelPoint);
+            CenterCameraToPoint(GlobalContext.MapCursor.CenterPixelPoint);
         }
 
         private void CenterCameraToPoint(Vector2 centerPoint)
@@ -275,22 +275,22 @@ namespace SolStandard.Map.Camera
         {
             if (movingCameraToCursor)
             {
-                if (GameContext.MapCursor.CenterCursorScreenCoordinates.X < WestBound)
+                if (GlobalContext.MapCursor.CenterCursorScreenCoordinates.X < WestBound)
                 {
                     MoveCameraInDirection(CameraDirection.Left);
                 }
 
-                if (GameContext.MapCursor.CenterCursorScreenCoordinates.X > EastBound)
+                if (GlobalContext.MapCursor.CenterCursorScreenCoordinates.X > EastBound)
                 {
                     MoveCameraInDirection(CameraDirection.Right);
                 }
 
-                if (GameContext.MapCursor.CenterCursorScreenCoordinates.Y < NorthBound)
+                if (GlobalContext.MapCursor.CenterCursorScreenCoordinates.Y < NorthBound)
                 {
                     MoveCameraInDirection(CameraDirection.Up);
                 }
 
-                if (GameContext.MapCursor.CenterCursorScreenCoordinates.Y > SouthBound)
+                if (GlobalContext.MapCursor.CenterCursorScreenCoordinates.Y > SouthBound)
                 {
                     MoveCameraInDirection(CameraDirection.Down);
                 }
@@ -304,17 +304,17 @@ namespace SolStandard.Map.Camera
 
         private float WestBound =>
             0 + HorizontalCursorThreshold +
-            (GameContext.MapCursor.RenderSprite.Width * CurrentZoom);
+            (GlobalContext.MapCursor.RenderSprite.Width * CurrentZoom);
 
         private float EastBound =>
             GameDriver.ScreenSize.X - HorizontalCursorThreshold -
-            (GameContext.MapCursor.RenderSprite.Width * CurrentZoom);
+            (GlobalContext.MapCursor.RenderSprite.Width * CurrentZoom);
 
         private float NorthBound => 0 + TopCursorThreshold;
 
         private float SouthBound =>
             GameDriver.ScreenSize.Y - BottomCursorThreshold -
-            (GameContext.MapCursor.RenderSprite.Height * CurrentZoom);
+            (GlobalContext.MapCursor.RenderSprite.Height * CurrentZoom);
 
         private void CorrectCameraToMap()
         {

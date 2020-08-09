@@ -12,9 +12,9 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            if (GameContext.Scenario.Objectives[VictoryConditions.Surrender] is Surrender surrender)
+            if (GlobalContext.Scenario.Objectives[VictoryConditions.Surrender] is Surrender surrender)
             {
-                switch (GameContext.ActiveTeam)
+                switch (GlobalContext.ActiveTeam)
                 {
                     case Team.Red:
                         surrender.RedConcedes = true;
@@ -27,7 +27,7 @@ namespace SolStandard.Utility.Events.Network
                 }
 
                 //Exit the menu and end the turn
-                GameContext.CurrentGameState = GameContext.GameState.InGame;
+                GlobalContext.CurrentGameState = GlobalContext.GameState.InGame;
             }
             else
             {

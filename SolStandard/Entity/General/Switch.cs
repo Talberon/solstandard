@@ -65,7 +65,7 @@ namespace SolStandard.Entity.General
             if (!CanTrigger) return;
 
             UnitAction toggleAction = TileActions().First();
-            toggleAction.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            toggleAction.GenerateActionGrid(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates);
             toggleAction.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(MapCoordinates));
             MapContainer.ClearDynamicAndPreviewGrids();
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());

@@ -85,7 +85,7 @@ namespace SolStandard.Entity.General
             {
                 IsExpired = true;
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
                     trapMessage + Environment.NewLine + "Trap is broken!", MapCoordinates, 80);
 
                 AssetManager.CombatDamageSFX.Play();
@@ -93,13 +93,13 @@ namespace SolStandard.Entity.General
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
                     80);
                 AssetManager.CombatDamageSFX.Play();
             }
 
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
-            GameContext.MapCamera.SnapCameraCenterToCursor();
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
+            GlobalContext.MapCamera.SnapCameraCenterToCursor();
             return true;
         }
 
@@ -107,14 +107,14 @@ namespace SolStandard.Entity.General
         {
             if (triggerTime != EffectTriggerTime.StartOfRound || HasTriggered || !enabled) return false;
 
-            return GameContext.Units.Any(unit => unit?.UnitEntity?.MapCoordinates == MapCoordinates);
+            return GlobalContext.Units.Any(unit => unit?.UnitEntity?.MapCoordinates == MapCoordinates);
         }
 
         public void RemoteTrigger()
         {
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
-            GameContext.MapCamera.SnapCameraCenterToCursor();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
+            GlobalContext.MapCamera.SnapCameraCenterToCursor();
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
 
             ToggleTrap();
         }

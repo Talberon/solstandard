@@ -110,7 +110,7 @@ namespace SolStandard.Entity.Unit
         public UnitStatistics Stats { get; }
         public Team Team { get; }
         public Role Role { get; }
-        public bool IsActive => GameContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted;
+        public bool IsActive => GlobalContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted;
         public IRenderable LargePortrait => largePortrait;
         public IRenderable MediumPortrait => mediumPortrait;
         public IRenderable SmallPortrait => smallPortrait;
@@ -552,7 +552,7 @@ namespace SolStandard.Entity.Unit
             KillIfDead();
 
             if (UnitEntity == null) return;
-            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Damage, GameDriver.CellSizeVector),
                 UnitEntity.MapCoordinates
             );
@@ -572,7 +572,7 @@ namespace SolStandard.Entity.Unit
             healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
 
             if (UnitEntity == null) return;
-            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverArmor, GameDriver.CellSizeVector),
                 UnitEntity.MapCoordinates
             );
@@ -593,7 +593,7 @@ namespace SolStandard.Entity.Unit
             healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
 
             if (UnitEntity == null) return;
-            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverHealth, GameDriver.CellSizeVector),
                 UnitEntity.MapCoordinates
             );
@@ -727,7 +727,7 @@ namespace SolStandard.Entity.Unit
                 return true;
             }
             
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 100);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 100);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -743,7 +743,7 @@ namespace SolStandard.Entity.Unit
             smallPortrait.DefaultColor = DeadPortraitColor;
             Logger.Debug("Unit " + Id + " is dead!");
             AssetManager.CombatDeathSFX.Play();
-            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Death, GameDriver.CellSizeVector),
                 MapEntity.MapCoordinates
             );
@@ -805,7 +805,7 @@ namespace SolStandard.Entity.Unit
                     new List<IItem>(Inventory)
                 );
 
-            GameContext.InitiativeContext.DeductGoldFromTeam(CurrentBounty, Team);
+            GlobalContext.InitiativeContext.DeductGoldFromTeam(CurrentBounty, Team);
             CurrentBounty = 0;
             Inventory.Clear();
         }

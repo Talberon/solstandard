@@ -64,7 +64,7 @@ namespace SolStandard.Entity.Unit.Actions
 
                     if (trapItem != null)
                     {
-                        GameContext.ActiveUnit.RemoveItemFromInventory(trapItem);
+                        GlobalContext.ActiveUnit.RemoveItemFromInventory(trapItem);
                         trapItem.SnapToCoordinates(targetSlice.MapCoordinates);
                         trapToPlace = trapItem;
                     }
@@ -95,13 +95,13 @@ namespace SolStandard.Entity.Unit.Actions
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not in range!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

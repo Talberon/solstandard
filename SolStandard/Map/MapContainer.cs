@@ -75,7 +75,7 @@ namespace SolStandard.Map
 
         public static Vector2 MapScreenSizeInPixels =>
             new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1))
-            * GameDriver.CellSize * GameContext.MapCamera.CurrentZoom;
+            * GameDriver.CellSize * GlobalContext.MapCamera.CurrentZoom;
 
         private static void AddNewToastAtMapPixelCoordinates(IRenderable content, Vector2 mapPixelCoordinates,
             int lifetimeInFrames)
@@ -264,7 +264,7 @@ namespace SolStandard.Map
                 tile?.Draw(spriteBatch);
             }
 
-            GameContext.Units.ForEach(unit => unit.DrawAuras(spriteBatch));
+            GlobalContext.Units.ForEach(unit => unit.DrawAuras(spriteBatch));
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Dynamic])
             {
@@ -276,7 +276,7 @@ namespace SolStandard.Map
                 tile?.Draw(spriteBatch);
             }
 
-            GameContext.Units.ForEach(unit => unit.UnitEntity?.Draw(spriteBatch));
+            GlobalContext.Units.ForEach(unit => unit.UnitEntity?.Draw(spriteBatch));
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Overlay])
             {

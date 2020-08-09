@@ -52,9 +52,9 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (!CanAffordCommandCost(GameContext.ActiveUnit, cmdCost))
+            if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -88,12 +88,12 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
                     return true;
                 }
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No space to land!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No space to land!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -102,12 +102,12 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
         {
             if (targetSlice.DynamicEntity != null && !LeapStrike.CoordinatesAreObstructed(targetSlice.MapCoordinates))
             {
-                GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
+                GlobalContext.ActiveUnit.RemoveCommandPoints(cmdCost);
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity,
+                eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GlobalContext.ActiveUnit.UnitEntity,
                     targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
@@ -118,7 +118,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
                 return true;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid landing space!", 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid landing space!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }

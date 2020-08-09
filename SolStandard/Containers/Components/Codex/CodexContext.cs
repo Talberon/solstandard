@@ -15,7 +15,7 @@ namespace SolStandard.Containers.Components.Codex
         private static List<GameUnit> _unitArchetypes;
 
         public readonly CodexView CodexView;
-        private GameContext.GameState previousGameState;
+        private GlobalContext.GameState previousGameState;
 
         public CodexContext()
         {
@@ -41,16 +41,16 @@ namespace SolStandard.Containers.Components.Codex
             {
                 return previousGameState switch
                 {
-                    GameContext.GameState.MainMenu => GameContext.P1Team,
-                    GameContext.GameState.ArmyDraft => GameContext.DraftContext.CurrentTurn,
-                    GameContext.GameState.Deployment => GameContext.DeploymentContext.CurrentTurn,
-                    GameContext.GameState.PauseScreen => GameContext.InitiativeContext.CurrentActiveTeam,
-                    GameContext.GameState.InGame => GameContext.InitiativeContext.CurrentActiveTeam,
-                    GameContext.GameState.NetworkMenu => GameContext.P1Team,
-                    GameContext.GameState.MapSelect => GameContext.P1Team,
-                    GameContext.GameState.Results => GameContext.P1Team,
-                    GameContext.GameState.ItemPreview => GameContext.InitiativeContext.CurrentActiveTeam,
-                    GameContext.GameState.Credits => GameContext.P1Team,
+                    GlobalContext.GameState.MainMenu => GlobalContext.P1Team,
+                    GlobalContext.GameState.ArmyDraft => GlobalContext.DraftContext.CurrentTurn,
+                    GlobalContext.GameState.Deployment => GlobalContext.DeploymentContext.CurrentTurn,
+                    GlobalContext.GameState.PauseScreen => GlobalContext.InitiativeContext.CurrentActiveTeam,
+                    GlobalContext.GameState.InGame => GlobalContext.InitiativeContext.CurrentActiveTeam,
+                    GlobalContext.GameState.NetworkMenu => GlobalContext.P1Team,
+                    GlobalContext.GameState.MapSelect => GlobalContext.P1Team,
+                    GlobalContext.GameState.Results => GlobalContext.P1Team,
+                    GlobalContext.GameState.ItemPreview => GlobalContext.InitiativeContext.CurrentActiveTeam,
+                    GlobalContext.GameState.Credits => GlobalContext.P1Team,
                     _ => throw new ArgumentOutOfRangeException(nameof(previousGameState),
                         $"Should not have arrived here via {previousGameState} state!")
                 };
@@ -59,16 +59,16 @@ namespace SolStandard.Containers.Components.Codex
 
         public void OpenMenu()
         {
-            if (GameContext.CurrentGameState == GameContext.GameState.Codex) return;
+            if (GlobalContext.CurrentGameState == GlobalContext.GameState.Codex) return;
 
-            previousGameState = GameContext.CurrentGameState;
-            GameContext.CurrentGameState = GameContext.GameState.Codex;
+            previousGameState = GlobalContext.CurrentGameState;
+            GlobalContext.CurrentGameState = GlobalContext.GameState.Codex;
         }
 
         public void CloseMenu()
         {
             AssetManager.MapUnitCancelSFX.Play();
-            GameContext.CurrentGameState = previousGameState;
+            GlobalContext.CurrentGameState = previousGameState;
         }
 
         public void MoveMenuCursor(MenuCursorDirection direction)

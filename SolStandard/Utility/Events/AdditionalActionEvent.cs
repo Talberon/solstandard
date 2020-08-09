@@ -9,7 +9,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            if (GameContext.ActiveUnit.IsAlive)
+            if (GlobalContext.ActiveUnit.IsAlive)
             {
                 StartExtraAction("Extra action!");
             }
@@ -23,8 +23,8 @@ namespace SolStandard.Utility.Events
 
         public static void StartExtraAction(string message)
         {
-            GameContext.GameMapContext.ResetToActionMenu();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(message, 50);
+            GlobalContext.GameMapContext.ResetToActionMenu();
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(message, 50);
             GameMapContext.UpdateWindowsEachTurn();
         }
     }

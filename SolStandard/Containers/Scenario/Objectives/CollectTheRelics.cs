@@ -93,13 +93,13 @@ namespace SolStandard.Containers.Scenario.Objectives
 
         public static int GetRelicCountForTeam(Team team)
         {
-            return GameContext.Units.Where(unit => unit.Team == team)
+            return GlobalContext.Units.Where(unit => unit.Team == team)
                 .Sum(unit => unit.Inventory.Count(item => item is Relic));
         }
 
         private static bool TeamIsWipedOut(Team team)
         {
-            return GameContext.Units.Where(unit => unit.Team == team).ToList().TrueForAll(unit => !unit.IsAlive);
+            return GlobalContext.Units.Where(unit => unit.Team == team).ToList().TrueForAll(unit => !unit.IsAlive);
         }
     }
 }

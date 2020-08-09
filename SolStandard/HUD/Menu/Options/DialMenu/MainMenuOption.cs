@@ -24,7 +24,7 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
 
         public override void Execute()
         {
-            GameContext.CurrentGameState = GameContext.GameState.MainMenu;
+            GlobalContext.CurrentGameState = GlobalContext.GameState.MainMenu;
             NetworkMenuView.ResetIPAddress();
         }
 

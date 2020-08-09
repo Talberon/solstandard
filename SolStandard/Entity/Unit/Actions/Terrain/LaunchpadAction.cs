@@ -43,7 +43,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new PlayEntityAnimationOnceEvent(launchpad));
-                eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity,
+                eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GlobalContext.ActiveUnit.UnitEntity,
                     targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.DoorSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
@@ -52,7 +52,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't land here!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't land here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

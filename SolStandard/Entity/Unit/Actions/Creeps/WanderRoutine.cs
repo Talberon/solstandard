@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit roamer = GameContext.ActiveUnit;
+            GameUnit roamer = GlobalContext.ActiveUnit;
             GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Wandering...", 50));
             Roam(roamer);
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));

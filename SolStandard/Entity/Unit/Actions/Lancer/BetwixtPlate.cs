@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                GameUnit attacker = GameContext.ActiveUnit;
+                GameUnit attacker = GlobalContext.ActiveUnit;
 
                 //Subtract the remaining percent damage from Attacker's ATK stat
                 float remainingPercentage = 100 - percent;
@@ -56,7 +56,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

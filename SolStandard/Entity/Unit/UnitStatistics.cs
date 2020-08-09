@@ -184,9 +184,9 @@ namespace SolStandard.Entity.Unit
 
         public static Color DetermineStatColor(int stat, int baseStat)
         {
-            if (stat > baseStat) return GameContext.PositiveColor;
-            if (stat == baseStat) return GameContext.NeutralColor;
-            if (stat < baseStat) return GameContext.NegativeColor;
+            if (stat > baseStat) return GlobalContext.PositiveColor;
+            if (stat == baseStat) return GlobalContext.NeutralColor;
+            if (stat < baseStat) return GlobalContext.NegativeColor;
 
             return Color.White;
         }

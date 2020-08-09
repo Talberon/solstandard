@@ -14,7 +14,7 @@ namespace SolStandard.Utility.Events.Network
         
         public override void Continue()
         {
-            GameContext.GameMapContext.DecrementCurrentAdjustableAction(value);
+            GlobalContext.GameMapContext.DecrementCurrentAdjustableAction(value);
             Complete = true;
         }
     }

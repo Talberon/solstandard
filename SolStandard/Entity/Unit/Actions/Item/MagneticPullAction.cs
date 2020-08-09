@@ -73,19 +73,19 @@ namespace SolStandard.Entity.Unit.Actions.Item
                     }
                     else
                     {
-                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
+                        GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
                         AssetManager.WarningSFX.Play();
                     }
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Item is broken!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Item is broken!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

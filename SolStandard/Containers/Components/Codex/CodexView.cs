@@ -65,7 +65,7 @@ namespace SolStandard.Containers.Components.Codex
                 actionElements[i, nameIndex] =
                     new Window(
                         new RenderText(AssetManager.WindowFont, codexActions[i].Name,
-                            (codexActions[i].FreeAction) ? GameContext.PositiveColor : Color.White), Color.Transparent);
+                            (codexActions[i].FreeAction) ? GlobalContext.PositiveColor : Color.White), Color.Transparent);
 
                 actionElements[i, rangeIndex] = new Window(
                     new RenderText(

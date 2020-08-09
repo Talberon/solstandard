@@ -140,7 +140,7 @@ namespace SolStandard.Containers.Components.World.SubContext
 
             SetPromptWindowText("Start Combat!");
 
-            GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Combat);
+            GlobalContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Combat);
             SelfCanContinue = true;
             GlobalEventQueue.QueueSingleEvent(new CombatNotifyStateCompleteEvent(CurrentState));
         }
@@ -183,8 +183,8 @@ namespace SolStandard.Containers.Components.World.SubContext
                         defenderProcs.ForEach(proc => proc.OnCombatEnd(attacker, defender));
 
                         AssetManager.MapUnitSelectSFX.Play();
-                        GameContext.MapCamera.RevertToPreviousZoomLevel();
-                        GameContext.GameMapContext.CurrentTurnState = GameMapContext.TurnState.FinishingCombat;
+                        GlobalContext.MapCamera.RevertToPreviousZoomLevel();
+                        GlobalContext.GameMapContext.CurrentTurnState = GameMapContext.TurnState.FinishingCombat;
 
                         //Events
                         if (!attacker.IsAlive)
@@ -391,7 +391,7 @@ namespace SolStandard.Containers.Components.World.SubContext
             var totalBonus = new BonusStatistics(0, 0, 0, 0);
 
             var songsInPlay = new List<SongStatus>();
-            foreach (GameUnit livingUnit in GameContext.Units.Where(unit => unit.IsAlive))
+            foreach (GameUnit livingUnit in GlobalContext.Units.Where(unit => unit.IsAlive))
             {
                 songsInPlay.AddRange(livingUnit.StatusEffects.Where(status => status is SongStatus).Cast<SongStatus>()
                     .ToList());

@@ -32,14 +32,14 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
                 GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(
-                    GameContext.ActiveUnit,
+                    GlobalContext.ActiveUnit,
                     new TempCombatStatus(new BlkStatUp(0, blockBonus))
                 ));
                 GlobalEventQueue.QueueSingleEvent(new StartCombatEvent(targetUnit));
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

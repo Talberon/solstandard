@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             get
             {
-                GameUnit hunter = GameContext.Units.Find(creep => creep.Actions.Contains(this));
+                GameUnit hunter = GlobalContext.Units.Find(creep => creep.Actions.Contains(this));
                 return UnobstructedTreasureInRange(hunter);
             }
         }
@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         private void SearchForTreasure()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            GameUnit activeUnit = GameContext.ActiveUnit;
+            GameUnit activeUnit = GlobalContext.ActiveUnit;
 
             if (activeUnit.UnitEntity != null && UnobstructedTreasureInRange(activeUnit))
             {
@@ -83,7 +83,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't find any items in range!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't find any items in range!", 50);
                 AssetManager.WarningSFX.Play();
                 GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
             }

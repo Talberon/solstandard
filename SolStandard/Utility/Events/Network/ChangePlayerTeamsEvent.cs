@@ -16,7 +16,7 @@ namespace SolStandard.Utility.Events.Network
         
         public override void Continue()
         {
-            GameContext.SetP1Team(p1Team);
+            GlobalContext.SetP1Team(p1Team);
             Complete = true;
         }
     }

@@ -19,7 +19,7 @@ namespace SolStandard.Utility.Events
         {
             if (duelistHasFocusPoints)
             {
-                (GameContext.ActiveUnit.StatusEffects.Find(status => status is FocusStatus) as FocusStatus)
+                (GlobalContext.ActiveUnit.StatusEffects.Find(status => status is FocusStatus) as FocusStatus)
                     ?.StartAdditionalAction();
             }
             //IMPORTANT Do not allow tiles that have been triggered to trigger again or the risk of soft-locking via infinite triggers can occur

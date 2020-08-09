@@ -63,7 +63,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         {
             if (enabled)
             {
-                GameContext.DraftContext.AddUnitToList(role, team);
+                GlobalContext.DraftContext.AddUnitToList(role, team);
             }
             else
             {

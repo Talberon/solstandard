@@ -56,7 +56,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private static List<GameUnit> GetEnemiesInRange()
         {
-            GameUnit actor = GameContext.ActiveUnit;
+            GameUnit actor = GlobalContext.ActiveUnit;
 
             MapContainer.ClearDynamicAndPreviewGrids();
 

@@ -16,7 +16,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
 
         public override void Execute()
         {
-            GameContext.LoadMapSelect();
+            GlobalContext.LoadMapSelect();
         }
 
         public override IRenderable Clone()

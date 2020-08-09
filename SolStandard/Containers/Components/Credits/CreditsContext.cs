@@ -10,7 +10,7 @@ namespace SolStandard.Containers.Components.Credits
     public class CreditsContext
     {
         public readonly ScrollingTextPaneView CreditsView;
-        private GameContext.GameState previousGameState;
+        private GlobalContext.GameState previousGameState;
         private const string CreditsPath = "/credits";
 
         public CreditsContext(ScrollingTextPaneView creditsView)
@@ -20,16 +20,16 @@ namespace SolStandard.Containers.Components.Credits
 
         public void OpenView()
         {
-            if (GameContext.CurrentGameState == GameContext.GameState.Credits) return;
+            if (GlobalContext.CurrentGameState == GlobalContext.GameState.Credits) return;
 
-            previousGameState = GameContext.CurrentGameState;
-            GameContext.CurrentGameState = GameContext.GameState.Credits;
+            previousGameState = GlobalContext.CurrentGameState;
+            GlobalContext.CurrentGameState = GlobalContext.GameState.Credits;
         }
 
         public void ExitView()
         {
             AssetManager.MapUnitCancelSFX.Play();
-            GameContext.CurrentGameState = previousGameState;
+            GlobalContext.CurrentGameState = previousGameState;
         }
 
         public void ScrollWindow(Direction direction)

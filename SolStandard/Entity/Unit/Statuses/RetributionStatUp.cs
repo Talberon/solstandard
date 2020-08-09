@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Statuses
             AssetManager.SkillBuffSFX.Play();
             target.Stats.RetModifier += retModifier;
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
         }
 
         protected override void ExecuteEffect(GameUnit target)

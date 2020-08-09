@@ -17,7 +17,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
 
         public override void Execute()
         {
-            GameContext.CodexContext.OpenMenu();
+            GlobalContext.CodexContext.OpenMenu();
         }
 
         public override IRenderable Clone()

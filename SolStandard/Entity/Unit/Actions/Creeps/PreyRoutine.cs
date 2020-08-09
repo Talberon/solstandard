@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit attacker = GameContext.ActiveUnit;
+            GameUnit attacker = GlobalContext.ActiveUnit;
 
             List<KeyValuePair<GameUnit, Vector2>> weakestTargetsInRange =
                 TargetsWithLowestEffectiveHealth(TilesWithinThreatRangeForUnit(attacker, Independent));
@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
                     targetSlice.MapCoordinates, 50);
                 AssetManager.WarningSFX.Play();
             }

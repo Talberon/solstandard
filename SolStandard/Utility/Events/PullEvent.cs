@@ -19,7 +19,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+            Vector2 actorCoordinates = GlobalContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = target.UnitEntity.MapCoordinates;
             Vector2 pullCoordinates = Challenge.DeterminePullPosition(actorCoordinates, targetCoordinates);
             target.UnitEntity.SlideToCoordinates(pullCoordinates);

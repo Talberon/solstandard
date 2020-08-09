@@ -18,9 +18,9 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.InitiativeContext.AddGoldToTeam(gold, GameContext.ActiveTeam);
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                $"{GameContext.ActiveTeam} team got {gold} {Currency.CurrencyAbbreviation}!", 50
+            GlobalContext.InitiativeContext.AddGoldToTeam(gold, GlobalContext.ActiveTeam);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                $"{GlobalContext.ActiveTeam} team got {gold} {Currency.CurrencyAbbreviation}!", 50
             );
             AssetManager.CoinSFX.Play();
             GameMapContext.GameMapView.GenerateObjectiveWindow();

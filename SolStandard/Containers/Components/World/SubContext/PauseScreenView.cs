@@ -85,7 +85,7 @@ namespace SolStandard.Containers.Components.World.SubContext
         public static void OpenScreen(PauseMenus menuType)
         {
             ChangeMenu(menuType);
-            GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
+            GlobalContext.CurrentGameState = GlobalContext.GameState.PauseScreen;
         }
 
         public static void Draw(SpriteBatch spriteBatch)

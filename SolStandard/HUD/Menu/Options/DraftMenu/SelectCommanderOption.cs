@@ -51,7 +51,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
                                         new Vector2(16)),
                                     new RenderText(
                                         AssetManager.SmallWindowFont, commandAction.Name,
-                                        commandAction.FreeAction ? GameContext.PositiveColor : Color.White
+                                        commandAction.FreeAction ? GlobalContext.PositiveColor : Color.White
                                     )
                                 }
                             },
@@ -68,7 +68,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         public override void Execute()
         {
             AssetManager.MenuConfirmSFX.Play();
-            GameContext.DraftContext.SelectCommander(unit);
+            GlobalContext.DraftContext.SelectCommander(unit);
         }
 
         public override IRenderable Clone()

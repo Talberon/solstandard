@@ -60,7 +60,7 @@ namespace SolStandard.Entity.Unit.Statuses
         {
             //Remove status
             RemoveEffect(attacker);
-            GameContext.ActiveUnit.StatusEffects.RemoveAll(effect => effect == this);
+            GlobalContext.ActiveUnit.StatusEffects.RemoveAll(effect => effect == this);
         }
     }
 }

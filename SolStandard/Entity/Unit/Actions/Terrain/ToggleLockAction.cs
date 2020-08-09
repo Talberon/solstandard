@@ -49,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Key doesn't work here!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Key doesn't work here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

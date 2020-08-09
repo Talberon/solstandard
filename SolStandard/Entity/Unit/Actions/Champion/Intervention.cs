@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target an ally in range!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             if (CanPlaceObstacleAtTarget(targetSlice))
             {
                 barricade.SnapToCoordinates(targetSlice.MapCoordinates);
-                GameContext.ActiveUnit.RemoveItemFromInventory(barricade);
+                GlobalContext.ActiveUnit.RemoveItemFromInventory(barricade);
 
                 var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(barricade, Layer.Entities, AssetManager.CombatBlockSFX));
@@ -41,7 +41,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot place obstacle here!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot place obstacle here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

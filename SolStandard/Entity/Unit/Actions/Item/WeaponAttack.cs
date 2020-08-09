@@ -69,7 +69,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
                     eventQueue.Enqueue(
                         new StartCombatEvent(targetUnit, false,
-                            GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(stats))
+                            GlobalContext.ActiveUnit.Stats.ApplyWeaponStatistics(stats))
                     );
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
@@ -83,13 +83,13 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Weapon is broken!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Weapon is broken!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -99,8 +99,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
             stats.DecrementRemainingUses();
             if (!stats.IsBroken) return;
 
-            GameContext.ActiveUnit.RemoveItemFromInventory(sourceWeapon);
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Weapon is broken!", 50);
+            GlobalContext.ActiveUnit.RemoveItemFromInventory(sourceWeapon);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Weapon is broken!", 50);
             AssetManager.CombatDeathSFX.Play();
 
             if (Icon is SpriteAtlas icon) icon.DefaultColor = GameUnit.DeadPortraitColor;

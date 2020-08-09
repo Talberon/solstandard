@@ -40,9 +40,9 @@ namespace SolStandard.Entity.Unit.Actions.Bard
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (!CanAffordCommandCost(GameContext.ActiveUnit, cmdCost))
+            if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -50,7 +50,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
 
             if (!SingerIsSinging)
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Performer must be playing first!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Performer must be playing first!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
             }
@@ -59,7 +59,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
 
             if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
-                GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
+                GlobalContext.ActiveUnit.RemoveCommandPoints(cmdCost);
 
                 List<SongStatus> otherSongs = targetUnit.StatusEffects
                     .Where(status => status is SongStatus && !(status is TempestStatus))
@@ -78,7 +78,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

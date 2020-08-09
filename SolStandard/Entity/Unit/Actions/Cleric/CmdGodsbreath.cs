@@ -38,12 +38,12 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit actor = GameContext.ActiveUnit;
+            GameUnit actor = GlobalContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             if (!CanAffordCommandCost(actor, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -84,7 +84,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self or ally!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self or ally!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

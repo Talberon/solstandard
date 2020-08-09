@@ -66,7 +66,7 @@ namespace SolStandard.Entity.General.Item
 
             if (turnsRemaining > 0)
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
                     "Fuse is burning...",
                     MapCoordinates,
                     50
@@ -75,8 +75,8 @@ namespace SolStandard.Entity.General.Item
                 return true;
             }
 
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
-            GameContext.MapCamera.SnapCameraCenterToCursor();
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
+            GlobalContext.MapCamera.SnapCameraCenterToCursor();
 
             var bombTargetContext =
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack));
@@ -109,7 +109,7 @@ namespace SolStandard.Entity.General.Item
 
             MapContainer.ClearDynamicAndPreviewGrids();
             IsExpired = true;
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
                 50);
             AssetManager.CombatDeathSFX.Play();
 

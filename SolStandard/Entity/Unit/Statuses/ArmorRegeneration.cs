@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public override void ApplyEffect(GameUnit target)
         {
             AssetManager.SkillBuffSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,
                 50
@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Statuses
         {
             target.RecoverArmor(armorModifier);
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 target.Id + " regenerates [" + armorModifier + "] " + UnitStatistics.Abbreviation[Stats.Armor] + "!",
                 50

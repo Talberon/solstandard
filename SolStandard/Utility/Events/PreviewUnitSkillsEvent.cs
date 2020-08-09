@@ -8,7 +8,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.GameMapContext.ShowUnitCodexEntry();
+            GlobalContext.GameMapContext.ShowUnitCodexEntry();
             Complete = true;
         }
     }

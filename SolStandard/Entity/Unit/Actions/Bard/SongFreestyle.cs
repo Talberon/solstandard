@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         {
             if (!SingerIsSinging)
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Performer must be playing first!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Performer must be playing first!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
             }
@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

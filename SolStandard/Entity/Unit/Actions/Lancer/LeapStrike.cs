@@ -51,12 +51,12 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         private static void GenerateLimitedActionRange(Vector2 origin, Layer mapLayer, IEnumerable<int> actionRange,
             IRenderable tileSprite)
         {
-            int[] adjustedRange = actionRange.Where(range => range <= GameContext.ActiveUnit.Stats.Mv).ToArray();
+            int[] adjustedRange = actionRange.Where(range => range <= GlobalContext.ActiveUnit.Stats.Mv).ToArray();
             var unitTargetingContext = new UnitTargetingContext(tileSprite);
 
             if (adjustedRange.Length > 0) unitTargetingContext.GenerateTargetingGrid(origin, adjustedRange, mapLayer);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
+            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -96,12 +96,12 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     return true;
                 }
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No space to land!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No space to land!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -114,7 +114,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
                 var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity,
+                eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GlobalContext.ActiveUnit.UnitEntity,
                     targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
@@ -123,7 +123,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                 return true;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid landing space!", 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid landing space!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }

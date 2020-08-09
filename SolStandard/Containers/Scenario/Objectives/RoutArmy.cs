@@ -41,10 +41,10 @@ namespace SolStandard.Containers.Scenario.Objectives
         {
             get
             {
-                bool blueTeamRouted = GameContext.Units.FindAll(unit => unit.Team == Team.Blue)
+                bool blueTeamRouted = GlobalContext.Units.FindAll(unit => unit.Team == Team.Blue)
                     .TrueForAll(unit => !unit.IsAlive);
 
-                bool redTeamRouted = GameContext.Units.FindAll(unit => unit.Team == Team.Red)
+                bool redTeamRouted = GlobalContext.Units.FindAll(unit => unit.Team == Team.Red)
                     .TrueForAll(unit => !unit.IsAlive);
 
                 if (blueTeamRouted && redTeamRouted)
