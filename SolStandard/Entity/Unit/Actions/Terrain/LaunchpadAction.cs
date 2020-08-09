@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Map;

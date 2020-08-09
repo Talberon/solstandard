@@ -7,9 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
-using SolStandard.Containers.View;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.InputRemapping;
+using SolStandard.Containers.Components.MainMenu;
+using SolStandard.Containers.Components.Network;
+using SolStandard.Containers.Components.World;
+using SolStandard.Containers.Components.World.SubContext;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.Unit;
 using SolStandard.NeoUtility.Controls.Inputs.Prefabs;
 using SolStandard.Utility;
@@ -25,9 +29,6 @@ using static System.Reflection.Assembly;
 
 namespace SolStandard
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     public class GameDriver : Game
     {
         // ReSharper disable once NotAccessedField.Local
@@ -38,20 +39,22 @@ namespace SolStandard
 
         // ReSharper disable once RedundantDefaultMemberInitializer
         public const bool DeveloperMode = false;
+
         // ReSharper disable once RedundantDefaultMemberInitializer
         public static bool DebugMode = false;
-        
+
         //Project Site
         public const string SolStandardUrl = "https://solstandard.talberon.com";
-        
+
         public static readonly string VersionNumber = GetExecutingAssembly().GetName().Version?.ToString()!;
 
         //Tile Size of Sprites
         public const int CellSize = 32;
         public const float CellSizeFloat = CellSize;
         public static readonly Vector2 CellSizeVector = new Vector2(CellSizeFloat);
-        
-        public static readonly string TmxObjectTypeDefaults = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "Content/TmxMaps/objecttypes.xml");
+
+        public static readonly string TmxObjectTypeDefaults =
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "Content/TmxMaps/objecttypes.xml");
 
         private static readonly Color BackgroundColor = new Color(20, 11, 40);
         private static readonly Color ActionFade = new Color(0, 0, 0, 190);
@@ -66,10 +69,10 @@ namespace SolStandard
         public static GameControlParser KeyboardParser;
         public static GameControlParser P1GamepadParser;
         public static GameControlParser P2GamepadParser;
-        
+
         //TODO Use this new Input Handling
         public static InputBindings InputBindings { get; private set; }
-        
+
         //Resolution
         public static Vector2 ScreenSize { get; private set; }
         public static Vector2 RenderResolution { get; private set; }
@@ -88,17 +91,17 @@ namespace SolStandard
             UseDefaultResolution();
 //            UseBorderlessFullscreen();
             Content.RootDirectory = "Content";
-            
+
             IsMouseVisible = true;
             IsFixedTimeStep = true;
             Window.AllowUserResizing = true;
-            
+
             VirtualResolution = new Point(640, 360);
             var windowResolution = new Point(1280, 720);
-            
+
             graphics.PreferredBackBufferWidth = windowResolution.X;
             graphics.PreferredBackBufferHeight = windowResolution.Y;
-            
+
             BoxingViewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, VirtualResolution.X,
                 VirtualResolution.Y);
         }
@@ -126,10 +129,6 @@ namespace SolStandard
             Window.AllowUserResizing = false;
         }
 
-
-        /// <summary>
-        /// Starts a new game by generating a new map
-        /// </summary>
         public static void NewGame(string mapName, Scenario scenario, Team firstTeam)
         {
             GameContext.StartGame(mapName, scenario, firstTeam);
@@ -156,7 +155,6 @@ namespace SolStandard
         }
 
         public static bool ConnectedAsServer => ConnectionManager.ConnectedAsServer;
-
         public static bool ConnectedAsClient => ConnectionManager.ConnectedAsClient;
 
         public static void InitializeControlMappers(Team playerOneTeam)
@@ -181,7 +179,6 @@ namespace SolStandard
             _quitting = true;
         }
 
-
         private static void CleanTmxFiles()
         {
             string tmxPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"Content/TmxMaps/");
@@ -203,7 +200,6 @@ namespace SolStandard
                 _ => GetControlMapperForPlayer(PlayerIndex.One)
             };
         }
-
 
         private static void InitializeControllers()
         {
@@ -229,7 +225,7 @@ namespace SolStandard
         protected override void Initialize()
         {
             base.Initialize();
-            
+
             RenderResolution = new Vector2(BoxingViewportAdapter.VirtualWidth, BoxingViewportAdapter.VirtualHeight);
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -270,7 +266,6 @@ namespace SolStandard
             AssetManager.LoadContent(Content);
         }
 
-
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
@@ -293,7 +288,7 @@ namespace SolStandard
             {
                 Exit();
             }
-            
+
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (DeveloperMode)
             {
@@ -509,7 +504,7 @@ namespace SolStandard
         private void DrawBackgroundWallpaper()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.BackgroundView.Draw(spriteBatch);
+            GameContext.StaticBackgroundView.Draw(spriteBatch);
             spriteBatch.End();
         }
 

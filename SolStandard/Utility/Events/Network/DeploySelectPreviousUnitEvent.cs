@@ -1,5 +1,5 @@
 using System;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 
 namespace SolStandard.Utility.Events.Network
 {

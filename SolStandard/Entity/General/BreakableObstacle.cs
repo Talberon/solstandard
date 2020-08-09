@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;

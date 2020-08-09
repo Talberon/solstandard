@@ -4,17 +4,17 @@ namespace SolStandard.NeoGFX.Juice
 {
     public static class JuiceBoxUtils
     {
-        public static JuiceBox.Builder JuiceBoxForWindow(Window window, float speed)
+        public static JuiceBox.Builder JuiceBoxForWindow(NeoWindow neoWindow, float speed)
         {
             return new JuiceBox.Builder(speed)
-                .WithMoveSmoothing(window.CurrentPosition)
-                .WithSizeSmoothing(window.Size())
-                .WithColorShifting(window.DefaultColor);
+                .WithMoveSmoothing(neoWindow.CurrentPosition)
+                .WithSizeSmoothing(neoWindow.Size())
+                .WithColorShifting(neoWindow.DefaultColor);
         }
 
-        public static Window.JuicyWindow ToJuicyWindow(this Window window, float speed = 0.99f)
+        public static NeoWindow.JuicyWindow ToJuicyWindow(this NeoWindow neoWindow, float speed = 0.99f)
         {
-            return new Window.JuicyWindow(window, JuiceBoxForWindow(window, speed).Build());
+            return new NeoWindow.JuicyWindow(neoWindow, JuiceBoxForWindow(neoWindow, speed).Build());
         }
     }
 }

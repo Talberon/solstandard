@@ -6,7 +6,7 @@ using MonoGame.Extended.Particles;
 
 namespace SolStandard.NeoGFX.Graphics.Particles
 {
-    public class ParticleFx : IRenderable
+    public class ParticleFx : INeoRenderable
     {
         public float Width => 1;
         public float Height => 1;

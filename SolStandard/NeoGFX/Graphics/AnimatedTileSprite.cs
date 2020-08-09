@@ -7,7 +7,7 @@ using SolStandard.NeoUtility.Monogame.Interfaces;
 
 namespace SolStandard.NeoGFX.Graphics
 {
-    public class AnimatedTileSprite : IPositionedRenderable
+    public class AnimatedTileSprite : IPositionedNeoRenderable
     {
         private readonly int millisDelay;
         private TimeSpan frameTimeRemaining;

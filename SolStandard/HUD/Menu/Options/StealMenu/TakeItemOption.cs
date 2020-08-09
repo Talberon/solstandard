@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions.Item;

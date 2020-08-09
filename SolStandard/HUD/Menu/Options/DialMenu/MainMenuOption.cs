@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.View;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.Network;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;

@@ -1,6 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Utility.Assets

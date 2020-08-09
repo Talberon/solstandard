@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Window;

@@ -1,5 +1,5 @@
 using System;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.HUD.Menu;
 
 namespace SolStandard.Utility.Events.Network

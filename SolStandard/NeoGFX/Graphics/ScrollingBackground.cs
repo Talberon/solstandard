@@ -7,7 +7,7 @@ using SolStandard.NeoUtility.General;
 
 namespace SolStandard.NeoGFX.Graphics
 {
-    public class ScrollingBackground : IPositionedRenderable
+    public class ScrollingBackground : IPositionedNeoRenderable
     {
         public float Width => sprite.Width;
         public float Height => sprite.Height;

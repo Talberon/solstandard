@@ -9,22 +9,22 @@ using SolStandard.NeoUtility.Monogame.Assets;
 
 namespace SolStandard.NeoGFX.GUI.Menus
 {
-    public class MenuContainer : IPositionedRenderable
+    public class MenuContainer : IPositionedNeoRenderable
     {
-        public MenuOption CurrentOption => CurrentMenu.CurrentOption;
+        public MenuOption CurrentOption => CurrentNeoMenu.CurrentOption;
 
-        public Menu CurrentMenu => menuStack.Peek();
+        public NeoMenu CurrentNeoMenu => menuStack.Peek();
         public bool IsAtRootMenu => menuStack.Count == 1;
 
-        private readonly Stack<Menu> menuStack;
+        private readonly Stack<NeoMenu> menuStack;
         private readonly bool drawAllMenus;
 
-        public MenuContainer(Menu initialMenu, bool drawAllMenus = false)
+        public MenuContainer(NeoMenu initialNeoMenu, bool drawAllMenus = false)
         {
             this.drawAllMenus = drawAllMenus;
 
-            menuStack = new Stack<Menu>();
-            menuStack.Push(initialMenu);
+            menuStack = new Stack<NeoMenu>();
+            menuStack.Push(initialNeoMenu);
         }
 
         public static MenuContainer Empty(bool drawAllMenus = false)
@@ -42,14 +42,14 @@ namespace SolStandard.NeoGFX.GUI.Menus
                 }
             };
 
-            var verticalMenu = new GridMenu(options, GameDriver.CenterScreen, 0, Point.Zero);
+            var verticalMenu = new GridNeoMenu(options, GameDriver.CenterScreen, 0, Point.Zero);
             return new MenuContainer(verticalMenu, drawAllMenus);
         }
 
-        public void OpenSubmenu(Menu nextMenu)
+        public void OpenSubmenu(NeoMenu nextNeoMenu)
         {
-            menuStack.Push(nextMenu);
-            CurrentMenu.Open();
+            menuStack.Push(nextNeoMenu);
+            CurrentNeoMenu.Open();
         }
 
         public void Cancel()
@@ -58,7 +58,7 @@ namespace SolStandard.NeoGFX.GUI.Menus
             {
                 SoundBox.MenuError.Play();
             }
-            else if (CurrentMenu.Close())
+            else if (CurrentNeoMenu.Close())
             {
                 CloseCurrent();
             }
@@ -90,22 +90,22 @@ namespace SolStandard.NeoGFX.GUI.Menus
 
         public void MoveCursor(CardinalDirection direction)
         {
-            CurrentMenu.MoveCursor(direction);
+            CurrentNeoMenu.MoveCursor(direction);
         }
 
         public void Confirm()
         {
-            CurrentMenu.Confirm();
+            CurrentNeoMenu.Confirm();
         }
 
         //Window stuff
 
-        public float Width => CurrentMenu.Width;
-        public float Height => CurrentMenu.Height;
+        public float Width => CurrentNeoMenu.Width;
+        public float Height => CurrentNeoMenu.Height;
 
         public void Update(GameTime gameTime)
         {
-            foreach (Menu menu in menuStack)
+            foreach (NeoMenu menu in menuStack)
             {
                 menu.Update(gameTime);
             }
@@ -115,21 +115,21 @@ namespace SolStandard.NeoGFX.GUI.Menus
         {
             if (drawAllMenus)
             {
-                foreach (Menu menu in menuStack.Reverse())
+                foreach (NeoMenu menu in menuStack.Reverse())
                 {
                     menu.Draw(spriteBatch);
                 }
             }
             else
             {
-                CurrentMenu.Draw(spriteBatch);
+                CurrentNeoMenu.Draw(spriteBatch);
             }
         }
 
         public Vector2 TopLeftPoint
         {
-            get => CurrentMenu.TopLeftPoint;
-            set => CurrentMenu.TopLeftPoint = value;
+            get => CurrentNeoMenu.TopLeftPoint;
+            set => CurrentNeoMenu.TopLeftPoint = value;
         }
     }
 }

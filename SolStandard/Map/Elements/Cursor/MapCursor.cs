@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NLog;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;

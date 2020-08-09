@@ -6,7 +6,7 @@ using SolStandard.NeoUtility.Monogame.Assets;
 
 namespace SolStandard.NeoGFX.GUI.Menus
 {
-    public abstract class MenuOption : IPositionedRenderable, IWindowContent
+    public abstract class MenuOption : IPositionedNeoRenderable, IWindowContent
     {
         public delegate void OnConfirm(MenuOption option);
 
@@ -21,9 +21,9 @@ namespace SolStandard.NeoGFX.GUI.Menus
         public readonly OffHover Unhover;
         public JuiceBox JuiceBox => JuicyWindow.JuiceBox;
 
-        protected Window.JuicyWindow JuicyWindow { get; set; }
+        protected NeoWindow.JuicyWindow JuicyWindow { get; set; }
 
-        protected MenuOption(OnConfirm onConfirm, OnHover onHover, OffHover offHover, Window.JuicyWindow juicyWindow)
+        protected MenuOption(OnConfirm onConfirm, OnHover onHover, OffHover offHover, NeoWindow.JuicyWindow juicyWindow)
         {
             Confirm = onConfirm;
             Hover = onHover;
@@ -42,14 +42,14 @@ namespace SolStandard.NeoGFX.GUI.Menus
             WindowPositionOffset = Vector2.Zero;
         }
 
-        private static Window.JuicyWindow GenerateJuicyWindow(string optionText, Color windowColor, float defaultSpeed)
+        private static NeoWindow.JuicyWindow GenerateJuicyWindow(string optionText, Color windowColor, float defaultSpeed)
         {
-            Window optionWindow = new Window.Builder()
-                .Content(new RenderText(AssetManager.WindowFont, optionText))
+            NeoWindow optionNeoWindow = new NeoWindow.Builder()
+                .Content(new NeoRenderText(AssetManager.WindowFont, optionText))
                 .WindowColor(windowColor)
                 .Build();
 
-            return optionWindow.ToJuicyWindow(defaultSpeed);
+            return optionNeoWindow.ToJuicyWindow(defaultSpeed);
         }
 
         //Window stuff

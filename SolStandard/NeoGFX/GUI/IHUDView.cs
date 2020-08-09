@@ -3,7 +3,7 @@ using SolStandard.NeoGFX.Graphics;
 
 namespace SolStandard.NeoGFX.GUI
 {
-    public interface IHUDView : IRenderable
+    public interface IHUDView : INeoRenderable
     {
         List<IWindow> Windows { get; }
     }

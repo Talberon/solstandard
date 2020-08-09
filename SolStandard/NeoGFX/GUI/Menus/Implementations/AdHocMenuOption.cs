@@ -4,7 +4,7 @@ namespace SolStandard.NeoGFX.GUI.Menus.Implementations
 {
     public class AdHocMenuOption : MenuOption
     {
-        public AdHocMenuOption(OnConfirm onConfirm, OnHover onHover, OffHover offHover, Window.JuicyWindow juicyWindow)
+        public AdHocMenuOption(OnConfirm onConfirm, OnHover onHover, OffHover offHover, NeoWindow.JuicyWindow juicyWindow)
             : base(onConfirm, onHover, offHover, juicyWindow)
         {
         }

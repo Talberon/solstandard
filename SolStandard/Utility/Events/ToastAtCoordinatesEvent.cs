@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility.Events
