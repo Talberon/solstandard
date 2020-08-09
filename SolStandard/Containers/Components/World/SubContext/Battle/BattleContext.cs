@@ -24,7 +24,7 @@ using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.Network;
 using SolStandard.Utility.Inputs;
 
-namespace SolStandard.Containers.Components.World.SubContext
+namespace SolStandard.Containers.Components.World.SubContext.Battle
 {
     public class BattleContext
     {

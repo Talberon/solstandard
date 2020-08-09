@@ -11,7 +11,7 @@ using SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Containers.Components.World.SubContext
+namespace SolStandard.Containers.Components.World.SubContext.Pause
 {
     public static class PauseScreenView
     {

@@ -9,7 +9,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Containers.Components.World.SubContext
+namespace SolStandard.Containers.Components.World.SubContext.Status
 {
     public class StatusScreenView : IUserInterface
     {

@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using NLog;
 using SolStandard.Containers.Components.Global;
 using SolStandard.Containers.Components.World.SubContext;
+using SolStandard.Containers.Components.World.SubContext.Movement;
+using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
@@ -16,6 +18,8 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -24,7 +28,7 @@ using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.Components.World
 {
-    public class GameMapContext
+    public class GameMapContext : IGameContext
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -53,6 +57,9 @@ namespace SolStandard.Containers.Components.World
             }
         }
 
+        public IHUDView View { get; }
+        public MenuContainer MenuContainer { get; }
+        
         public GameUnit SelectedUnit { get; private set; }
         private Vector2 selectedUnitOriginalPosition;
         public static GameMapView GameMapView { get; private set; }
@@ -61,6 +68,7 @@ namespace SolStandard.Containers.Components.World
         private int RoundCounter { get; set; }
         private bool CanCancelAction { get; set; }
         private GameUnit HoverUnit { get; set; }
+        private static bool ShowingItemPreview => GameMapView.ItemDetailWindow != null;
 
         private readonly Dictionary<Direction, UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitAnimationState>
@@ -80,6 +88,11 @@ namespace SolStandard.Containers.Components.World
             TurnCounter = 1;
             RoundCounter = 1;
             CanCancelAction = true;
+        }
+        
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
         }
 
         public bool CanPressConfirm => CurrentTurnState != TurnState.SelectUnit ||
@@ -843,7 +856,5 @@ namespace SolStandard.Containers.Components.World
 
             return items;
         }
-
-        private static bool ShowingItemPreview => GameMapView.ItemDetailWindow != null;
     }
 }

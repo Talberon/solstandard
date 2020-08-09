@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Components.Draft;
 using SolStandard.Containers.Components.Global;
 using SolStandard.Containers.Components.World.SubContext;
+using SolStandard.Containers.Components.World.SubContext.ActionMenu;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Containers.Scenario;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
@@ -22,9 +24,12 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Animation;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
+using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
+using IWindow = SolStandard.NeoGFX.GUI.IWindow;
 
 namespace SolStandard.Containers.Components.World
 {
@@ -32,7 +37,7 @@ namespace SolStandard.Containers.Components.World
      * GameMapContext is where the HUD elements for the SelectMapEntity Scene are handled.
      * HUD Elements in this case includes various map-screen windows.
      */
-    public class GameMapView : IUserInterface
+    public class GameMapView : IUserInterface, IHUDView
     {
         private enum MenuType
         {
@@ -940,6 +945,14 @@ namespace SolStandard.Containers.Components.World
 
         #endregion Window Positions
 
+        public float Width => GameDriver.VirtualResolution.X;
+        public float Height => GameDriver.VirtualResolution.Y;
+
+        public void Update(GameTime gameTime)
+        {
+            //Do nothing
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             EntityWindow?.Draw(spriteBatch, EntityWindowPosition());
@@ -984,5 +997,7 @@ namespace SolStandard.Containers.Components.World
             TakeItemMenu?.Draw(spriteBatch, SteamItemMenuPosition());
             CenterScreenContent?.Draw(spriteBatch, CenterItemOnScreen(CenterScreenContent));
         }
+
+        public List<IWindow> Windows { get; }
     }
 }

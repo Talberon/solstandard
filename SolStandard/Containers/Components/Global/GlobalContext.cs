@@ -16,6 +16,9 @@ using SolStandard.Containers.Components.MainMenu;
 using SolStandard.Containers.Components.Network;
 using SolStandard.Containers.Components.World;
 using SolStandard.Containers.Components.World.SubContext;
+using SolStandard.Containers.Components.World.SubContext.Battle;
+using SolStandard.Containers.Components.World.SubContext.Initiative;
+using SolStandard.Containers.Components.World.SubContext.Status;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
@@ -227,7 +230,7 @@ namespace SolStandard.Containers.Components.Global
             MapContainer.ClearToasts();
             Bank.ResetBank();
 
-            string mapPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, MapDirectory, MapSelectFile);
+            string mapPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, MapDirectory, MapSelectFile);
 
             var mapParser = new TmxMapParser(
                 new TmxMap(mapPath),
