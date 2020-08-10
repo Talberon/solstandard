@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Components.Global;
 using SolStandard.Containers.Components.World;
-using SolStandard.Containers.Components.World.SubContext;
 using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
@@ -12,14 +11,12 @@ using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.NeoGFX.GUI;
-using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Components.Deployment
 {
-    public class DeploymentContext : IGameContext
+    public class DeploymentContext 
     {
         public DeploymentHUD DeploymentHUD { get; }
         private readonly List<GameUnit> blueArmy;
@@ -216,11 +213,7 @@ namespace SolStandard.Containers.Components.Deployment
                 return cursorSlice.TerrainEntity is DeployTile deployTile && !deployTile.Occupied &&
                        deployTile.DeployTeam == currentUnit.Team;
             }
-        }
-
-        public IHUDView View { get; }
-        public MenuContainer MenuContainer { get; }
-        public void Update(GameTime gameTime)
+        }public void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
         }

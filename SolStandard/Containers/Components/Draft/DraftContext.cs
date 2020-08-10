@@ -7,15 +7,13 @@ using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
-using SolStandard.NeoGFX.GUI;
-using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.Components.Draft
 {
-    public class DraftContext : IGameContext
+    public class DraftContext 
     {
         private enum DraftPhase
         {
@@ -329,11 +327,7 @@ namespace SolStandard.Containers.Components.Draft
                 Role.Lancer,
                 Role.Rogue,
                 Role.Archer,
-            };
-
-        public IHUDView View { get; }
-        public MenuContainer MenuContainer { get; }
-        public void Update(GameTime gameTime)
+            };public void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
         }

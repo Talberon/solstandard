@@ -6,16 +6,15 @@ using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.MainMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
-using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Monogame;
-using IWindow = SolStandard.NeoGFX.GUI.IWindow;
+
 
 namespace SolStandard.Containers.Components.MainMenu
 {
-    public class MainMenuHUD : IUserInterface, IHUDView
+    public class MainMenuHUD : IUserInterface
     {
         private const int WindowPadding = 10;
         public static readonly Color MenuColor = new Color(10, 35, 50, 100);
@@ -93,13 +92,7 @@ namespace SolStandard.Containers.Components.MainMenu
         }
 
 
-        public float Width { get; }
-        public float Height { get; }
-
-        public void Update(GameTime gameTime)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -133,7 +126,5 @@ namespace SolStandard.Containers.Components.MainMenu
                 new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);
             MainMenu.Draw(spriteBatch, mainMenuPosition);
         }
-
-        public List<IWindow> Windows { get; }
     }
 }

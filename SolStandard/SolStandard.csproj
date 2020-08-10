@@ -200,8 +200,6 @@
 
   <ItemGroup>
     <Folder Include="Containers\View" />
-    <Folder Include="NeoGFX\GUI\Menus\Prefabs\Menus" />
-    <Folder Include="NeoGFX\GUI\Menus\Prefabs\Options" />
   </ItemGroup>
 
 </Project>

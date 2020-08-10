@@ -6,13 +6,11 @@ using SolStandard.Containers.Components.Draft;
 using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
-using SolStandard.NeoGFX.GUI;
-using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Components.Codex
 {
-    public class CodexContext : IGameContext
+    public class CodexContext 
     {
         public static List<GameUnit> UnitArchetypes => _unitArchetypes ??= GenerateUnitArchetypes();
         private static List<GameUnit> _unitArchetypes;
@@ -87,11 +85,7 @@ namespace SolStandard.Containers.Components.Codex
         public void ShowUnitDetails(GameUnit unit)
         {
             CodexView.ShowUnitDetails(unit);
-        }
-
-        public IHUDView View { get; }
-        public MenuContainer MenuContainer { get; }
-        public void Update(GameTime gameTime)
+        }public void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
         }

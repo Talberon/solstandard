@@ -23,12 +23,10 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Animation;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
-using IWindow = SolStandard.NeoGFX.GUI.IWindow;
 
 namespace SolStandard.Containers.Components.World
 {
@@ -36,7 +34,7 @@ namespace SolStandard.Containers.Components.World
      * GameMapContext is where the HUD elements for the SelectMapEntity Scene are handled.
      * HUD Elements in this case includes various map-screen windows.
      */
-    public class WorldHUD : IUserInterface, IHUDView
+    public class WorldHUD : IUserInterface
     {
         private enum MenuType
         {
@@ -996,7 +994,5 @@ namespace SolStandard.Containers.Components.World
             TakeItemMenu?.Draw(spriteBatch, SteamItemMenuPosition());
             CenterScreenContent?.Draw(spriteBatch, CenterItemOnScreen(CenterScreenContent));
         }
-
-        public List<IWindow> Windows { get; }
     }
 }

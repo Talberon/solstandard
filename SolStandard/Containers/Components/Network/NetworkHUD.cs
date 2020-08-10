@@ -9,17 +9,16 @@ using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.DialMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
-using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Network;
 using TextCopy;
 using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
-using IWindow = SolStandard.NeoGFX.GUI.IWindow;
+
 
 namespace SolStandard.Containers.Components.Network
 {
-    public class NetworkHUD : IUserInterface, IHUDView
+    public class NetworkHUD : IUserInterface
     {
         private readonly IRenderable title;
         private readonly IRenderable versionNumber;
@@ -229,13 +228,7 @@ namespace SolStandard.Containers.Components.Network
             ResetIPAddress();
         }
 
-        public float Width { get; }
-        public float Height { get; }
-
-        public void Update(GameTime gameTime)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -281,7 +274,5 @@ namespace SolStandard.Containers.Components.Network
                 new Vector2(GameDriver.ScreenSize.X - versionNumber.Width - windowPadding, windowPadding)
             );
         }
-
-        public List<IWindow> Windows { get; }
     }
 }

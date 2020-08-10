@@ -2,13 +2,11 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers.Components.Credits;
 using SolStandard.Containers.Components.Global;
 using SolStandard.Map.Elements;
-using SolStandard.NeoGFX.GUI;
-using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Components.HowToPlay
 {
-    public class HowToPlayContext : IGameContext
+    public class HowToPlayContext 
     {
         public ScrollingTextPaneHUD HowToPlayHUD { get; }
         private GlobalContext.GameState previousGameState;
@@ -42,11 +40,7 @@ namespace SolStandard.Containers.Components.HowToPlay
         {
             AssetManager.MenuConfirmSFX.Play();
             CreditsContext.OpenBrowser(GameDriver.SolStandardUrl + HowToPlayPath);
-        }
-
-        public IHUDView View { get; }
-        public MenuContainer MenuContainer { get; }
-        public void Update(GameTime gameTime)
+        }public void Update(GameTime gameTime)
         {
             throw new System.NotImplementedException();
         }

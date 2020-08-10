@@ -6,15 +6,14 @@ using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
-using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
-using IWindow = SolStandard.NeoGFX.GUI.IWindow;
+
 
 namespace SolStandard.Containers.Components.World.SubContext.Status
 {
-    public class StatusScreenHUD : IUserInterface, IHUDView
+    public class StatusScreenHUD : IUserInterface
     {
         private const int WindowEdgeBuffer = 5;
         private const int WindowPadding = 10;
@@ -290,13 +289,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Status
         #endregion Positioning
 
 
-        public float Width { get; }
-        public float Height { get; }
-
-        public void Update(GameTime gameTime)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -309,7 +302,5 @@ namespace SolStandard.Containers.Components.World.SubContext.Status
             RedTeamUnitRoster?.Draw(spriteBatch, RedTeamUnitRosterPosition());
             RedTeamResult?.Draw(spriteBatch, RedTeamResultPosition());
         }
-
-        public List<IWindow> Windows { get; }
     }
 }
