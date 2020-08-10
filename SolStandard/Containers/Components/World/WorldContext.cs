@@ -17,8 +17,6 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.NeoGFX.GUI;
-using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -27,7 +25,7 @@ using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.Components.World
 {
-    public class WorldContext : IGameContext
+    public class WorldContext
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -56,9 +54,6 @@ namespace SolStandard.Containers.Components.World
             }
         }
 
-        public IHUDView View { get; }
-        public MenuContainer MenuContainer { get; }
-        
         public GameUnit SelectedUnit { get; private set; }
         private Vector2 selectedUnitOriginalPosition;
         public static WorldHUD WorldHUD { get; private set; }
@@ -88,7 +83,7 @@ namespace SolStandard.Containers.Components.World
             RoundCounter = 1;
             CanCancelAction = true;
         }
-        
+
         public void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
@@ -781,7 +776,8 @@ namespace SolStandard.Containers.Components.World
             MapContainer.ClearDynamicAndPreviewGrids();
             if (WorldHUD.CurrentMenu.CurrentOption is ActionOption actionOption)
             {
-                actionOption.Action.GenerateActionGrid(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates, Layer.Preview);
+                actionOption.Action.GenerateActionGrid(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates,
+                    Layer.Preview);
             }
         }
 

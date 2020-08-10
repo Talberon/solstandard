@@ -6,8 +6,6 @@ using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
-using SolStandard.NeoGFX.GUI;
-using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility;
 
 namespace SolStandard.Containers.Components.World.SubContext.Targeting

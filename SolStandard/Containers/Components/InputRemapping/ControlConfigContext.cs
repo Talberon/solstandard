@@ -5,9 +5,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers.Components.Global;
 using SolStandard.HUD.Menu;
-using SolStandard.NeoGFX.GUI;
-using SolStandard.NeoGFX.GUI.Menus;
-using SolStandard.NeoUtility.Controls.Inputs.Prefabs;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Inputs.Gamepad;
@@ -15,7 +12,7 @@ using SolStandard.Utility.Inputs.KeyboardInput;
 
 namespace SolStandard.Containers.Components.InputRemapping
 {
-    public class ControlConfigContext : IGameContext
+    public class ControlConfigContext 
     {
         public enum ControlMenuState
         {
@@ -45,17 +42,10 @@ namespace SolStandard.Containers.Components.InputRemapping
         private Input currentListeningInput;
 
         public IUserInterface View => view;
-        public MenuContainer MenuContainer { get; }
-        public void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
-
         public ControlMenuState CurrentState => view.CurrentState;
 
         private const int CooldownInterval = 15;
         private int frameCooldown;
-        private IHUDView view1;
 
         public ControlConfigContext(ControlConfigView configView)
         {
@@ -67,17 +57,6 @@ namespace SolStandard.Containers.Components.InputRemapping
             frameCooldown = 0;
         }
         
-        public static string GetFileNameForDevice(InputDevice device)
-        {
-            return device switch
-            {
-                InputDevice.Keyboard1 => KeyboardConfigFileName,
-                InputDevice.Gamepad1 => P1GamepadConfigFileName,
-                InputDevice.Gamepad2 => P2GamepadConfigFileName,
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
-
         #region MenuControls
 
         public void OpenRemapMenu(Device device)
@@ -296,7 +275,5 @@ namespace SolStandard.Containers.Components.InputRemapping
             metaP1Gamepad = GamepadController.From((GamepadController) GameDriver.P1GamepadParser.Controller);
             metaP2Gamepad = GamepadController.From((GamepadController) GameDriver.P2GamepadParser.Controller);
         }
-
-        IHUDView IGameContext.View => view1;
     }
 }

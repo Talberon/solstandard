@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
@@ -7,14 +6,13 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Animation;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Combat;
-using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using IWindow = SolStandard.NeoGFX.GUI.IWindow;
+
 
 namespace SolStandard.Containers.Components.World.SubContext.Battle
 {
-    public class CombatHUD : IUserInterface, IHUDView
+    public class CombatHUD : IUserInterface
     {
         private static readonly Vector2 WindowEdgeBuffer = new Vector2(WindowSpacing);
 
@@ -540,13 +538,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Battle
         #endregion Window Positions
 
 
-        public float Width { get; }
-        public float Height { get; }
-
-        public void Update(GameTime gameTime)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -582,7 +574,5 @@ namespace SolStandard.Containers.Components.World.SubContext.Battle
 
             UserPromptWindow?.Draw(spriteBatch, UserPromptWindowPosition());
         }
-
-        public List<IWindow> Windows { get; }
     }
 }

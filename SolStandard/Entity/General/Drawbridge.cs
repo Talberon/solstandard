@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers;
 using SolStandard.Containers.Components.Global;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;

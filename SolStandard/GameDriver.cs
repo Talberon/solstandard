@@ -12,11 +12,9 @@ using SolStandard.Containers.Components.InputRemapping;
 using SolStandard.Containers.Components.MainMenu;
 using SolStandard.Containers.Components.Network;
 using SolStandard.Containers.Components.World;
-using SolStandard.Containers.Components.World.SubContext;
 using SolStandard.Containers.Components.World.SubContext.Pause;
 using SolStandard.Containers.Scenario;
 using SolStandard.Entity.Unit;
-using SolStandard.NeoUtility.Controls.Inputs.Prefabs;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -70,9 +68,6 @@ namespace SolStandard
         public static GameControlParser KeyboardParser;
         public static GameControlParser P1GamepadParser;
         public static GameControlParser P2GamepadParser;
-
-        //TODO Use this new Input Handling
-        public static InputBindings InputBindings { get; private set; }
 
         //Resolution
         public static Vector2 ScreenSize { get; private set; }
@@ -255,7 +250,6 @@ namespace SolStandard
 
             GlobalContext.Initialize(mainMenu, networkMenu);
             InitializeControlMappers(GlobalContext.P1Team);
-            InputBindings = new InputBindings();
 
             ConnectionManager = new ConnectionManager();
         }

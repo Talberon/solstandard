@@ -1,4 +1,3 @@
-using SolStandard.Containers.Components.World.SubContext;
 using SolStandard.Containers.Components.World.SubContext.Initiative;
 
 namespace SolStandard.Utility.Events

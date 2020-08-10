@@ -8,14 +8,12 @@ using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.NeoGFX.GUI;
-using SolStandard.NeoGFX.GUI.Menus;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Components.LevelSelect
 {
-    public class MapSelectContext : IGameContext
+    public class MapSelectContext 
     {
         public readonly MapSelectHUD MapSelectHUD;
         public readonly MapContainer MapContainer;
@@ -166,11 +164,7 @@ namespace SolStandard.Containers.Components.LevelSelect
         {
             return cursorSlice.TerrainEntity != null &&
                    cursorSlice.TerrainEntity.Type == EntityTypes.SelectMap.ToString();
-        }
-
-        public IHUDView View { get; }
-        public MenuContainer MenuContainer { get; }
-        public void Update(GameTime gameTime)
+        }public void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
         }

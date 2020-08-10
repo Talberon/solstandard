@@ -7,16 +7,15 @@ using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Animation;
 using SolStandard.HUD.Window.Content;
-using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
-using IWindow = SolStandard.NeoGFX.GUI.IWindow;
+
 
 namespace SolStandard.Containers.Components.LevelSelect
 {
-    public class MapSelectHUD : IUserInterface, IHUDView
+    public class MapSelectHUD : IUserInterface
     {
         private Window instructionWindow;
         private AnimatedRenderable mapInfoWindow;
@@ -163,7 +162,5 @@ namespace SolStandard.Containers.Components.LevelSelect
                 )
             );
         }
-
-        public List<IWindow> Windows { get; }
     }
 }

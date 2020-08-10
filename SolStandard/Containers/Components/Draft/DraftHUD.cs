@@ -11,17 +11,16 @@ using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.DraftMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
-using SolStandard.NeoGFX.GUI;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Monogame;
 using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
-using IWindow = SolStandard.NeoGFX.GUI.IWindow;
+
 
 namespace SolStandard.Containers.Components.Draft
 {
-    public class DraftHUD : IUserInterface, IHUDView
+    public class DraftHUD : IUserInterface
     {
         private static readonly Color DarkBackgroundColor = new Color(50, 50, 50, 180);
 
@@ -448,7 +447,5 @@ namespace SolStandard.Containers.Components.Draft
             ControlsText?.Draw(spriteBatch, ControlsTextPosition);
             ObjectivesWindow?.Draw(spriteBatch, ObjectivesWindowPosition);
         }
-
-        public List<IWindow> Windows { get; }
     }
 }

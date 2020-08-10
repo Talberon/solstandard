@@ -1,7 +1,6 @@
 using System;
 using NLog;
 using SolStandard.Containers.Components.Global;
-using SolStandard.Containers.Components.World.SubContext;
 using SolStandard.Containers.Components.World.SubContext.Battle;
 
 namespace SolStandard.Utility.Events.Network

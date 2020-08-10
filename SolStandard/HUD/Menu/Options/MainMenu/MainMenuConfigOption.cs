@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Components.World.SubContext;
 using SolStandard.Containers.Components.World.SubContext.Pause;
 using SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu;
 using SolStandard.HUD.Window.Content;
