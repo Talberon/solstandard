@@ -77,7 +77,7 @@ namespace SolStandard.Containers.Scenario
         private static void TransferToResultsScreen()
         {
             GlobalContext.CurrentGameState = GlobalContext.GameState.Results;
-            MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.EndsWith("VictoryJingle")));
+            MusicBox.PlayOnce(AssetManager.MusicTracks.Find(song => song.Name.EndsWith("VictoryJingle")));
         }
     }
 }
