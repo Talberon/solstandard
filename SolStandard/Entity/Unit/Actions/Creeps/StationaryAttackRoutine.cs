@@ -28,7 +28,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             List<GameUnit> enemiesInRange = GetEnemiesInRange();
 
-            GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(30));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(30));
             if (enemiesInRange.Count > 0)
             {
                 GameUnit target = enemiesInRange[GameDriver.Random.Next(enemiesInRange.Count)];
@@ -38,7 +38,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                         $"Targeting {target.Id}!", 50
                     )
                 );
-                GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(30));
+                GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(30));
                 GlobalEventQueue.QueueSingleEvent(new StartCombatEvent(target));
             }
             else
@@ -48,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                         "No enemies in range! ", 50
                     )
                 );
-                GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(50));
+                GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(50));
                 base.ExecuteAction(targetSlice);
             }
         }

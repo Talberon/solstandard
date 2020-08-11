@@ -117,7 +117,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                         creepModel.EntityProperties
                     )
                 );
-                eventQueue.Enqueue(new SkippableWaitForFrames(50));
+                eventQueue.Enqueue(new SkippableWaitFramesEvent(50));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
@@ -161,7 +161,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     AssetManager.WarningSFX
                 )
             );
-            GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(50));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(50));
         }
     }
 }

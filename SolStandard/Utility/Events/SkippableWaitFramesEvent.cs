@@ -3,12 +3,12 @@ using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Utility.Events
 {
-    public class SkippableWaitForFrames : IEvent
+    public class SkippableWaitFramesEvent : IEvent
     {
         public bool Complete { get; private set; }
         private int framesRemaining;
 
-        public SkippableWaitForFrames(int waitTimeInFrames)
+        public SkippableWaitFramesEvent(int waitTimeInFrames)
         {
             Complete = false;
             framesRemaining = waitTimeInFrames;

@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             List<KeyValuePair<GameUnit, Vector2>> weakestTargetsInRange =
                 TargetsWithLowestEffectiveHealth(TilesWithinThreatRangeForUnit(attacker, Independent));
 
-            GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(30));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(30));
             if (weakestTargetsInRange.Count > 0)
             {
                 PathToTargetAndAttack(weakestTargetsInRange, attacker);

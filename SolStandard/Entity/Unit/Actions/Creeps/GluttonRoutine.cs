@@ -60,9 +60,9 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 IConsumable itemToConsume = consumables.First();
 
                 GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Consuming " + itemToConsume.Name + "!", 50));
-                GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(50));
+                GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(50));
                 itemToConsume.Consume(consumer);
-                GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(50));
+                GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(50));
                 GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
             }
             else

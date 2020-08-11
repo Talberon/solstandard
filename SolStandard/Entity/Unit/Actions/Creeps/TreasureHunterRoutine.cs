@@ -84,7 +84,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't find any items in range!", 50);
                 AssetManager.WarningSFX.Play();
-                GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(50));
+                GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(50));
             }
         }
 
@@ -99,7 +99,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             Queue<IEvent> pathToItemQueue = PathingUtil.MoveToCoordinates(creep, itemCoordinates, false, false, 15);
 
             pathToItemQueue.Enqueue(new PickUpItemEvent(itemToPickUp, itemCoordinates));
-            pathToItemQueue.Enqueue(new SkippableWaitForFrames(50));
+            pathToItemQueue.Enqueue(new SkippableWaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToItemQueue);
         }
 
@@ -113,7 +113,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
             Queue<IEvent> pathToCurrencyQueue = PathingUtil.MoveToCoordinates(creep, itemCoordinates, false, false, 15);
             pathToCurrencyQueue.Enqueue(new PickUpCurrencyEvent(currencyToPickUp));
-            pathToCurrencyQueue.Enqueue(new SkippableWaitForFrames(50));
+            pathToCurrencyQueue.Enqueue(new SkippableWaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToCurrencyQueue);
         }
 
