@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
-using NLog.Targets;
 using SolStandard.Containers.Components.Global;
 
 namespace SolStandard.Map.Camera
@@ -34,25 +33,7 @@ namespace SolStandard.Map.Camera
         private const float CloseZoom = 3;
         private const float CombatZoom = 4;
 
-        private const int TopCursorThreshold = 250;
-        private const int HorizontalCursorThreshold = 300;
-        private const int BottomCursorThreshold = 300;
-
         private IMapCamera.ZoomLevel lastZoom;
-
-        private float WestBound =>
-            0 + HorizontalCursorThreshold +
-            (GlobalContext.MapCursor.RenderSprite.Width * CurrentZoom);
-
-        private float EastBound =>
-            GameDriver.ScreenSize.X - HorizontalCursorThreshold -
-            (GlobalContext.MapCursor.RenderSprite.Width * CurrentZoom);
-
-        private float NorthBound => 0 + TopCursorThreshold;
-
-        private float SouthBound =>
-            GameDriver.ScreenSize.Y - BottomCursorThreshold -
-            (GlobalContext.MapCursor.RenderSprite.Height * CurrentZoom);
 
         public NeoMapCamera(OrthographicCamera orthographicCamera, CameraSmoother smoother)
         {

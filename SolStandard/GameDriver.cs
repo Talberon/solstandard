@@ -68,7 +68,7 @@ namespace SolStandard
         public static GameControlParser KeyboardParser;
         public static GameControlParser P1GamepadParser;
         public static GameControlParser P2GamepadParser;
-        private IRenderable _mainMenuLogo;
+        private IRenderable mainMenuLogo;
 
         //Resolution
         public static Vector2 ScreenSize { get; private set; }
@@ -235,7 +235,7 @@ namespace SolStandard
 
             const int solTextHeight = 250;
             ITexture2D logoTextTexture = AssetManager.MainMenuLogoTexture;
-            _mainMenuLogo = new SpriteAtlas(
+            mainMenuLogo = new SpriteAtlas(
                 logoTextTexture,
                 new Vector2(logoTextTexture.Width, logoTextTexture.Height),
                 new Vector2((float) logoTextTexture.Width * solTextHeight / logoTextTexture.Height, solTextHeight)
@@ -243,8 +243,8 @@ namespace SolStandard
 
             InitializeControllers();
 
-            var mainMenu = new MainMenuHUD(_mainMenuLogo);
-            var networkMenu = new NetworkHUD(_mainMenuLogo);
+            var mainMenu = new MainMenuHUD(mainMenuLogo);
+            var networkMenu = new NetworkHUD(mainMenuLogo);
 
 
             PauseScreenUtils.Initialize(this);

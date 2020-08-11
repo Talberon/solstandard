@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Components.Global;
@@ -135,14 +134,6 @@ namespace SolStandard.Containers.Components.LevelSelect
                 ? null
                 : new AnimatedRenderable(new Window(terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right),
                     LeftSideWindowAnimation);
-        }
-
-        public float Width { get; }
-        public float Height { get; }
-
-        public void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -752,19 +752,19 @@ namespace SolStandard.Utility.Load
 
         public static string LoadCreditsText()
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/Documents/CREDITS.md");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"Content/Documents/CREDITS.md");
             return File.ReadAllText(filePath);
         }
 
         public static string LoadEULAText()
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/LICENSE.txt");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"Content/LICENSE.txt");
             return File.ReadAllText(filePath);
         }
 
         public static string LoadHowToPlayText()
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"HowToPlay.md");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"HowToPlay.md");
             return File.ReadAllText(filePath);
         }
     }
