@@ -13,23 +13,16 @@ namespace SolStandard.Map.Camera
         Left
     }
 
-    public class MapCamera
+    public class MapCamera : IMapCamera
     {
-        public enum ZoomLevel
-        {
-            Far,
-            Default,
-            Close,
-            Combat
-        }
-
-        private static readonly Dictionary<ZoomLevel, float> ZoomLevels = new Dictionary<ZoomLevel, float>
-        {
-            {ZoomLevel.Far, FarZoom},
-            {ZoomLevel.Default, DefaultZoomLevel},
-            {ZoomLevel.Close, CloseZoom},
-            {ZoomLevel.Combat, CombatZoom}
-        };
+        private static readonly Dictionary<IMapCamera.ZoomLevel, float> ZoomLevels =
+            new Dictionary<IMapCamera.ZoomLevel, float>
+            {
+                {IMapCamera.ZoomLevel.Far, FarZoom},
+                {IMapCamera.ZoomLevel.Default, DefaultZoomLevel},
+                {IMapCamera.ZoomLevel.Close, CloseZoom},
+                {IMapCamera.ZoomLevel.Combat, CombatZoom}
+            };
 
         private const double FloatTolerance = 0.01;
 
@@ -82,26 +75,26 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        public void SetZoomLevel(ZoomLevel zoomLevel)
+        public void SetZoomLevel(IMapCamera.ZoomLevel zoomLevel)
         {
             ZoomToCursor(ZoomLevels[zoomLevel]);
         }
 
         public void ZoomIn()
         {
-            if (CurrentZoom >= ZoomLevels[ZoomLevel.Close]) return;
+            if (CurrentZoom >= ZoomLevels[IMapCamera.ZoomLevel.Close]) return;
 
-            if (CurrentZoom >= ZoomLevels[ZoomLevel.Default]) SetZoomLevel(ZoomLevel.Close);
-            else if (CurrentZoom >= ZoomLevels[ZoomLevel.Far]) SetZoomLevel(ZoomLevel.Default);
+            if (CurrentZoom >= ZoomLevels[IMapCamera.ZoomLevel.Default]) SetZoomLevel(IMapCamera.ZoomLevel.Close);
+            else if (CurrentZoom >= ZoomLevels[IMapCamera.ZoomLevel.Far]) SetZoomLevel(IMapCamera.ZoomLevel.Default);
         }
 
         public void ZoomOut()
         {
-            if (CurrentZoom <= ZoomLevels[ZoomLevel.Far]) return;
+            if (CurrentZoom <= ZoomLevels[IMapCamera.ZoomLevel.Far]) return;
 
-            if (CurrentZoom <= ZoomLevels[ZoomLevel.Default]) SetZoomLevel(ZoomLevel.Far);
-            else if (CurrentZoom <= ZoomLevels[ZoomLevel.Close]) SetZoomLevel(ZoomLevel.Default);
-            else if (CurrentZoom <= ZoomLevels[ZoomLevel.Combat]) SetZoomLevel(ZoomLevel.Close);
+            if (CurrentZoom <= ZoomLevels[IMapCamera.ZoomLevel.Default]) SetZoomLevel(IMapCamera.ZoomLevel.Far);
+            else if (CurrentZoom <= ZoomLevels[IMapCamera.ZoomLevel.Close]) SetZoomLevel(IMapCamera.ZoomLevel.Default);
+            else if (CurrentZoom <= ZoomLevels[IMapCamera.ZoomLevel.Combat]) SetZoomLevel(IMapCamera.ZoomLevel.Close);
         }
 
         private void ZoomToCursor(float zoomLevel)

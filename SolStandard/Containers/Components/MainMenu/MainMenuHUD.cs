@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
@@ -10,7 +9,6 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Monogame;
-
 
 namespace SolStandard.Containers.Components.MainMenu
 {
@@ -91,14 +89,11 @@ namespace SolStandard.Containers.Components.MainMenu
             return new Window(promptWindowContentGrid, ControlsColor);
         }
 
-
-        
-
         public void Draw(SpriteBatch spriteBatch)
         {
             Vector2 centerScreen = GameDriver.ScreenSize / 2;
 
-            const int titleVertCoordinate = 60;
+            const int titleVertCoordinate = 80;
             Vector2 titleCenter = new Vector2(title.Width, title.Height) / 2;
             var titlePosition = new Vector2(centerScreen.X - titleCenter.X, titleVertCoordinate);
             title.Draw(spriteBatch, titlePosition);
@@ -120,7 +115,7 @@ namespace SolStandard.Containers.Components.MainMenu
 
         private void DrawMenu(SpriteBatch spriteBatch, Vector2 centerScreen, Vector2 titlePosition)
         {
-            const int titlePadding = -50;
+            const int titlePadding = 5;
             Vector2 mainMenuCenter = new Vector2(MainMenu.Width, MainMenu.Height) / 2;
             var mainMenuPosition =
                 new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);

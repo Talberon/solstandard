@@ -33,7 +33,7 @@ namespace SolStandard
         // ReSharper disable once NotAccessedField.Local
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private GraphicsDeviceManager graphics;
-
+        
         public static readonly IFileIO FileIO = new TemporaryFilesIO();
 
         // ReSharper disable once RedundantDefaultMemberInitializer
@@ -68,6 +68,7 @@ namespace SolStandard
         public static GameControlParser KeyboardParser;
         public static GameControlParser P1GamepadParser;
         public static GameControlParser P2GamepadParser;
+        private IRenderable _mainMenuLogo;
 
         //Resolution
         public static Vector2 ScreenSize { get; private set; }
@@ -79,7 +80,7 @@ namespace SolStandard
             new Vector2((float) VirtualResolution.X / 2, (float) VirtualResolution.Y / 2);
 
         //TODO Use this adapter
-        private static BoxingViewportAdapter BoxingViewportAdapter { get; set; }
+        public static BoxingViewportAdapter BoxingViewportAdapter { get; set; }
 
         public GameDriver()
         {
@@ -92,7 +93,7 @@ namespace SolStandard
             IsFixedTimeStep = true;
             Window.AllowUserResizing = true;
 
-            VirtualResolution = new Point(640, 360);
+            VirtualResolution = new Point(1600, 900);
             var windowResolution = new Point(1280, 720);
 
             graphics.PreferredBackBufferWidth = windowResolution.X;
@@ -227,14 +228,14 @@ namespace SolStandard
             base.Initialize();
 
             RenderResolution = new Vector2(BoxingViewportAdapter.VirtualWidth, BoxingViewportAdapter.VirtualHeight);
-            ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+            ScreenSize = VirtualResolution.ToVector2();
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
             CleanTmxFiles();
 
-            const int solTextHeight = 460;
+            const int solTextHeight = 250;
             ITexture2D logoTextTexture = AssetManager.MainMenuLogoTexture;
-            IRenderable mainMenuTitleSprite = new SpriteAtlas(
+            _mainMenuLogo = new SpriteAtlas(
                 logoTextTexture,
                 new Vector2(logoTextTexture.Width, logoTextTexture.Height),
                 new Vector2((float) logoTextTexture.Width * solTextHeight / logoTextTexture.Height, solTextHeight)
@@ -242,8 +243,8 @@ namespace SolStandard
 
             InitializeControllers();
 
-            var mainMenu = new MainMenuHUD(mainMenuTitleSprite);
-            var networkMenu = new NetworkHUD(mainMenuTitleSprite);
+            var mainMenu = new MainMenuHUD(_mainMenuLogo);
+            var networkMenu = new NetworkHUD(_mainMenuLogo);
 
 
             PauseScreenUtils.Initialize(this);
@@ -281,7 +282,6 @@ namespace SolStandard
         protected override void Update(GameTime gameTime)
         {
             ConnectionManager.Listen();
-            ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             if (_quitting)
             {
@@ -510,93 +510,96 @@ namespace SolStandard
 
         private void DrawBackgroundWallpaper()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.StaticBackgroundView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawPauseMenu()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             PauseScreenUtils.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawEULAPrompt()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.EULAContext.EULAHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawMainMenu()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.MainMenuHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawNetworkMenu()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.NetworkHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawMapSelectMap()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
-                GlobalContext.MapCamera.CameraMatrix);
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GlobalContext.MapCamera.CameraMatrix);
             GlobalContext.MapSelectContext.MapContainer.Draw(spriteBatch);
-
             spriteBatch.End();
         }
 
         private void DrawMapSelectHUD()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.MapSelectContext.MapSelectHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawDraftMenu()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.DraftContext.DraftHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawGameResultsScreen()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.StatusScreenHUD.Draw(spriteBatch);
-
             spriteBatch.End();
         }
 
         private void DrawCreditsScreen()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.CreditsContext.CreditsHUD.Draw(spriteBatch);
-
             spriteBatch.End();
         }
 
         private void DrawHowToPlayScreen()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.HowToPlayContext.HowToPlayHUD.Draw(spriteBatch);
-
             spriteBatch.End();
         }
 
         private void DrawColorEntireScreen(Color color)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             spriteBatch.Draw(AssetManager.WhitePixel.MonoGameTexture,
                 new Rectangle(0, 0, (int) ScreenSize.X, (int) ScreenSize.Y), color);
             spriteBatch.End();
@@ -604,38 +607,40 @@ namespace SolStandard
 
         private void DrawDeploymentHUD()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.DeploymentContext.DeploymentHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawCodexScreen()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.CodexContext.CodexView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawControlConfigScreen()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalContext.ControlConfigContext.View.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawInGameMap()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
-                GlobalContext.MapCamera.CameraMatrix);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GlobalContext.MapCamera.CameraMatrix);
             GlobalContext.WorldContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawInGameHUD()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
 
             if (GlobalContext.WorldContext.CurrentTurnState == WorldContext.TurnState.UnitActing)
             {
@@ -651,9 +656,20 @@ namespace SolStandard
 
         private void DrawSystemHUD()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             GlobalHUDUtils.Draw(spriteBatch);
             spriteBatch.End();
+        }
+
+        private Matrix GetRenderResolutionForVirtualResolution(Point virtualResolution)
+        {
+            (int x, int y) = virtualResolution;
+            return Matrix.CreateScale(
+                (float) GraphicsDevice.Viewport.Width / x,
+                (float) GraphicsDevice.Viewport.Height / y,
+                1f
+            );
         }
     }
 }

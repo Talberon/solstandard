@@ -1,5 +1,7 @@
 using System;
 using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.MainMenu;
+using SolStandard.Containers.Components.Network;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events.Network
@@ -17,7 +19,7 @@ namespace SolStandard.Utility.Events.Network
 
             AssetManager.MenuConfirmSFX.Play();
             GlobalContext.Initialize(GlobalContext.MainMenuHUD, GlobalContext.NetworkHUD);
-
+            
             Complete = true;
         }
     }
