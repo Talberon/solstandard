@@ -204,14 +204,6 @@ namespace SolStandard.Containers.Components.Deployment
 
         #endregion
 
-        public float Width { get; }
-        public float Height { get; }
-
-        public void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             ObjectiveWindow?.Draw(spriteBatch, ObjectiveWindowPosition);

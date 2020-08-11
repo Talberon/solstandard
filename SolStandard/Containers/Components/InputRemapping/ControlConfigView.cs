@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Components.Global;
@@ -183,14 +182,6 @@ namespace SolStandard.Containers.Components.InputRemapping
         }
 
         #endregion
-
-        public float Width { get; }
-        public float Height { get; }
-
-        public void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {

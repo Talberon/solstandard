@@ -421,15 +421,6 @@ namespace SolStandard.Containers.Components.Draft
 
         #endregion Positions
 
-
-        public float Width { get; }
-        public float Height { get; }
-
-        public void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             BlueTeamUnits?.Draw(spriteBatch, BlueTeamUnitsPosition);
