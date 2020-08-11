@@ -19,6 +19,8 @@ namespace SolStandard.Containers.Components.Global
         {
             switch (GlobalContext.CurrentGameState)
             {
+                case GlobalContext.GameState.SplashScreen:
+                    return;
                 case GlobalContext.GameState.EULAConfirm:
                     EULAControls(controlMapper);
                     break;

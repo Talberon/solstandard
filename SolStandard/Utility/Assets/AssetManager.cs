@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
+using MonoGame.Aseprite;
 using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
 
@@ -27,6 +28,7 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect DropItemSFX { get; private set; }
         public static ISoundEffect ErrorSFX { get; private set; }
         public static ISoundEffect PingSFX { get; private set; }
+        public static ISoundEffect LogoSFX { get; private set; }
 
         public static ISoundEffect SkillBuffSFX { get; private set; }
         public static ISoundEffect SkillBlinkSFX { get; private set; }
@@ -50,6 +52,9 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D SpringTexture { get; private set; }
         public static ITexture2D LockTexture { get; private set; }
         public static ITexture2D OpenTexture { get; private set; }
+        
+        public static AnimatedSprite DeveloperLogoSprite { get; private set; }
+        public static ITexture2D SplashBackground { get; private set; }
 
         public static ITexture2D MainMenuLogoTexture { get; private set; }
         public static ITexture2D MainMenuSunTexture { get; private set; }
@@ -111,6 +116,9 @@ namespace SolStandard.Utility.Assets
 
         public static void LoadContent(ContentManager content)
         {
+            DeveloperLogoSprite = ContentLoader.LoadDeveloperSplashLogoSprite(content);
+            SplashBackground = ContentLoader.LoadDeveloperSplashBackgroundSprite(content);
+        
             TerrainTextures = ContentLoader.LoadTerrainSpriteTexture(content);
             ActionTiles = ContentLoader.LoadActionTiles(content);
 
@@ -171,6 +179,7 @@ namespace SolStandard.Utility.Assets
             ObjectiveIcons = ContentLoader.LoadObjectiveIcons(content);
             TeamIcons = ContentLoader.LoadTeamIcons(content);
 
+            LogoSFX = ContentLoader.LoadLogoSFX(content);
             MenuMoveSFX = ContentLoader.LoadMenuMoveSFX(content);
             MenuConfirmSFX = ContentLoader.LoadMenuConfirmSFX(content);
             MapCursorMoveSFX = ContentLoader.LoadMapCursorMoveSFX(content);
