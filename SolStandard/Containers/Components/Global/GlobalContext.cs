@@ -14,6 +14,7 @@ using SolStandard.Containers.Components.InputRemapping;
 using SolStandard.Containers.Components.LevelSelect;
 using SolStandard.Containers.Components.MainMenu;
 using SolStandard.Containers.Components.Network;
+using SolStandard.Containers.Components.SplashScreen;
 using SolStandard.Containers.Components.World;
 using SolStandard.Containers.Components.World.SubContext.Battle;
 using SolStandard.Containers.Components.World.SubContext.Initiative;
@@ -28,7 +29,6 @@ using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.Network;
 using SolStandard.Utility.Exceptions;
-using SolStandard.Utility.Monogame;
 using TiledSharp;
 
 namespace SolStandard.Containers.Components.Global
@@ -39,6 +39,7 @@ namespace SolStandard.Containers.Components.Global
 
         public enum GameState
         {
+            SplashScreen,
             EULAConfirm,
             MainMenu,
             NetworkMenu,
@@ -76,6 +77,7 @@ namespace SolStandard.Containers.Components.Global
         public static CodexContext CodexContext { get; private set; }
         public static CreditsContext CreditsContext { get; private set; }
         public static ControlConfigContext ControlConfigContext { get; private set; }
+        public static SplashScreenContext SplashScreenContext { get; private set; }
         public static EULAContext EULAContext { get; private set; }
         public static HowToPlayContext HowToPlayContext { get; private set; }
 
@@ -86,6 +88,7 @@ namespace SolStandard.Containers.Components.Global
 
         public static PlayerIndex ActivePlayer => CurrentGameState switch
         {
+            GameState.SplashScreen => PlayerIndex.One,
             GameState.EULAConfirm => PlayerIndex.One,
             GameState.MainMenu => PlayerIndex.One,
             GameState.NetworkMenu => PlayerIndex.One,
@@ -107,9 +110,9 @@ namespace SolStandard.Containers.Components.Global
 
         public static void Initialize(MainMenuHUD mainMenuHUD, NetworkHUD networkHUD)
         {
-            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.EndsWith("MapSelectTheme")));
             MainMenuHUD = mainMenuHUD;
             NetworkHUD = networkHUD;
+            SplashScreenContext = new SplashScreenContext(new SplashScreenHUD());
             EULAContext = new EULAContext();
             CombatPhase = new CombatPhase(new CombatHUD());
             DraftContext = new DraftContext();
@@ -119,10 +122,8 @@ namespace SolStandard.Containers.Components.Global
             StaticBackgroundView = new StaticBackgroundView();
             HowToPlayContext = new HowToPlayContext();
             LoadMapSelect();
-            CurrentGameState = GameState.EULAConfirm;
+            CurrentGameState = GameState.SplashScreen;
             P1Team = Team.Red;
-
-            if (EULAContext.EULAConfirmed) CurrentGameState = GameState.MainMenu;
         }
 
         public static void SetP1Team(Team team)
@@ -137,6 +138,7 @@ namespace SolStandard.Containers.Components.Global
 
         public static MapCursor MapCursor => CurrentGameState switch
         {
+            GameState.SplashScreen => MapSelectContext.MapContainer.MapCursor,
             GameState.EULAConfirm => MapSelectContext.MapContainer.MapCursor,
             GameState.MainMenu => MapSelectContext.MapContainer.MapCursor,
             GameState.NetworkMenu => MapSelectContext.MapContainer.MapCursor,
@@ -155,6 +157,7 @@ namespace SolStandard.Containers.Components.Global
 
         public static IMapCamera MapCamera => CurrentGameState switch
         {
+            GameState.SplashScreen => MapSelectContext.MapContainer.MapCamera,
             GameState.EULAConfirm => MapSelectContext.MapContainer.MapCamera,
             GameState.MainMenu => MapSelectContext.MapContainer.MapCamera,
             GameState.NetworkMenu => MapSelectContext.MapContainer.MapCamera,

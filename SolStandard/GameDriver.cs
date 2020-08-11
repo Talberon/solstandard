@@ -310,8 +310,14 @@ namespace SolStandard
                 UseBorderlessFullscreen();
             }
 
+            if (GlobalContext.CurrentGameState == GlobalContext.GameState.SplashScreen)
+            {
+                GlobalContext.SplashScreenContext.Update(gameTime);
+            }
+
             HandleInput();
             UpdateCamera();
+            GlobalAsyncActions.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -320,6 +326,8 @@ namespace SolStandard
         {
             switch (GlobalContext.CurrentGameState)
             {
+                case GlobalContext.GameState.SplashScreen:
+                    return;
                 case GlobalContext.GameState.EULAConfirm:
                     GlobalContext.UpdateCamera();
                     break;
@@ -437,6 +445,9 @@ namespace SolStandard
 
             switch (GlobalContext.CurrentGameState)
             {
+                case GlobalContext.GameState.SplashScreen:
+                    DrawSplashScreen();
+                    break;
                 case GlobalContext.GameState.EULAConfirm:
                     DrawBackgroundWallpaper();
                     DrawMapSelectMap();
@@ -521,6 +532,14 @@ namespace SolStandard
             spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
                 transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             PauseScreenUtils.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        private void DrawSplashScreen()
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.SplashScreenContext.SplashScreenHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 

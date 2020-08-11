@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using MonoGame.Aseprite;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility.Load
@@ -288,6 +289,20 @@ namespace SolStandard.Utility.Load
 
             return bannerTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
+        
+        public static AnimatedSprite LoadDeveloperSplashLogoSprite(ContentManager content)
+        {
+            var texture = content.Load<Texture2D>("Graphics/Images/Screens/talberon-games");
+            var animation = content.Load<AnimationDefinition>("Graphics/Images/Screens/talberon-games-data");
+            return new AnimatedSprite(texture, animation);
+        }
+        
+        public static ITexture2D LoadDeveloperSplashBackgroundSprite(ContentManager content)
+        {
+            var backgroundTexture =
+                content.Load<Texture2D>("Graphics/Images/Screens/weapon-background");
+            return new Texture2DWrapper(backgroundTexture);
+        }
 
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
@@ -554,6 +569,12 @@ namespace SolStandard.Utility.Load
             };
 
             return textures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
+        }
+        
+        public static ISoundEffect LoadLogoSFX(ContentManager content)
+        {
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/talberon-games-logo");
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadMenuMoveSFX(ContentManager content)
