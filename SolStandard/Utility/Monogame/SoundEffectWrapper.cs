@@ -16,11 +16,13 @@ namespace SolStandard.Utility.Monogame
         {
             Volume = volume;
             this.monogameSfx = monogameSfx;
+            Muted = LoadMuted();
         }
 
         public static void ToggleMute()
         {
             Muted = !Muted;
+            SaveMuted();
         }
 
         public void Play()
@@ -58,6 +60,18 @@ namespace SolStandard.Utility.Monogame
         public void Stop()
         {
             sfxInstance?.Stop();
+        }
+
+        private const string SaveFileName = "soundmuted";
+
+        private static void SaveMuted()
+        {
+            GameDriver.FileIO.Save(SaveFileName, Muted);
+        }
+
+        private static bool LoadMuted()
+        {
+            return GameDriver.FileIO.FileExists(SaveFileName) && GameDriver.FileIO.Load<bool>(SaveFileName);
         }
     }
 }
