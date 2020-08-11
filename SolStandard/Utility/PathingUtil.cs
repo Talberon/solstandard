@@ -31,7 +31,7 @@ namespace SolStandard.Utility
                 if (direction == Direction.None) continue;
 
                 pathToItemQueue.Enqueue(new CreepMoveEvent(movingUnit, direction, walkThroughAllies));
-                pathToItemQueue.Enqueue(new WaitFramesEvent(frameDelay));
+                pathToItemQueue.Enqueue(new SkippableWaitForFrames(frameDelay));
             }
 
             pathToItemQueue.Enqueue(new CreepMoveEvent(movingUnit, Direction.None));

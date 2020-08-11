@@ -1,7 +1,5 @@
 using System;
 using SolStandard.Containers.Components.Global;
-using SolStandard.Containers.Components.MainMenu;
-using SolStandard.Containers.Components.Network;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events.Network
