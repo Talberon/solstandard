@@ -243,12 +243,10 @@ namespace SolStandard.Containers.Components.Global
 
             MapSelectContext = new MapSelectContext(new MapSelectHUD(),
                 new MapContainer(mapParser.LoadMapGrid(), AssetManager.MapCursorTexture));
-
-            MapCursor.SnapCameraAndCursorToCoordinates(MapSelectContext.MapCenter);
-            MapCamera.SnapCameraCenterToCursor();
+            CenterCursorAndCamera();
             MapCamera.SetZoomLevel(IMapCamera.ZoomLevel.Far);
 
-            //Player 1 (Blue) always controls map select screen
+            //Player 1 (Red) always controls map select screen
             LoadInitiativeContext(mapParser, Team.Red);
 
             CurrentGameState = GameState.MapSelect;
