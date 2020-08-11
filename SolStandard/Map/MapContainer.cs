@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using SolStandard.Containers.Components.Global;
 using SolStandard.Containers.Components.World;
 using SolStandard.Entity;
@@ -24,18 +25,22 @@ namespace SolStandard.Map
         public const int MapToastIconSize = 16;
         private static List<MapElement[,]> _gameGrid;
         public MapCursor MapCursor { get; }
-        public MapCamera MapCamera { get; }
+        public IMapCamera MapCamera { get; }
         private static ToastWindow ToastWindow { get; set; }
         public List<CreepEntity> MapSummons { get; }
         public List<IItem> MapLoot { get; }
-        
+
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture, List<CreepEntity> mapSummons,
             List<IItem> mapLoot)
         {
             MapSummons = mapSummons;
             _gameGrid = gameGrid;
             MapCursor = BuildMapCursor(cursorTexture);
-            MapCamera = new MapCamera(5, 0.05f);
+            // MapCamera = new MapCamera(5, 0.05f);
+            MapCamera = new NeoMapCamera(
+                new OrthographicCamera(GameDriver.BoxingViewportAdapter),
+                new CameraSmoother(0.5f, 2f)
+            );
             MapLoot = mapLoot;
         }
 

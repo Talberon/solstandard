@@ -153,7 +153,7 @@ namespace SolStandard.Containers.Components.Global
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        public static MapCamera MapCamera => CurrentGameState switch
+        public static IMapCamera MapCamera => CurrentGameState switch
         {
             GameState.EULAConfirm => MapSelectContext.MapContainer.MapCamera,
             GameState.MainMenu => MapSelectContext.MapContainer.MapCamera,
@@ -243,7 +243,7 @@ namespace SolStandard.Containers.Components.Global
 
             MapCursor.SnapCameraAndCursorToCoordinates(MapSelectContext.MapCenter);
             MapCamera.SnapCameraCenterToCursor();
-            MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
+            MapCamera.SetZoomLevel(IMapCamera.ZoomLevel.Far);
 
             //Player 1 (Blue) always controls map select screen
             LoadInitiativeContext(mapParser, Team.Red);

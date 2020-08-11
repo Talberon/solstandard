@@ -140,7 +140,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Battle
 
             SetPromptWindowText("Start Combat!");
 
-            GlobalContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Combat);
+            GlobalContext.MapCamera.SetZoomLevel(IMapCamera.ZoomLevel.Combat);
             SelfCanContinue = true;
             GlobalEventQueue.QueueSingleEvent(new CombatNotifyStateCompleteEvent(CurrentState));
         }
