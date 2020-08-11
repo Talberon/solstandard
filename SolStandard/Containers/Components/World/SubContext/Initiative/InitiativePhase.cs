@@ -128,7 +128,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Initiative
         public void PassTurnToNextUnit()
         {
             if (GlobalContext.Scenario.GameIsOver) return;
-            
+
             Team opposingTeam = OpposingTeam(CurrentActiveTeam);
 
             CurrentActiveUnit.ExhaustAndDisableUnit();
@@ -239,7 +239,8 @@ namespace SolStandard.Containers.Components.World.SubContext.Initiative
             Vector2 activeUnitCoordinates =
                 CurrentActiveUnit?.UnitEntity.MapCoordinates ?? Vector2.Zero;
             GlobalEventQueue.QueueSingleEvent(new CameraCursorPositionEvent(activeUnitCoordinates));
-            GlobalEventQueue.QueueSingleEvent(new CenterScreenRenderableEvent(banner, 60, AssetManager.MenuConfirmSFX));
+            GlobalEventQueue.QueueSingleEvent(new CenterScreenRenderableEvent(banner,
+                CurrentActiveTeam == Team.Creep ? 30 : 60, AssetManager.MenuConfirmSFX));
 
             if (CurrentActiveTeam != Team.Creep)
             {
