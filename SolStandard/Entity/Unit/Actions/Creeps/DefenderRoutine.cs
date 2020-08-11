@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             GameUnit activeCreep = GlobalContext.ActiveUnit;
             GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Defending...", 50));
             WanderRoutine.Roam(activeCreep);
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(30));
             GlobalEventQueue.QueueSingleEvent(new RegenerateArmorEvent(activeCreep, ArmorToRecover));
             GlobalEventQueue.QueueSingleEvent(
                 new ToastAtCursorEvent(
@@ -48,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     50
                 )
             );
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(50));
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
         }
     }

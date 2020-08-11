@@ -188,7 +188,7 @@ namespace SolStandard
             }
         }
 
-        private static ControlMapper GetControlMapperForPlayer(PlayerIndex playerIndex)
+        public static ControlMapper GetControlMapperForPlayer(PlayerIndex playerIndex)
         {
             return playerIndex switch
             {

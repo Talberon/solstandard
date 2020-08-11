@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit
             else
             {
                 GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Can't fulfill intentions!"));
-                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+                GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(30));
 
                 fallbackRoutine.ExecuteAction(creepSlice);
             }
@@ -48,6 +48,7 @@ namespace SolStandard.Entity.Unit
 
             if (readyableActions.Count > 0)
             {
+                //TODO Weigh various routines so that they are not all equally likely
                 IRoutine randomRoutine = readyableActions[GameDriver.Random.Next(readyableActions.Count)];
                 UpdateUnitRoutine(randomRoutine);
             }

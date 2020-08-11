@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             List<KeyValuePair<GameUnit, Vector2>> commandersInRange =
                 CommandersInRange(TilesWithinThreatRangeForUnit(attacker, Independent));
 
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(30));
             if (commandersInRange.Count > 0)
             {
                 PathToTargetAndAttack(commandersInRange, attacker);
@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                         "No Commanders in range! " + Environment.NewLine + "Targeting any enemies in range.", 50
                     )
                 );
-                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+                GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(50));
                 base.ExecuteAction(targetSlice);
             }
         }
