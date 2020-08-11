@@ -85,12 +85,12 @@ namespace SolStandard.Map.Camera
 
         public void SnapCameraCenterToCursor()
         {
-            Smoother.SnapMoveTo(GlobalContext.MapCursor.CenterPixelPoint);
+            Smoother.SnapMoveTo(GlobalContext.MapCursor.CenterTargetPixelPoint);
         }
 
         public void CenterCameraToCursor()
         {
-            Smoother.MoveTowards(GlobalContext.MapCursor.CenterPixelPoint);
+            Smoother.MoveTowards(GlobalContext.MapCursor.CenterTargetPixelPoint);
         }
 
         public void MoveCameraInDirection(CameraDirection direction, float panRateOverride)

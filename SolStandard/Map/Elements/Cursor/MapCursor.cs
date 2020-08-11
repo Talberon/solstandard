@@ -25,6 +25,7 @@ namespace SolStandard.Map.Elements.Cursor
         private readonly Vector2 mapSize;
         private static Vector2 _cursorSize;
         public Vector2 CenterPixelPoint => CurrentDrawCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2);
+        public Vector2 CenterTargetPixelPoint => MapPixelCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2);
         private SpriteAtlas SpriteAtlas => (SpriteAtlas) Sprite;
 
         public Vector2 CenterCursorScreenCoordinates =>
