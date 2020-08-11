@@ -42,7 +42,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             GameUnit roamer = GlobalContext.ActiveUnit;
             GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Wandering...", 50));
             Roam(roamer);
-            GlobalEventQueue.QueueSingleEvent(new SkippableWaitForFrames(30));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(30));
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
         }
 
@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     (Direction) GameDriver.Random.Next(1, Enum.GetValues(typeof(Direction)).Length);
 
                 roamEventQueue.Enqueue(new CreepMoveEvent(roamer, randomDirection));
-                roamEventQueue.Enqueue(new SkippableWaitForFrames(15));
+                roamEventQueue.Enqueue(new SkippableWaitFramesEvent(15));
             }
 
             roamEventQueue.Enqueue(new CreepMoveEvent(roamer, Direction.None));

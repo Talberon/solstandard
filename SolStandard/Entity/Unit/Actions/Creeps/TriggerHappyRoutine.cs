@@ -109,7 +109,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, triggerable.MapCoordinates)
             );
             pathToItemQueue.Enqueue(new CreepTriggerTileEvent(triggerable));
-            pathToItemQueue.Enqueue(new SkippableWaitForFrames(50));
+            pathToItemQueue.Enqueue(new SkippableWaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToItemQueue);
         }
     }
