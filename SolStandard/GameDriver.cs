@@ -79,7 +79,6 @@ namespace SolStandard
         public static Vector2 CenterScreen =>
             new Vector2((float) VirtualResolution.X / 2, (float) VirtualResolution.Y / 2);
 
-        //TODO Use this adapter
         public static BoxingViewportAdapter BoxingViewportAdapter { get; set; }
 
         public GameDriver()
@@ -102,8 +101,14 @@ namespace SolStandard
             BoxingViewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, VirtualResolution.X,
                 VirtualResolution.Y);
         }
+        
+        public void ToggleFullscreen()
+        {
+            graphics.HardwareModeSwitch = false;
+            graphics.ToggleFullScreen();
+        }
 
-        public void UseDefaultResolution()
+        private void UseDefaultResolution()
         {
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
@@ -113,19 +118,6 @@ namespace SolStandard
             Window.IsBorderless = false;
             Window.AllowUserResizing = true;
         }
-
-        public void UseBorderlessFullscreen()
-        {
-            graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
-            graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
-            graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            graphics.ApplyChanges();
-
-            Window.IsBorderless = true;
-            Window.Position = new Point(0, 0);
-            Window.AllowUserResizing = false;
-        }
-
         public static void NewGame(string mapName, Scenario scenario, Team firstTeam)
         {
             GlobalContext.StartGame(mapName, scenario, firstTeam);
@@ -300,14 +292,9 @@ namespace SolStandard
                 }
             }
 
-            if (new InputKey(Keys.F10).Pressed)
-            {
-                UseDefaultResolution();
-            }
-
             if (new InputKey(Keys.F11).Pressed)
             {
-                UseBorderlessFullscreen();
+                ToggleFullscreen();
             }
 
             if (GlobalContext.CurrentGameState == GlobalContext.GameState.SplashScreen)
