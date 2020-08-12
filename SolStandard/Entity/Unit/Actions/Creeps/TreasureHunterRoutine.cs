@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map;
@@ -43,7 +43,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             get
             {
-                GameUnit hunter = GameContext.Units.Find(creep => creep.Actions.Contains(this));
+                GameUnit hunter = GlobalContext.Units.Find(creep => creep.Actions.Contains(this));
                 return UnobstructedTreasureInRange(hunter);
             }
         }
@@ -56,7 +56,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         private void SearchForTreasure()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            GameUnit activeUnit = GameContext.ActiveUnit;
+            GameUnit activeUnit = GlobalContext.ActiveUnit;
 
             if (activeUnit.UnitEntity != null && UnobstructedTreasureInRange(activeUnit))
             {
@@ -82,9 +82,9 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't find any items in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't find any items in range!", 50);
                 AssetManager.WarningSFX.Play();
-                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+                GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(50));
             }
         }
 
@@ -99,7 +99,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             Queue<IEvent> pathToItemQueue = PathingUtil.MoveToCoordinates(creep, itemCoordinates, false, false, 15);
 
             pathToItemQueue.Enqueue(new PickUpItemEvent(itemToPickUp, itemCoordinates));
-            pathToItemQueue.Enqueue(new WaitFramesEvent(50));
+            pathToItemQueue.Enqueue(new SkippableWaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToItemQueue);
         }
 
@@ -113,16 +113,16 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
             Queue<IEvent> pathToCurrencyQueue = PathingUtil.MoveToCoordinates(creep, itemCoordinates, false, false, 15);
             pathToCurrencyQueue.Enqueue(new PickUpCurrencyEvent(currencyToPickUp));
-            pathToCurrencyQueue.Enqueue(new WaitFramesEvent(50));
+            pathToCurrencyQueue.Enqueue(new SkippableWaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToCurrencyQueue);
         }
 
         private KeyValuePair<IItem, Vector2>? FindUnobstructedItemInRange(Vector2 origin, int mvRange)
         {
-            new UnitMovingContext(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
+            new UnitMovingPhase(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
             List<MapElement> movementTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
 
-            List<KeyValuePair<IItem, Vector2>> itemsInRange = new List<KeyValuePair<IItem, Vector2>>();
+            var itemsInRange = new List<KeyValuePair<IItem, Vector2>>();
 
             foreach (MapElement element in movementTiles)
             {
@@ -132,7 +132,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
                 if (targetEntity is IActionTile && targetEntity is IItem item)
                 {
-                    if (UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates))
+                    if (UnitMovingPhase.CanEndMoveAtCoordinates(element.MapCoordinates))
                     {
                         itemsInRange.Add(new KeyValuePair<IItem, Vector2>(item, slice.MapCoordinates));
                     }
@@ -150,10 +150,10 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private KeyValuePair<Currency, Vector2>? FindUnobstructedCurrencyInRange(Vector2 origin, int mvRange)
         {
-            new UnitMovingContext(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
+            new UnitMovingPhase(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
             List<MapElement> movementTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
 
-            List<KeyValuePair<Currency, Vector2>> itemsInRange = new List<KeyValuePair<Currency, Vector2>>();
+            var itemsInRange = new List<KeyValuePair<Currency, Vector2>>();
 
             foreach (MapElement element in movementTiles)
             {
@@ -163,7 +163,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
                 if (!(targetEntity is IActionTile) || !(targetEntity is Currency entity)) continue;
 
-                if (UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates))
+                if (UnitMovingPhase.CanEndMoveAtCoordinates(element.MapCoordinates))
                 {
                     itemsInRange.Add(new KeyValuePair<Currency, Vector2>(entity, slice.MapCoordinates));
                 }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Statuses.Marauder;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            Range = GameContext.ActiveUnit.Stats.CurrentAtkRange;
+            Range = GlobalContext.ActiveUnit.Stats.CurrentAtkRange;
             base.GenerateActionGrid(origin, mapLayer);
         }
 
@@ -41,16 +41,16 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
-                    new CastStatusEffectEvent(GameContext.ActiveUnit, new GuillotineStatus(Icon, 0, healPercentage))
+                    new CastStatusEffectEvent(GlobalContext.ActiveUnit, new GuillotineStatus(Icon, 0, healPercentage))
                 );
                 eventQueue.Enqueue(new StartCombatEvent(targetUnit));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

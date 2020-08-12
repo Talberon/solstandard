@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -34,7 +33,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             MapContainer.GameGrid[(int) mapLayer][(int) tileCoordinates.X, (int) tileCoordinates.Y] =
                 new MapDistanceTile(TileSprite, tileCoordinates);
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(tileCoordinates);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(tileCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -45,29 +44,29 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 {
                     MapContainer.ClearDynamicAndPreviewGrids();
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new SeizeObjectiveEvent(GameContext.ActiveTeam));
+                    var eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(new SeizeObjectiveEvent(GlobalContext.ActiveTeam));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new EndTurnEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot be seized by this team!",
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot be seized by this team!",
                         50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid selection!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid selection!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         private bool SelectingTileAtUnitLocation(MapSlice targetSlice)
         {
-            return tileCoordinates == GameContext.ActiveUnit.UnitEntity.MapCoordinates &&
+            return tileCoordinates == GlobalContext.ActiveUnit.UnitEntity.MapCoordinates &&
                    targetSlice.DynamicEntity != null;
         }
 
@@ -75,7 +74,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             get
             {
-                return GameContext.ActiveTeam switch
+                return GlobalContext.ActiveTeam switch
                 {
                     Team.Red => seizeEntity.CapturableByRed,
                     Team.Blue => seizeEntity.CapturableByBlue,

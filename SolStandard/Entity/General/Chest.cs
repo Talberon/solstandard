@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -57,7 +57,7 @@ namespace SolStandard.Entity.General
 
         public List<UnitAction> TileActions()
         {
-            List<UnitAction> actions = new List<UnitAction>();
+            var actions = new List<UnitAction>();
 
             if (!IsOpen) actions.Add(new OpenChestAction(this, MapCoordinates));
 
@@ -74,11 +74,11 @@ namespace SolStandard.Entity.General
         {
             if (SpecificItem == null)
             {
-                SpecificItem = GameContext.GameMapContext.MapContainer.GetRandomItemFromPool(ItemPool);
+                SpecificItem = GlobalContext.WorldContext.MapContainer.GetRandomItemFromPool(ItemPool);
             }
 
             if (SpecificItem == null) return;
-            GlobalEventQueue.QueueSingleEvent(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, SpecificItem));
+            GlobalEventQueue.QueueSingleEvent(new AddItemToUnitInventoryEvent(GlobalContext.ActiveUnit, SpecificItem));
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
         }
 
@@ -94,7 +94,7 @@ namespace SolStandard.Entity.General
             if (!CanTrigger) return;
 
             UnitAction toggleAction = new OpenChestAction(this, MapCoordinates, false);
-            toggleAction.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            toggleAction.GenerateActionGrid(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates);
             toggleAction.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(MapCoordinates));
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
             MapContainer.ClearDynamicAndPreviewGrids();

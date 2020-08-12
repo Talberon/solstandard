@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General.Item;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -184,9 +184,9 @@ namespace SolStandard.Entity.Unit
 
         public static Color DetermineStatColor(int stat, int baseStat)
         {
-            if (stat > baseStat) return GameContext.PositiveColor;
-            if (stat == baseStat) return GameContext.NeutralColor;
-            if (stat < baseStat) return GameContext.NegativeColor;
+            if (stat > baseStat) return GlobalContext.PositiveColor;
+            if (stat == baseStat) return GlobalContext.NeutralColor;
+            if (stat < baseStat) return GlobalContext.NegativeColor;
 
             return Color.White;
         }

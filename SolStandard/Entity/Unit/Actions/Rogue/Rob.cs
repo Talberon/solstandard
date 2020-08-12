@@ -1,6 +1,6 @@
 using System;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -33,11 +33,11 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
                     if (targetUnit.Inventory.Count > 0)
                     {
                         MapContainer.ClearDynamicAndPreviewGrids();
-                        GameContext.GameMapContext.OpenTakeItemMenu(targetUnit, false);
+                        GlobalContext.WorldContext.OpenTakeItemMenu(targetUnit, false);
                     }
                     else
                     {
-                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                        GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                             "Target has no items in inventory!", 50
                         );
                         AssetManager.WarningSFX.Play();
@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                         $"Can't target unit with {UnitStatistics.Abbreviation[Stats.Armor]} remaining!", 50
                     );
                     AssetManager.WarningSFX.Play();
@@ -53,7 +53,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

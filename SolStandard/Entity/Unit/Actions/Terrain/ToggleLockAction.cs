@@ -1,7 +1,7 @@
-﻿using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
@@ -48,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Key doesn't work here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Key doesn't work here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             RemoveActionTilesOnUnplaceableSpaces(mapLayer);
         }
@@ -59,11 +59,11 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             {
                 if (!TargetHasEntityOrWall(targetSlice))
                 {
-                    TrapEntity trapToPlace = new TrapEntity("Ice Spikes", TrapSprite.Clone(),
+                    var trapToPlace = new TrapEntity("Ice Spikes", TrapSprite.Clone(),
                         targetSlice.MapCoordinates, Damage, MaxTriggers, true, true, false, true);
 
                     MapContainer.ClearDynamicAndPreviewGrids();
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(
                         new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                     );
@@ -75,13 +75,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

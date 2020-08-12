@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Window;
@@ -16,7 +16,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         private readonly UnitAction commandAction;
 
         public SelectCommanderOption(GameUnit unit, UnitAction commandAction)
-            : base(WindowContent(unit, commandAction), TeamUtility.DetermineTeamColor(unit.Team),
+            : base(WindowContent(unit, commandAction), TeamUtility.DetermineTeamWindowColor(unit.Team),
                 HorizontalAlignment.Centered)
         {
             this.unit = unit;
@@ -51,7 +51,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
                                         new Vector2(16)),
                                     new RenderText(
                                         AssetManager.SmallWindowFont, commandAction.Name,
-                                        commandAction.FreeAction ? GameContext.PositiveColor : Color.White
+                                        commandAction.FreeAction ? GlobalContext.PositiveColor : Color.White
                                     )
                                 }
                             },
@@ -68,7 +68,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         public override void Execute()
         {
             AssetManager.MenuConfirmSFX.Play();
-            GameContext.DraftContext.SelectCommander(unit);
+            GlobalContext.DraftContext.SelectCommander(unit);
         }
 
         public override IRenderable Clone()

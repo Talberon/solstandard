@@ -1,7 +1,8 @@
-﻿using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
+using SolStandard.Map;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events.AI
@@ -14,15 +15,15 @@ namespace SolStandard.Utility.Events.AI
         {
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            if (GameContext.GameMapContext.SelectedUnit != null)
+            if (GlobalContext.WorldContext.SelectedUnit != null)
             {
-                GameContext.GameMapContext.SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
+                GlobalContext.WorldContext.SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
             }
 
             //IMPORTANT Do not allow tiles that have been triggered to trigger again or the risk of soft-locking via infinite triggers can occur
-            if (!GameMapContext.TriggerEffectTiles(EffectTriggerTime.EndOfTurn, true))
+            if (!WorldContext.TriggerEffectTiles(EffectTriggerTime.EndOfTurn, true))
             {
-                GameContext.GameMapContext.ResolveTurn();
+                GlobalContext.WorldContext.ResolveTurn();
                 MapContainer.ClearDynamicAndPreviewGrids();
             }
 

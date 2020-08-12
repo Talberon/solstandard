@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -84,7 +84,7 @@ namespace SolStandard.Entity.General
             {
                 IsExpired = true;
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(
                     trapMessage + Environment.NewLine + "Trap is broken!", MapCoordinates, 80);
 
                 AssetManager.CombatDamageSFX.Play();
@@ -92,13 +92,13 @@ namespace SolStandard.Entity.General
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
                     80);
                 AssetManager.CombatDamageSFX.Play();
             }
 
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
-            GameContext.MapCamera.SnapCameraCenterToCursor();
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
+            GlobalContext.MapCamera.SnapCameraCenterToCursor();
             return true;
         }
 
@@ -106,14 +106,14 @@ namespace SolStandard.Entity.General
         {
             if (triggerTime != EffectTriggerTime.StartOfRound || HasTriggered || !enabled) return false;
 
-            return GameContext.Units.Any(unit => unit?.UnitEntity?.MapCoordinates == MapCoordinates);
+            return GlobalContext.Units.Any(unit => unit?.UnitEntity?.MapCoordinates == MapCoordinates);
         }
 
         public void RemoteTrigger()
         {
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
-            GameContext.MapCamera.SnapCameraCenterToCursor();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
+            GlobalContext.MapCamera.SnapCameraCenterToCursor();
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
 
             ToggleTrap();
         }

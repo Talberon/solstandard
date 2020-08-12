@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Map;
@@ -21,7 +20,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+            Vector2 actorCoordinates = GlobalContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = target.MapCoordinates;
             Vector2 oppositeCoordinates = UnitAction.DetermineOppositeTileOfUnit(actorCoordinates, targetCoordinates);
             MoveTerrainEntityToPosition(Layer.Entities, targetCoordinates, oppositeCoordinates);
@@ -31,7 +30,7 @@ namespace SolStandard.Utility.Events
 
         private static void MoveTerrainEntityToPosition(Layer mapLayer, Vector2 startPosition, Vector2 destination)
         {
-            TerrainEntity entityToMove =
+            var entityToMove =
                 MapContainer.GameGrid[(int) mapLayer][(int) startPosition.X, (int) startPosition.Y] as TerrainEntity;
 
             entityToMove?.SlideToCoordinates(destination);

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -45,27 +45,27 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     new StartCombatEvent(
                         targetUnit,
                         false,
-                        GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(weaponStatistics)
+                        GlobalContext.ActiveUnit.Stats.ApplyWeaponStatistics(weaponStatistics)
                     )
                 );
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         private void GenerateRealLinearTargetingGrid(Vector2 origin, int maxRange, Layer mapLayer)
         {
-            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
+            var attackTiles = new List<MapDistanceTile>();
 
             for (int i = 1; i <= maxRange; i++)
             {
-                Vector2 northTile = new Vector2(origin.X, origin.Y - i);
-                Vector2 southTile = new Vector2(origin.X, origin.Y + i);
-                Vector2 eastTile = new Vector2(origin.X + i, origin.Y);
-                Vector2 westTile = new Vector2(origin.X - i, origin.Y);
+                var northTile = new Vector2(origin.X, origin.Y - i);
+                var southTile = new Vector2(origin.X, origin.Y + i);
+                var eastTile = new Vector2(origin.X + i, origin.Y);
+                var westTile = new Vector2(origin.X - i, origin.Y);
 
                 AddTileWithinMapBounds(attackTiles, northTile, i);
                 AddTileWithinMapBounds(attackTiles, southTile, i);
@@ -78,7 +78,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {
-            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (WorldContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
             }

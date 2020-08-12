@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility.Events
@@ -30,7 +30,7 @@ namespace SolStandard.Utility.Events
         {
             soundEffect?.Play();
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(
                 message,
                 toastCoordinates,
                 duration

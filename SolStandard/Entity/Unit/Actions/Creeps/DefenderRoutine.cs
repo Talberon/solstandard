@@ -1,6 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -36,10 +36,10 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit activeCreep = GameContext.ActiveUnit;
+            GameUnit activeCreep = GlobalContext.ActiveUnit;
             GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Defending...", 50));
             WanderRoutine.Roam(activeCreep);
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(30));
             GlobalEventQueue.QueueSingleEvent(new RegenerateArmorEvent(activeCreep, ArmorToRecover));
             GlobalEventQueue.QueueSingleEvent(
                 new ToastAtCursorEvent(
@@ -48,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     50
                 )
             );
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(50));
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
         }
     }

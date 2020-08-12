@@ -1,5 +1,5 @@
 using System;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 
 namespace SolStandard.Utility.Events.Network
 {
@@ -15,7 +15,7 @@ namespace SolStandard.Utility.Events.Network
         
         public override void Continue()
         {
-            GameContext.GameMapContext.IncrementCurrentAdjustableAction(value);
+            GlobalContext.WorldContext.IncrementCurrentAdjustableAction(value);
             Complete = true;
         }
     }

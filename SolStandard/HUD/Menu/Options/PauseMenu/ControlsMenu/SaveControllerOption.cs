@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -19,7 +19,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 
         public override void Execute()
         {
-            GameContext.ControlConfigContext.SaveControlMappings();
+            GlobalContext.ControlConfigContext.SaveControlMappings();
         }
 
         public override IRenderable Clone()

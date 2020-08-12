@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Statuses.Bard;
 using SolStandard.Utility;
 
@@ -25,7 +25,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         {
             get
             {
-                GameUnit singer = GameContext.Units.FirstOrDefault(unit => unit.Actions.Contains(this));
+                GameUnit singer = GlobalContext.Units.FirstOrDefault(unit => unit.Actions.Contains(this));
                 return singer != null &&
                        singer.StatusEffects.Any(status => status is SoloStatus || status is ConcertoStatus);
             }

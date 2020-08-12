@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility;
 using SolStandard.Utility.Events;
@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Statuses.Lancer
         {
             if (defender.Stats.CurrentHP <= 0)
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(5));
                 eventQueue.Enqueue(new RegenerateArmorEvent(attacker, attacker.Stats.MaxArmor));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
@@ -72,7 +72,7 @@ namespace SolStandard.Entity.Unit.Statuses.Lancer
             }
 
             //Remove status
-            GameContext.ActiveUnit.StatusEffects.RemoveAll(effect => effect == this);
+            GlobalContext.ActiveUnit.StatusEffects.RemoveAll(effect => effect == this);
         }
     }
 }

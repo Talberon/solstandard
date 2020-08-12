@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -41,14 +41,14 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             get
             {
-                GameUnit triggerer = GameContext.Units.Find(creep => creep.Actions.Contains(this));
+                GameUnit triggerer = GlobalContext.Units.Find(creep => creep.Actions.Contains(this));
                 return FindTriggerableInRange(triggerer) != null;
             }
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit activeUnit = GameContext.ActiveUnit;
+            GameUnit activeUnit = GlobalContext.ActiveUnit;
             ITriggerable targetTriggerable = FindTriggerableInRange(activeUnit);
 
             if (targetTriggerable != null)
@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(
                     activeUnit.UnitEntity,
                     "No targets in range to trigger!",
                     50
@@ -72,12 +72,12 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
             IThreatRange threatRange = new AdHocThreatRange(new[] {1}, creep.MvRange);
 
-            new UnitTargetingContext(TileSprite).GenerateThreatGrid(creep.UnitEntity.MapCoordinates, threatRange);
+            new UnitTargetingPhase(TileSprite).GenerateThreatGrid(creep.UnitEntity.MapCoordinates, threatRange);
             List<MapElement> moveTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
             moveTiles.AddRange(MapContainer.GetMapElementsFromLayer(Layer.Preview));
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            List<ITriggerable> triggerables = new List<ITriggerable>();
+            var triggerables = new List<ITriggerable>();
 
             foreach (MapElement moveTile in moveTiles)
             {
@@ -109,7 +109,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, triggerable.MapCoordinates)
             );
             pathToItemQueue.Enqueue(new CreepTriggerTileEvent(triggerable));
-            pathToItemQueue.Enqueue(new WaitFramesEvent(50));
+            pathToItemQueue.Enqueue(new SkippableWaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToItemQueue);
         }
     }

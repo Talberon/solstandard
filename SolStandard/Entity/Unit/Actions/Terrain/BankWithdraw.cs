@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.HUD.Window.Content;
@@ -41,7 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) bankCoordinates.X, (int) bankCoordinates.Y] =
                 new MapDistanceTile(TileSprite, bankCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(bankCoordinates);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(bankCoordinates);
         }
 
         private static WindowContentGrid GenerateActionDescription()
@@ -71,7 +70,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public void Increment(int amountToIncrement)
         {
-            int maxGold = Bank.GetTeamGoldInBank(GameContext.ActiveTeam);
+            int maxGold = Bank.GetTeamGoldInBank(GlobalContext.ActiveTeam);
 
             if (Value + amountToIncrement > maxGold)
             {
@@ -103,8 +102,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit actingUnit = GameContext.ActiveUnit;
-            Bank selectedBank = targetSlice.TerrainEntity as Bank;
+            GameUnit actingUnit = GlobalContext.ActiveUnit;
+            var selectedBank = targetSlice.TerrainEntity as Bank;
 
             if (Value > 0)
             {
@@ -112,7 +111,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 {
                     if (Value <= Bank.GetTeamGoldInBank(actingUnit.Team))
                     {
-                        Queue<IEvent> eventQueue = new Queue<IEvent>();
+                        var eventQueue = new Queue<IEvent>();
                         eventQueue.Enqueue(
                             new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                         );
@@ -123,19 +122,19 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     }
                     else
                     {
-                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not enough Gold in bank!", 50);
+                        GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not enough Gold in bank!", 50);
                         AssetManager.WarningSFX.Play();
                     }
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot withdraw Gold here!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot withdraw Gold here!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No Gold specified!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("No Gold specified!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -151,7 +150,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             Name = DescriptionTag + Value + Currency.CurrencyAbbreviation;
             Description = GenerateActionDescription();
 
-            GameContext.GameMapContext.RefreshCurrentActionMenuOption();
+            GlobalContext.WorldContext.RefreshCurrentActionMenuOption();
         }
     }
 }

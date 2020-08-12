@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
@@ -31,11 +31,11 @@ namespace SolStandard.Entity.Unit.Actions.Archer
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit actor = GameContext.ActiveUnit;
+            GameUnit actor = GlobalContext.ActiveUnit;
 
             if (!CanAffordCommandCost(actor, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
                 
                 if (CompanionAlreadySummoned)
                 {
-                    GameUnit summonedPet = GameContext.Units.FirstOrDefault(pet =>
+                    GameUnit summonedPet = GlobalContext.Units.FirstOrDefault(pet =>
                         pet.Role == PetType && pet.Team == actor.Team);
 
                     if (summonedPet != null)
@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
                             summonedPet.DamageUnit(true);
                         }
 
-                        GameContext.Units.Remove(summonedPet);
+                        GlobalContext.Units.Remove(summonedPet);
                     }
                 }
 
@@ -68,7 +68,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target unoccupied tile!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target unoccupied tile!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -78,8 +78,8 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             get
             {
                 GameUnit summonedPet =
-                    GameContext.Units.FirstOrDefault(pet =>
-                        pet.Role == PetType && pet.Team == GameContext.ActiveTeam);
+                    GlobalContext.Units.FirstOrDefault(pet =>
+                        pet.Role == PetType && pet.Team == GlobalContext.ActiveTeam);
 
                 return summonedPet != null;
             }

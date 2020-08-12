@@ -1,4 +1,4 @@
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Actions.Cleric;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

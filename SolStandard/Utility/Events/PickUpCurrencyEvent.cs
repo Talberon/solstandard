@@ -1,5 +1,5 @@
-﻿using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
@@ -20,26 +20,26 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            if (GameContext.ActiveTeam == Team.Creep)
+            if (GlobalContext.ActiveTeam == Team.Creep)
             {
-                GameContext.ActiveUnit.CurrentBounty += currency.Value;
+                GlobalContext.ActiveUnit.CurrentBounty += currency.Value;
             }
             else
             {
-                GameContext.InitiativeContext.AddGoldToTeam(currency.Value, GameContext.ActiveTeam);
+                GlobalContext.InitiativePhase.AddGoldToTeam(currency.Value, GlobalContext.ActiveTeam);
             }
 
             RemoveItemFromMap();
             AssetManager.CoinSFX.Play();
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
 
-            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.WorldContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.FallingCoins, GameDriver.CellSizeVector),
-                GameContext.ActiveUnit.UnitEntity.MapCoordinates
+                GlobalContext.ActiveUnit.UnitEntity.MapCoordinates
             );
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                $"{GameContext.ActiveUnit.Id} picked up {currency.Value}{Currency.CurrencyAbbreviation}!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
+                $"{GlobalContext.ActiveUnit.Id} picked up {currency.Value}{Currency.CurrencyAbbreviation}!", 50);
             Complete = true;
         }
 

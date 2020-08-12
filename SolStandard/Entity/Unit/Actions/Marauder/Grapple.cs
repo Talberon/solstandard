@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -67,16 +67,16 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                     MapContainer.ClearDynamicAndPreviewGrids();
                     selectedUnitEntity = targetUnit.UnitEntity;
                     AssetManager.MenuConfirmSFX.Play();
-                    GeneratePlacementTiles(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+                    GeneratePlacementTiles(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates);
                     return true;
                 }
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is immovable!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Target is immovable!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target unit in range!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target unit in range!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -87,7 +87,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(selectedUnitEntity, targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
@@ -97,14 +97,14 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                 return true;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must place unit in unoccupied space!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must place unit in unoccupied space!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
 
         private static bool TargetTileCanPlaceUnit(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.DynamicEntity != null;
         }
 

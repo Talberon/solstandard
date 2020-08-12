@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -40,9 +39,9 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (!CanAffordCommandCost(GameContext.ActiveUnit, cmdCost))
+            if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -50,12 +49,12 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
 
             if (TargetIsAnAllyInRange(targetSlice, targetUnit))
             {
-                GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
+                GlobalContext.ActiveUnit.RemoveCommandPoints(cmdCost);
                 BuffAlliesInRange();
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -66,13 +65,13 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
                 .Select(tile => MapContainer.GetMapSliceAtCoordinates(tile.MapCoordinates));
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            Queue<IEvent> eventQueue = new Queue<IEvent>();
+            var eventQueue = new Queue<IEvent>();
 
             foreach (MapSlice position in slicesInRange)
             {
                 GameUnit unitAtPosition = UnitSelector.SelectUnit(position.UnitEntity);
                 bool allyIsAtPosition = unitAtPosition != null &&
-                                        unitAtPosition.Team == GameContext.ActiveTeam;
+                                        unitAtPosition.Team == GlobalContext.ActiveTeam;
                 if (allyIsAtPosition)
                 {
                     eventQueue.Enqueue(

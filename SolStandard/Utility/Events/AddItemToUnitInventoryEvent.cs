@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
@@ -41,7 +41,7 @@ namespace SolStandard.Utility.Events
                 }
             );
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(itemToast, 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(itemToast, 50);
         }
     }
 }

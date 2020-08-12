@@ -11,7 +11,7 @@
     <IsPackable>false</IsPackable>
     <Company>Talberon</Company>
     <Product>Sol Standard</Product>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
@@ -26,7 +26,18 @@
 
   <ItemGroup>
     <PackageReference Include="Lidgren.Network" Version="1.0.2" />
+    <PackageReference Include="MonoGame.Aseprite" Version="1.1.1" />
     <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.9" />
+    <PackageReference Include="MonoGame.Extended" Version="3.7.0" />
+    <PackageReference Include="MonoGame.Extended.Animations" Version="3.7.0" />
+    <PackageReference Include="MonoGame.Extended.Collisions" Version="3.7.0" />
+    <PackageReference Include="MonoGame.Extended.Content.Pipeline" Version="3.7.0" />
+    <PackageReference Include="MonoGame.Extended.Entities" Version="3.7.0" />
+    <PackageReference Include="MonoGame.Extended.Graphics" Version="3.7.0" />
+    <PackageReference Include="MonoGame.Extended.Gui" Version="3.7.0" />
+    <PackageReference Include="MonoGame.Extended.Input" Version="3.7.0" />
+    <PackageReference Include="MonoGame.Extended.Particles" Version="3.7.0" />
+    <PackageReference Include="MonoGame.Extended.SceneGraphs" Version="3.7.0" />
     <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7" />
     <PackageReference Include="NLog" Version="4.6.8" />
     <PackageReference Include="OptimizedPriorityQueue" Version="4.2.0" />
@@ -185,6 +196,10 @@
     <EmbeddedResource Remove="Content\Fonts\**" />
     <EmbeddedResource Remove="Content\Graphics\**" />
     <EmbeddedResource Remove="Content\obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Containers\View" />
   </ItemGroup>
 
 </Project>

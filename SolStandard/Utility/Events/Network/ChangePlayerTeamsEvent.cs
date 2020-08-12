@@ -1,5 +1,5 @@
 using System;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 
 namespace SolStandard.Utility.Events.Network
@@ -16,7 +16,7 @@ namespace SolStandard.Utility.Events.Network
         
         public override void Continue()
         {
-            GameContext.SetP1Team(p1Team);
+            GlobalContext.SetP1Team(p1Team);
             Complete = true;
         }
     }

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.Unit.Statuses.Pugilist;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -38,9 +38,9 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (!CanAffordCommandCost(GameContext.ActiveUnit, cmdCost))
+            if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -48,11 +48,11 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 
             if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
-                GameUnit activeUnit = GameContext.ActiveUnit;
-                FlowStatus currentFlow =
+                GameUnit activeUnit = GlobalContext.ActiveUnit;
+                var currentFlow =
                     activeUnit.StatusEffects.SingleOrDefault(status => status is FlowStatus) as FlowStatus;
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(
                         activeUnit,
@@ -72,7 +72,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

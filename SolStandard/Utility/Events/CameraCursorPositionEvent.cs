@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 
 namespace SolStandard.Utility.Events
 {
@@ -15,15 +15,15 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(targetCameraPosition);
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(targetCameraPosition);
 
-            if (GameContext.GameMapContext.MapContainer.MapCursor.IsOnScreen)
+            if (GlobalContext.WorldContext.MapContainer.MapCursor.IsOnScreen)
             {
-                GameContext.GameMapContext.MapContainer.MapCamera.CenterCameraToCursor();
+                GlobalContext.WorldContext.MapContainer.MapCamera.CenterCameraToCursor();
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
+                GlobalContext.WorldContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
             }
 
             Complete = true;

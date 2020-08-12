@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
@@ -43,11 +42,11 @@ namespace SolStandard.Entity.General
 
         private List<IRemotelyTriggerable> FindRemotelyTriggerables()
         {
-            List<IRemotelyTriggerable> remotelyTriggerables = new List<IRemotelyTriggerable>();
+            var remotelyTriggerables = new List<IRemotelyTriggerable>();
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Entities])
             {
-                MapEntity entity = (MapEntity) mapElement;
+                var entity = (MapEntity) mapElement;
                 if (mapElement is IRemotelyTriggerable lockable)
                 {
                     if (entity.Name == TriggersId)
@@ -65,7 +64,7 @@ namespace SolStandard.Entity.General
             if (!CanTrigger) return;
 
             UnitAction toggleAction = TileActions().First();
-            toggleAction.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            toggleAction.GenerateActionGrid(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates);
             toggleAction.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(MapCoordinates));
             MapContainer.ClearDynamicAndPreviewGrids();
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());

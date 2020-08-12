@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.HUD.Window.Content;
@@ -48,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) vendorCoordinates.X, (int) vendorCoordinates.Y] =
                 new MapDistanceTile(TileSprite, vendorCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(vendorCoordinates);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(vendorCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -59,26 +58,26 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 {
                     vendor.RemoveBuyActionForItem(Item);
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(
                         new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                     );
                     eventQueue.Enqueue(new DecreaseTeamGoldEvent(Price));
                     eventQueue.Enqueue(new WaitFramesEvent(25));
-                    eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, Item.Duplicate()));
+                    eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GlobalContext.ActiveUnit, Item.Duplicate()));
                     eventQueue.Enqueue(new WaitFramesEvent(50));
                     eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can not afford item!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can not afford item!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -89,7 +88,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private bool ActiveTeamCanAffordItem()
         {
-            return GameContext.InitiativeContext.GetGoldForTeam(GameContext.ActiveTeam) >= Price;
+            return GlobalContext.InitiativePhase.GetGoldForTeam(GlobalContext.ActiveTeam) >= Price;
         }
 
         private bool TargetIsVendor(MapSlice targetSlice)

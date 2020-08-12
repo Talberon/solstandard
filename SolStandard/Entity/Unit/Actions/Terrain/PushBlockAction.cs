@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) blockCoordinates.X, (int) blockCoordinates.Y] =
                 new MapDistanceTile(TileSprite, blockCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(blockCoordinates);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(blockCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 {
                     MapContainer.ClearDynamicAndPreviewGrids();
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new PushBlockEvent(pushBlock));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new AdditionalActionEvent());
@@ -53,13 +53,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -69,9 +69,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             get
             {
                 Vector2 oppositeCoordinates = DetermineOppositeTileOfUnit(
-                    GameContext.ActiveUnit.UnitEntity.MapCoordinates, pushBlock.MapCoordinates);
+                    GlobalContext.ActiveUnit.UnitEntity.MapCoordinates, pushBlock.MapCoordinates);
 
-                return UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates) &&
+                return UnitMovingPhase.CanEndMoveAtCoordinates(oppositeCoordinates) &&
                        MapContainer.GetMapSliceAtCoordinates(oppositeCoordinates).TerrainEntity == null;
             }
         }

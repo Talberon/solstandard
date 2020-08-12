@@ -1,10 +1,11 @@
 using System;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -33,7 +34,7 @@ namespace SolStandard.Entity.General
         private static AnimatedSpriteSheet BuildPistonSprite(PistonDirection pistonDirection)
         {
             const int pistonCellSize = 48;
-            AnimatedSpriteSheet sprite = new AnimatedSpriteSheet(AssetManager.PistonTexture, pistonCellSize,
+            var sprite = new AnimatedSpriteSheet(AssetManager.PistonTexture, pistonCellSize,
                 GameDriver.CellSizeVector * 3, 6, false, Color.White);
             sprite.SetSpriteCell(0, (int) pistonDirection);
             sprite.Pause();
@@ -65,7 +66,7 @@ namespace SolStandard.Entity.General
             {
                 if (CanPush(targetUnit))
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("PUSHING!",
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates("PUSHING!",
                         new Vector2(MapCoordinates.X, MapCoordinates.Y - 1),
                         50);
                     (Sprite as AnimatedSpriteSheet)?.PlayOnce();
@@ -73,14 +74,14 @@ namespace SolStandard.Entity.General
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("Target is obstructed!",
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates("Target is obstructed!",
                         MapCoordinates, 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No unit in range!",
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates("No unit in range!",
                     MapCoordinates, 50);
             }
         }
@@ -92,7 +93,7 @@ namespace SolStandard.Entity.General
             Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
             Vector2 oppositeCoordinates = UnitAction.DetermineOppositeTileOfUnit(MapCoordinates, targetCoordinates);
 
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetUnit.UnitEntity, oppositeCoordinates) &&
+            return UnitMovingPhase.CanEndMoveAtCoordinates(targetUnit.UnitEntity, oppositeCoordinates) &&
                    targetUnit.IsMovable;
         }
 

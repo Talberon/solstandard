@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new RegenerateArmorEvent(targetUnit, armorPoints));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
@@ -43,11 +43,11 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
                 string toastMessage = Name + "!" + Environment.NewLine +
                                       "Recovered [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
                                       "!";
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastMessage, 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(toastMessage, 50);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

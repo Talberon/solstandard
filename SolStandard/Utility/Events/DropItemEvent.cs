@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
@@ -27,7 +27,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            if (GameContext.ActiveUnit.RemoveItemFromInventory(itemTile as IItem))
+            if (GlobalContext.ActiveUnit.RemoveItemFromInventory(itemTile as IItem))
             {
                 DropItemAtCoordinates();
 
@@ -41,11 +41,11 @@ namespace SolStandard.Utility.Events
                         }
                     }
                 );
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
                 AssetManager.DropItemSFX.Play();
             }
 
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
 
             Complete = true;
         }
@@ -58,7 +58,7 @@ namespace SolStandard.Utility.Events
                 MapContainer.GameGrid[(int) Layer.Items][(int) dropCoordinates.X, (int) dropCoordinates.Y];
 
 
-            IItem newItemToDrop = itemTile as IItem;
+            var newItemToDrop = itemTile as IItem;
             List<IItem> itemsToDrop;
             int goldToDrop;
 
@@ -87,7 +87,7 @@ namespace SolStandard.Utility.Events
                     break;
             }
 
-            Spoils spoilsToDrop = new Spoils(
+            var spoilsToDrop = new Spoils(
                 "Item Bag",
                 "Spoils",
                 MiscIconProvider.GetMiscIcon(MiscIcon.Spoils, GameDriver.CellSizeVector),

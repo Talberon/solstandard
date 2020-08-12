@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -27,19 +27,19 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit attacker = GameContext.ActiveUnit;
+            GameUnit attacker = GlobalContext.ActiveUnit;
 
             List<KeyValuePair<GameUnit, Vector2>> weakestTargetsInRange =
                 TargetsWithLowestEffectiveHealth(TilesWithinThreatRangeForUnit(attacker, Independent));
 
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(30));
             if (weakestTargetsInRange.Count > 0)
             {
                 PathToTargetAndAttack(weakestTargetsInRange, attacker);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
                     targetSlice.MapCoordinates, 50);
                 AssetManager.WarningSFX.Play();
             }

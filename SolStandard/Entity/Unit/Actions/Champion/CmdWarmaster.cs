@@ -1,7 +1,7 @@
 using System;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 case ActionPhase.MoveTarget:
                     if (MoveTarget(targetSlice))
                     {
-                        GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
+                        GlobalContext.ActiveUnit.RemoveCommandPoints(cmdCost);
                         currentPhase = ActionPhase.SelectTarget;
                     }
 
@@ -67,11 +67,11 @@ namespace SolStandard.Entity.Unit.Actions.Champion
         private bool SelectTarget(MapSlice targetSlice)
         {
             targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
-            GameUnit actor = GameContext.ActiveUnit;
+            GameUnit actor = GlobalContext.ActiveUnit;
 
             if (!CanAffordCommandCost(actor, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
@@ -85,14 +85,14 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 return true;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
 
         private bool MoveTarget(MapSlice targetSlice)
         {
-            if (Sprint.CanMove(GameContext.ActiveUnit))
+            if (Sprint.CanMove(GlobalContext.ActiveUnit))
             {
                 if (CanMoveToTargetTile(targetSlice))
                 {
@@ -101,12 +101,12 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                     return true;
                 }
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid tile!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a valid tile!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't move!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't move!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }

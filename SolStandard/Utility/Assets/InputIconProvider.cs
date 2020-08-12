@@ -1,6 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Utility.Assets
@@ -27,7 +27,7 @@ namespace SolStandard.Utility.Assets
                 case ControlType.Keyboard:
                     return GameDriver.KeyboardParser.Controller.GetInput(inputType).GetInputIcon(iconSize);
                 case ControlType.Gamepad:
-                    GameControlParser activePlayerParser = (GameContext.ActivePlayer == PlayerIndex.One)
+                    GameControlParser activePlayerParser = (GlobalContext.ActivePlayer == PlayerIndex.One)
                         ? GameDriver.P1GamepadParser
                         : GameDriver.P2GamepadParser;
 

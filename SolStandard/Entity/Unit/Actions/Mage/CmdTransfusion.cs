@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -32,9 +32,9 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (!CanAffordCommandCost(GameContext.ActiveUnit, cmdCost))
+            if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -43,18 +43,18 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
+                GlobalContext.ActiveUnit.RemoveCommandPoints(cmdCost);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
-                    new CastStatusEffectEvent(GameContext.ActiveUnit, new DamageToHealthStatus(Icon, 1))
+                    new CastStatusEffectEvent(GlobalContext.ActiveUnit, new DamageToHealthStatus(Icon, 1))
                 );
                 eventQueue.Enqueue(new StartCombatEvent(targetUnit));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

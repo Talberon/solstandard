@@ -1,4 +1,4 @@
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses.Champion
@@ -25,7 +25,7 @@ namespace SolStandard.Entity.Unit.Statuses.Champion
             AssetManager.SkillBuffSFX.Play();
             target.Stats.BlkModifier += pointsToTrade;
             target.Stats.LuckModifier -= pointsToTrade;
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
         }
 
         protected override void ExecuteEffect(GameUnit target)

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Creeps;
@@ -114,7 +114,7 @@ namespace SolStandard.Utility.Model
                 where Convert.ToBoolean(valuePair.Value)
                 select valuePair.Key).ToList();
 
-            List<UnitAction> actions = new List<UnitAction>();
+            var actions = new List<UnitAction>();
 
             foreach (string routineName in enabledRoutines)
             {
@@ -167,7 +167,7 @@ namespace SolStandard.Utility.Model
 
         private static CreepEntity FindSummonByName(string summonName)
         {
-            return GameContext.GameMapContext.MapContainer.MapSummons.Find(creep => creep.Name == summonName);
+            return GlobalContext.WorldContext.MapContainer.MapSummons.Find(creep => creep.Name == summonName);
         }
 
         public static CreepRoutineModel GetModelForCreep(Dictionary<string, string> unitProperties)

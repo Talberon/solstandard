@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -55,7 +55,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
                 new MapDistanceTile(TileSprite, targetCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(targetCoordinates);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(targetCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -64,13 +64,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             {
                 GlobalEventQueue.QueueSingleEvent(new PlaySoundEffectEvent(AssetManager.MapUnitMoveSFX));
                 GlobalEventQueue.QueueSingleEvent(
-                    new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, targetSlice.MapCoordinates)
+                    new MoveEntityToCoordinatesEvent(GlobalContext.ActiveUnit.UnitEntity, targetSlice.MapCoordinates)
                 );
                 GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot cross here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot cross here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -78,7 +78,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private static bool CanCrossPath(MapSlice targetSlice)
         {
             return targetSlice.DynamicEntity != null &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+                   UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

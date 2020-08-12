@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -32,9 +33,9 @@ namespace SolStandard.Entity.Unit.Actions.Item
             if (CanPlaceLadderBridgeAtTarget(targetSlice))
             {
                 ladderBridge.SnapToCoordinates(targetSlice.MapCoordinates);
-                GameContext.ActiveUnit.RemoveItemFromInventory(ladderBridge);
+                GlobalContext.ActiveUnit.RemoveItemFromInventory(ladderBridge);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(ladderBridge.Duplicate() as LadderBridge, Layer.Entities,
                     AssetManager.CombatBlockSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
@@ -43,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     "Must place item on immovable empty space!",
                     50
                 );
@@ -53,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         private static bool CanPlaceLadderBridgeAtTarget(MapSlice targetSlice)
         {
-            return !UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return !UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.TerrainEntity == null && targetSlice.DynamicEntity != null;
         }
     }

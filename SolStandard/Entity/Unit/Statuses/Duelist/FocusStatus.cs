@@ -1,5 +1,5 @@
 using System.Linq;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Statuses.Duelist
         public override void ApplyEffect(GameUnit target)
         {
             AssetManager.SkillBuffSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,
                 50
@@ -64,9 +64,9 @@ namespace SolStandard.Entity.Unit.Statuses.Duelist
         }
 
         public static bool ActiveDuelistHasFocusPoints =>
-            GameContext.ActiveUnit.Role == Role.Duelist &&
-            GameContext.ActiveUnit.IsAlive &&
-            GameContext.ActiveUnit.StatusEffects.Any(status =>
+            GlobalContext.ActiveUnit.Role == Role.Duelist &&
+            GlobalContext.ActiveUnit.IsAlive &&
+            GlobalContext.ActiveUnit.StatusEffects.Any(status =>
                 status is FocusStatus focusStatus &&
                 focusStatus.FocusPoints > 0 &&
                 !focusStatus.StatusAppliedAndCanNotAct

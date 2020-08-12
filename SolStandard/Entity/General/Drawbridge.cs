@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -75,9 +75,9 @@ namespace SolStandard.Entity.General
 
         public void RemoteTrigger()
         {
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
-            GameContext.MapCamera.SnapCameraCenterToCursor();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
+            GlobalContext.MapCamera.SnapCameraCenterToCursor();
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
 
             ToggleOpen();
         }

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -36,7 +35,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     (int) switchTile.MapCoordinates.Y] =
                 new MapDistanceTile(TileSprite, switchTile.MapCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(
                 switchTile.MapCoordinates);
         }
 
@@ -48,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 AssetManager.DoorSFX.Play();
 
                 MapContainer.ClearDynamicAndPreviewGrids();
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                 );
@@ -74,19 +73,19 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             {
                 if (!TargetingSwitch(targetSlice))
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a target switch!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a target switch!", 50);
                 }
 
                 if (!NothingObstructingSwitchTarget(targetTriggerables))
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Switch target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Switch target is obstructed!", 50);
                 }
 
                 AssetManager.WarningSFX.Play();
             }
         }
 
-        private static bool IsCreepTurn => GameContext.ActiveTeam == Team.Creep;
+        private static bool IsCreepTurn => GlobalContext.ActiveTeam == Team.Creep;
 
         private static bool TargetingSwitch(MapSlice targetSlice)
         {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Map;
@@ -30,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             Blink.RemoveActionTilesOnUnmovableSpaces(mapLayer);
         }
@@ -39,10 +40,10 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             if (CanMoveToTargetTile(targetSlice))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new PlayEntityAnimationOnceEvent(launchpad));
-                eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity,
+                eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GlobalContext.ActiveUnit.UnitEntity,
                     targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.DoorSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
@@ -51,7 +52,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't land here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't land here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

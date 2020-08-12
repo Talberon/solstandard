@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
+using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -39,11 +40,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             return true;
         }
 
-        public bool CanExecute => TilesWithinThreatRangeForUnit(GameContext.ActiveUnit, Independent).Count > 0;
+        public bool CanExecute => TilesWithinThreatRangeForUnit(GlobalContext.ActiveUnit, Independent).Count > 0;
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit attacker = GameContext.ActiveUnit;
+            GameUnit attacker = GlobalContext.ActiveUnit;
 
             List<KeyValuePair<GameUnit, Vector2>> targetsInRange = TilesWithinThreatRangeForUnit(attacker, Independent);
 
@@ -54,7 +55,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
                     targetSlice.MapCoordinates, 50);
                 AssetManager.WarningSFX.Play();
             }
@@ -84,22 +85,22 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             MapContainer.ClearDynamicAndPreviewGrids();
 
             //Check movement range
-            UnitMovingContext unitMovingContext =
-                new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
+            var unitMovingContext =
+                new UnitMovingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
             unitMovingContext.GenerateMoveGrid(creep.UnitEntity.MapCoordinates, creep.MvRange, creep.Team);
 
             //Generate a range ring around each unit on the map using this creep's AtkRange
             //Keep a tally of KV-Pairs tracking the tiles that overlap with the move range and the unit associated with the check
 
-            List<KeyValuePair<GameUnit, Vector2>> attackPositionsInRange = new List<KeyValuePair<GameUnit, Vector2>>();
-            UnitTargetingContext unitTargetingContext =
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
+            var attackPositionsInRange = new List<KeyValuePair<GameUnit, Vector2>>();
+            var unitTargetingContext =
+                new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
 
-            foreach (GameUnit targetUnit in GameContext.Units)
+            foreach (GameUnit targetUnit in GlobalContext.Units)
             {
                 if (targetUnit.UnitEntity == null) continue;
-                if (targetUnit.UnitEntity == GameContext.ActiveUnit.UnitEntity) continue;
-                if (!isIndependent && targetUnit.Team == GameContext.ActiveTeam) continue;
+                if (targetUnit.UnitEntity == GlobalContext.ActiveUnit.UnitEntity) continue;
+                if (!isIndependent && targetUnit.Team == GlobalContext.ActiveTeam) continue;
 
                 unitTargetingContext.GenerateTargetingGrid(targetUnit.UnitEntity.MapCoordinates, creep.AtkRange,
                     Layer.Preview);

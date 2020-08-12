@@ -1,4 +1,4 @@
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Statuses
             AssetManager.SkillBuffSFX.Play();
             target.Stats.RetModifier -= retToReduce;
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
         }
 
         protected override void ExecuteEffect(GameUnit target)

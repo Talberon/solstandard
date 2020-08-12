@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World;
 using SolStandard.Entity;
 using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
@@ -23,12 +23,12 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.ActiveUnit.AddItemToInventory(item);
+            GlobalContext.ActiveUnit.AddItemToInventory(item);
             RemoveItemFromMap(item, itemCoordinates);
             AssetManager.MenuConfirmSFX.Play();
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
 
-            AddItemToUnitInventoryEvent.ItemToast(GameContext.ActiveUnit, item);
+            AddItemToUnitInventoryEvent.ItemToast(GlobalContext.ActiveUnit, item);
 
             Complete = true;
         }

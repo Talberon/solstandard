@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -37,13 +37,13 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No cleansable status effects!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("No cleansable status effects!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
         {
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            Queue<IEvent> eventQueue = new Queue<IEvent>();
+            var eventQueue = new Queue<IEvent>();
 
             foreach (StatusEffect effect in targetUnit.StatusEffects.Where(effect => effect.CanCleanse).ToList())
             {

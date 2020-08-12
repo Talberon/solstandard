@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -36,11 +36,11 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 {
                     MapContainer.ClearDynamicAndPreviewGrids();
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new ShoveEvent(targetUnit));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(
-                        new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, targetOriginalPosition)
+                        new MoveEntityToCoordinatesEvent(GlobalContext.ActiveUnit.UnitEntity, targetOriginalPosition)
                     );
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new StartCombatEvent(targetUnit));
@@ -49,13 +49,13 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

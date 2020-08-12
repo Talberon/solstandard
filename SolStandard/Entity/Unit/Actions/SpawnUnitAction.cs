@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -31,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions
         private static IRenderable UnitIcon(Role role)
         {
             ITexture2D unitPortrait = UnitGenerator.GetUnitPortrait(role,
-                (GameContext.ActiveUnit != null) ? GameContext.ActiveTeam : Team.Blue);
+                (GlobalContext.ActiveUnit != null) ? GlobalContext.ActiveTeam : Team.Blue);
             return new SpriteAtlas(unitPortrait,
                 new Vector2(unitPortrait.Width, unitPortrait.Height),
                 GameDriver.CellSizeVector
@@ -42,16 +43,16 @@ namespace SolStandard.Entity.Unit.Actions
         {
             if (TargetIsUnoccupiedTileInRange(targetSlice))
             {
-                if (spawnItem != null) GameContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
+                if (spawnItem != null) GlobalContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                 );
                 eventQueue.Enqueue(
                     new SpawnUnitEvent(
                         unitRole,
-                        GameContext.ActiveTeam,
+                        GlobalContext.ActiveTeam,
                         targetSlice.MapCoordinates
                     )
                 );
@@ -61,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -71,15 +72,15 @@ namespace SolStandard.Entity.Unit.Actions
             GameUnit unitToSpawn = UnitGenerator.GenerateAdHocUnit(role, team, false);
             unitToSpawn.UnitEntity.SnapToCoordinates(mapCoordinates);
             unitToSpawn.ExhaustAndDisableUnit();
-            GameContext.Units.Add(unitToSpawn);
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
+            GlobalContext.Units.Add(unitToSpawn);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
             AssetManager.SkillBuffSFX.Play();
         }
 
         public static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)
         {
             return targetSlice.DynamicEntity != null && targetSlice.UnitEntity == null &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+                   UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

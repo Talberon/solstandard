@@ -54,7 +54,7 @@ namespace SolStandard.Entity.General.Item
             {
                 if (Items.Count <= 0) return RenderBlank.Blank;
 
-                IRenderable[,] content = new IRenderable[Items.Count, 2];
+                var content = new IRenderable[Items.Count, 2];
 
                 for (int i = 0; i < Items.Count; i++)
                 {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -30,9 +31,9 @@ namespace SolStandard.Entity.Unit.Actions.Item
             if (CanPlaceObstacleAtTarget(targetSlice))
             {
                 barricade.SnapToCoordinates(targetSlice.MapCoordinates);
-                GameContext.ActiveUnit.RemoveItemFromInventory(barricade);
+                GlobalContext.ActiveUnit.RemoveItemFromInventory(barricade);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(barricade, Layer.Entities, AssetManager.CombatBlockSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent());
@@ -40,14 +41,14 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot place obstacle here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot place obstacle here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         private static bool CanPlaceObstacleAtTarget(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.TerrainEntity == null && targetSlice.DynamicEntity != null;
         }
     }

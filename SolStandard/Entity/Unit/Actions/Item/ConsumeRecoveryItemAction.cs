@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -32,14 +32,14 @@ namespace SolStandard.Entity.Unit.Actions.Item
             {
                 potion.Consume(targetUnit);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a friendly unit in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a friendly unit in range!", 50);
             }
         }
     }

@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -21,7 +21,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         public AdHocDraftOption(Role role, Team team, bool enabled)
             : base(
                 DraftUnitLabelContent(role, team, enabled),
-                TeamUtility.DetermineTeamColor(team),
+                TeamUtility.DetermineTeamWindowColor(team),
                 HorizontalAlignment.Centered
             )
         {
@@ -34,7 +34,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         {
             ITexture2D unitPortraitTexture = UnitGenerator.GetUnitPortrait(role, team);
 
-            SpriteAtlas unitPortraitSprite = new SpriteAtlas(
+            var unitPortraitSprite = new SpriteAtlas(
                 unitPortraitTexture,
                 new Vector2(unitPortraitTexture.Width, unitPortraitTexture.Height),
                 new Vector2(PortraitSize),
@@ -56,7 +56,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
                 }
             };
 
-            WindowContentGrid unitInfoGrid = new WindowContentGrid(unitInfoContent, 1, HorizontalAlignment.Centered);
+            var unitInfoGrid = new WindowContentGrid(unitInfoContent, 1, HorizontalAlignment.Centered);
 
             return unitInfoGrid;
         }
@@ -65,7 +65,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         {
             if (enabled)
             {
-                GlobalEventQueue.QueueSingleEvent(new SpawnUnitEvent(role, team, GameContext.MapCursor.MapCoordinates));
+                GlobalEventQueue.QueueSingleEvent(new SpawnUnitEvent(role, team, GlobalContext.MapCursor.MapCoordinates));
                 GlobalEventQueue.QueueSingleEvent(new CloseAdHocDraftMenuEvent());
                 GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
                 GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());

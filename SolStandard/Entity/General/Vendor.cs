@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
@@ -81,7 +81,7 @@ namespace SolStandard.Entity.General
 
         private IRenderable GenerateItemList()
         {
-            IRenderable[,] itemDetailList = new IRenderable[purchaseActions.Count, 5];
+            var itemDetailList = new IRenderable[purchaseActions.Count, 5];
 
             List<VendorPurchase> purchaseActionsList = purchaseActions.Keys.Cast<VendorPurchase>().ToList();
 

@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         public override void ExecuteAction(MapSlice targetSlice)
         {
             GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Waiting...", 50));
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(30));
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
         }
     }

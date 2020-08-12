@@ -1,4 +1,4 @@
-﻿using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -65,7 +65,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public void OnCombatEnd(GameUnit attacker, GameUnit defender)
         {
             //Remove status
-            GameContext.ActiveUnit.StatusEffects.RemoveAll(effect => effect == this);
+            GlobalContext.ActiveUnit.StatusEffects.RemoveAll(effect => effect == this);
         }
     }
 }

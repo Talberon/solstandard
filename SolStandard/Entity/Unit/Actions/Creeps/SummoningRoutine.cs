@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
+using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -44,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             get
             {
-                GameUnit summoner = GameContext.Units.Find(creep => creep.Actions.Contains(this));
+                GameUnit summoner = GlobalContext.Units.Find(creep => creep.Actions.Contains(this));
                 return CanPlaceUnitOnAdjacentTile(summoner);
             }
         }
@@ -55,7 +56,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 new ToastAtCoordinatesEvent(targetSlice.MapCoordinates, "Summoning " + creepModel.CreepClass + "!", 50)
             );
 
-            if (CanPlaceUnitOnAdjacentTile(GameContext.ActiveUnit))
+            if (CanPlaceUnitOnAdjacentTile(GlobalContext.ActiveUnit))
             {
                 PlaceUnitOnRandomValidAdjacentTile();
                 GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
@@ -76,7 +77,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
             foreach (MapElement element in tilesInRange)
             {
-                if (UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates)) return true;
+                if (UnitMovingPhase.CanEndMoveAtCoordinates(element.MapCoordinates)) return true;
             }
 
             return false;
@@ -84,12 +85,12 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private void PlaceUnitOnRandomValidAdjacentTile()
         {
-            List<MapElement> shuffledTilesInRange = GetTilesInRange(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            List<MapElement> shuffledTilesInRange = GetTilesInRange(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates);
             shuffledTilesInRange.Shuffle();
 
             foreach (MapElement element in shuffledTilesInRange)
             {
-                if (!UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates)) continue;
+                if (!UnitMovingPhase.CanEndMoveAtCoordinates(element.MapCoordinates)) continue;
 
                 SpawnCreep(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates));
                 MapContainer.ClearDynamicAndPreviewGrids();
@@ -105,7 +106,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             if (TargetIsUnoccupiedTileInRange(targetSlice))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                 );
@@ -116,12 +117,12 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                         creepModel.EntityProperties
                     )
                 );
-                eventQueue.Enqueue(new WaitFramesEvent(50));
+                eventQueue.Enqueue(new SkippableWaitFramesEvent(50));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -133,20 +134,20 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             creepToSpawn.UnitEntity.SnapToCoordinates(mapCoordinates);
             creepToSpawn.ExhaustAndDisableUnit();
             creepToSpawn.ReadyNextRoutine();
-            GameContext.Units.Add(creepToSpawn);
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
+            GlobalContext.Units.Add(creepToSpawn);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
             AssetManager.SkillBuffSFX.Play();
         }
 
         private static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)
         {
             return targetSlice.DynamicEntity != null && targetSlice.UnitEntity == null &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+                   UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
 
         private List<MapElement> GetTilesInRange(Vector2 origin)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range);
             return MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
         }
@@ -155,12 +156,12 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             GlobalEventQueue.QueueSingleEvent(
                 new ToastAtCoordinatesEvent(
-                    GameContext.ActiveUnit.UnitEntity.MapCoordinates,
+                    GlobalContext.ActiveUnit.UnitEntity.MapCoordinates,
                     message,
                     AssetManager.WarningSFX
                 )
             );
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(50));
         }
     }
 }

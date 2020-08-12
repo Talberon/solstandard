@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.View;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Pause;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -23,11 +23,11 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
             if (FromMainMenu)
             {
                 AssetManager.MapUnitSelectSFX.Play();
-                GameContext.CurrentGameState = GameContext.GameState.MainMenu;
+                GlobalContext.CurrentGameState = GlobalContext.GameState.MainMenu;
             }
             else
             {
-                PauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Primary);
+                PauseScreenUtils.ChangeMenu(PauseScreenUtils.PauseMenus.Primary);
             }
         }
 

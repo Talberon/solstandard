@@ -1,6 +1,7 @@
 using System;
 using NLog;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Battle;
 
 namespace SolStandard.Utility.Events.Network
 {
@@ -9,9 +10,9 @@ namespace SolStandard.Utility.Events.Network
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        private readonly BattleContext.BattleState battleState;
+        private readonly CombatPhase.BattleState battleState;
 
-        public CombatNotifyStateCompleteEvent(BattleContext.BattleState battleState)
+        public CombatNotifyStateCompleteEvent(CombatPhase.BattleState battleState)
         {
             this.battleState = battleState;
         }
@@ -30,9 +31,9 @@ namespace SolStandard.Utility.Events.Network
             }
             else
             {
-                GameContext.BattleContext.PeerCanContinue = true;
+                GlobalContext.CombatPhase.PeerCanContinue = true;
                 Logger.Debug("Received completed battlestate from peer: " + battleState +
-                                ". Current state: " + GameContext.BattleContext.CurrentState);
+                                ". Current state: " + GlobalContext.CombatPhase.CurrentState);
             }
 
             Complete = true;

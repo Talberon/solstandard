@@ -1,4 +1,4 @@
-﻿using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Components.Global;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Statuses
             AssetManager.SkillBuffSFX.Play();
             target.Stats.LuckModifier += luckModifier;
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,
                 50

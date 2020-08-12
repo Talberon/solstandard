@@ -1,4 +1,4 @@
-﻿using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Components.Global;
 using SolStandard.Entity;
 using SolStandard.Utility.Assets;
 
@@ -16,7 +16,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.ActiveUnit.RemoveItemFromInventory(itemToDelete);
+            GlobalContext.ActiveUnit.RemoveItemFromInventory(itemToDelete);
             AssetManager.MenuConfirmSFX.Play();
             Complete = true;
         }

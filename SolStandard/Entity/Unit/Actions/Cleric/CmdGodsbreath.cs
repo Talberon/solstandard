@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -38,12 +37,12 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit actor = GameContext.ActiveUnit;
+            GameUnit actor = GlobalContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             if (!CanAffordCommandCost(actor, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -53,7 +52,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
             {
                 actor.RemoveCommandPoints(cmdCost);
 
-                List<GameUnit> alliesInRange = new List<GameUnit>();
+                var alliesInRange = new List<GameUnit>();
 
                 List<MapElement> tilesInRange = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
                 foreach (MapElement tileInRange in tilesInRange)
@@ -66,10 +65,10 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
                     }
                 }
 
-                Queue<IEvent> events = new Queue<IEvent>();
+                var events = new Queue<IEvent>();
                 foreach (GameUnit ally in alliesInRange)
                 {
-                    HealthRegeneration hpRegen = new HealthRegeneration(buffTurnDuration, amountToHeal);
+                    var hpRegen = new HealthRegeneration(buffTurnDuration, amountToHeal);
                     events.Enqueue(new CastStatusEffectEvent(ally, hpRegen));
                     events.Enqueue(new ToastAtCoordinatesEvent(ally.UnitEntity.MapCoordinates, hpRegen.Name,
                         AssetManager.SkillBuffSFX));
@@ -84,7 +83,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self or ally!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target self or ally!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

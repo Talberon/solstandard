@@ -11,7 +11,7 @@ namespace SolStandardTest.HUD.Window.Content.Health
         {
             const int maxArmor = 5;
             const int maxHp = 5;
-            FakeResourceBar testResourceBar = new FakeResourceBar(maxArmor, maxHp, Vector2.One);
+            var testResourceBar = new FakeResourceBar(maxArmor, maxHp, Vector2.One);
 
             testResourceBar.SetArmorAndHp(4, 5);
             string pipsString = string.Join(",", testResourceBar.HealthPipValues);
@@ -34,7 +34,7 @@ namespace SolStandardTest.HUD.Window.Content.Health
         {
             const int maxArmor = 5;
             const int maxHp = 5;
-            FakeResourceBar testResourceBar = new FakeResourceBar(maxArmor, maxHp, Vector2.One);
+            var testResourceBar = new FakeResourceBar(maxArmor, maxHp, Vector2.One);
 
             testResourceBar.SetArmorAndHp(0, 3);
             string pipsString = string.Join(",", testResourceBar.HealthPipValues);

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using MonoGame.Aseprite;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility.Load
@@ -66,7 +67,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadWhitePixel(ContentManager content)
         {
-            Texture2D spriteTextures = content.Load<Texture2D>("Graphics/WhitePixel");
+            var spriteTextures = content.Load<Texture2D>("Graphics/WhitePixel");
             return new Texture2DWrapper(spriteTextures);
         }
 
@@ -77,7 +78,7 @@ namespace SolStandard.Utility.Load
 
         public static List<ITexture2D> LoadTerrainSpriteTexture(ContentManager content)
         {
-            List<Texture2D> loadTerrainTextures = new List<Texture2D>
+            var loadTerrainTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/Map/Tiles/entities-32"),
                 content.Load<Texture2D>("Graphics/Map/Tiles/overworld-32")
@@ -93,13 +94,13 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadStatIcons(ContentManager content)
         {
-            Texture2D statIconsTexture = content.Load<Texture2D>("Graphics/Images/Icons/StatIcons");
+            var statIconsTexture = content.Load<Texture2D>("Graphics/Images/Icons/StatIcons");
             return new Texture2DWrapper(statIconsTexture);
         }
 
         public static List<ITexture2D> LoadCursorTextures(ContentManager content)
         {
-            List<Texture2D> loadCursorTextures = new List<Texture2D>
+            var loadCursorTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/Map/Cursor/Cursors"),
                 content.Load<Texture2D>("Graphics/HUD/Cursor/MenuCursorPointer_32")
@@ -110,7 +111,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadWindowTexture(ContentManager content)
         {
-            Texture2D windowTexture = content.Load<Texture2D>("Graphics/WhitePixel");
+            var windowTexture = content.Load<Texture2D>("Graphics/WhitePixel");
 
             ITexture2D windowTextureWrapper = new Texture2DWrapper(windowTexture);
 
@@ -119,7 +120,7 @@ namespace SolStandard.Utility.Load
 
         public static List<ITexture2D> LoadUnitSpriteTextures(ContentManager content)
         {
-            List<Texture2D> loadSpriteTextures = new List<Texture2D>
+            var loadSpriteTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueArcher"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueMage"),
@@ -170,7 +171,7 @@ namespace SolStandard.Utility.Load
 
         public static List<ITexture2D> LoadSmallPortraits(ContentManager content)
         {
-            List<Texture2D> loadPortraitTextures = new List<Texture2D>
+            var loadPortraitTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Silhouette"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Archer"),
@@ -224,37 +225,37 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadDiceAtlas(ContentManager content)
         {
-            Texture2D diceTexture = content.Load<Texture2D>("Graphics/Images/Dice/AttackDiceAtlas");
+            var diceTexture = content.Load<Texture2D>("Graphics/Images/Dice/AttackDiceAtlas");
             return new Texture2DWrapper(diceTexture);
         }
 
         public static ITexture2D LoadPistonAtlas(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Piston");
+            var loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Piston");
             return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadLaunchpadAtlas(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Launchpad");
+            var loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Launchpad");
             return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadLockAtlas(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Lock");
+            var loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Lock");
             return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadOpenAtlas(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/open");
+            var loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/open");
             return new Texture2DWrapper(loadTexture);
         }
 
         public static List<ITexture2D> LoadAnimations(ContentManager content)
         {
-            List<Texture2D> songTextures = new List<Texture2D>
+            var songTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/SongAura"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraAttack"),
@@ -277,7 +278,7 @@ namespace SolStandard.Utility.Load
 
         public static List<ITexture2D> LoadBannerIcons(ContentManager content)
         {
-            List<Texture2D> bannerTextures = new List<Texture2D>
+            var bannerTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/Banner_White"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/Banner_Round"),
@@ -288,29 +289,43 @@ namespace SolStandard.Utility.Load
 
             return bannerTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
+        
+        public static AnimatedSprite LoadDeveloperSplashLogoSprite(ContentManager content)
+        {
+            var texture = content.Load<Texture2D>("Graphics/Images/Screens/talberon-games");
+            var animation = content.Load<AnimationDefinition>("Graphics/Images/Screens/talberon-games-data");
+            return new AnimatedSprite(texture, animation);
+        }
+        
+        public static ITexture2D LoadDeveloperSplashBackgroundSprite(ContentManager content)
+        {
+            var backgroundTexture =
+                content.Load<Texture2D>("Graphics/Images/Screens/weapon-background");
+            return new Texture2DWrapper(backgroundTexture);
+        }
 
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
-            Texture2D backgroundTexture =
-                content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-Pixel-Logo-Large");
+            var backgroundTexture =
+                content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-Pixel-Logo-Large-2");
             return new Texture2DWrapper(backgroundTexture);
         }
 
         public static ITexture2D LoadSolIcon(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-Pixel-Sol");
+            var loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-Pixel-Sol");
             return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadTitleScreenBackground(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_WorldMap");
+            var loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_WorldMap");
             return new Texture2DWrapper(loadTexture);
         }
 
         public static List<ITexture2D> LoadMapPreviews(ContentManager content)
         {
-            List<Texture2D> mapPreviewTextures = new List<Texture2D>
+            var mapPreviewTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_02_Dungeon"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Dungeon_02"),
@@ -352,7 +367,7 @@ namespace SolStandard.Utility.Load
 
         public static List<ITexture2D> LoadButtonIcons(ContentManager content)
         {
-            List<Texture2D> buttonIconTextures = new List<Texture2D>
+            var buttonIconTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_A"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_B"),
@@ -386,7 +401,7 @@ namespace SolStandard.Utility.Load
 
         public static List<ITexture2D> LoadKeyboardIcons(ContentManager content)
         {
-            List<Texture2D> buttonIconTextures = new List<Texture2D>
+            var buttonIconTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Space"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Shift"),
@@ -458,7 +473,7 @@ namespace SolStandard.Utility.Load
 
         public static List<ITexture2D> LoadSkillIcons(ContentManager content)
         {
-            List<Texture2D> textures = new List<Texture2D>
+            var textures = new List<Texture2D>
             {
                 //Skill Icons
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/BasicAttack"),
@@ -539,7 +554,7 @@ namespace SolStandard.Utility.Load
 
         public static List<ITexture2D> LoadStatusIcons(ContentManager content)
         {
-            List<Texture2D> textures = new List<Texture2D>
+            var textures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/atkUp"),
                 content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/atkRangeUp"),
@@ -555,94 +570,100 @@ namespace SolStandard.Utility.Load
 
             return textures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
+        
+        public static ISoundEffect LoadLogoSFX(ContentManager content)
+        {
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/talberon-games-logo");
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
+        }
 
         public static ISoundEffect LoadMenuMoveSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_movement_ladder3b");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_movement_ladder3b");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadMenuConfirmSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_cluster3");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_cluster3");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadMapCursorMoveSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_movement_ladder4a");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_movement_ladder4a");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadMapUnitSelectSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_double1");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_double1");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadMapUnitCancelSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_weapon_singleshot4");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_weapon_singleshot4");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadDiceRollSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_weapon_singleshot4");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_weapon_singleshot4");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadMapUnitMoveSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_movement_footsteps1b");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_movement_footsteps1b");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadCombatStartSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_falling5");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_falling5");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadCombatBlockSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_impact11");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_impact11");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadCombatDamageSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_exp_shortest_hard6");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_exp_shortest_hard6");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadCombatDeathSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_exp_short_hard1");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_exp_short_hard1");
             return new SoundEffectWrapper(effect, SoundEffectVolume + 0.2f);
         }
 
         public static ISoundEffect LoadDisableDiceSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_wpn_punch2");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_wpn_punch2");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadWarningSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_impact12");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_impact12");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadSkillDrawSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_powerup3");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_powerup3");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadSkillBlinkSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_movement_portal2");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_movement_portal2");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
@@ -698,73 +719,73 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadObjectiveIcons(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/ObjectiveIcons16");
+            var loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/ObjectiveIcons16");
             return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadTeamIcons(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/SolLunaTerra");
+            var loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/SolLunaTerra");
             return new Texture2DWrapper(loadTexture);
         }
 
         public static ISoundEffect LoadCoinSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_cluster7");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_cluster7");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadDoorSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_exp_shortest_hard4");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_exp_shortest_hard4");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadLockedSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error5");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error5");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadUnlockSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_double6");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_double6");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadDropItemSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_exp_shortest_soft1");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_exp_shortest_soft1");
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadErrorSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error3");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error3");
             return new SoundEffectWrapper(effect, 1f);
         }
 
         public static ISoundEffect LoadPingSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_wpn_laser8");
+            var effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_wpn_laser8");
             return new SoundEffectWrapper(effect, 1f);
         }
 
         public static string LoadCreditsText()
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/Documents/CREDITS.md");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"Content/Documents/CREDITS.md");
             return File.ReadAllText(filePath);
         }
 
         public static string LoadEULAText()
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/LICENSE.txt");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"Content/LICENSE.txt");
             return File.ReadAllText(filePath);
         }
 
         public static string LoadHowToPlayText()
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"HowToPlay.md");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"HowToPlay.md");
             return File.ReadAllText(filePath);
         }
     }

@@ -1,5 +1,5 @@
 using System;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Map.Elements;
 
 namespace SolStandard.Utility.Events.Network
@@ -15,7 +15,7 @@ namespace SolStandard.Utility.Events.Network
         }
         public override void Continue()
         {
-            GameContext.DraftContext.MoveCursor(direction);
+            GlobalContext.DraftContext.MoveCursor(direction);
             Complete = true;
         }
     }

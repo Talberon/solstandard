@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -27,12 +27,12 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit attacker = GameContext.ActiveUnit;
+            GameUnit attacker = GlobalContext.ActiveUnit;
 
             List<KeyValuePair<GameUnit, Vector2>> commandersInRange =
                 CommandersInRange(TilesWithinThreatRangeForUnit(attacker, Independent));
 
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(30));
             if (commandersInRange.Count > 0)
             {
                 PathToTargetAndAttack(commandersInRange, attacker);
@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                         "No Commanders in range! " + Environment.NewLine + "Targeting any enemies in range.", 50
                     )
                 );
-                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+                GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(50));
                 base.ExecuteAction(targetSlice);
             }
         }

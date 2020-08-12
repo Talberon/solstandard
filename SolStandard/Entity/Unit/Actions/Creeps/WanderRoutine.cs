@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -39,25 +39,25 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit roamer = GameContext.ActiveUnit;
+            GameUnit roamer = GlobalContext.ActiveUnit;
             GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Wandering...", 50));
             Roam(roamer);
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(30));
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
         }
 
 
         public static void Roam(GameUnit roamer)
         {
-            Queue<IEvent> roamEventQueue = new Queue<IEvent>();
+            var roamEventQueue = new Queue<IEvent>();
             //Move randomly up to max movement
             for (int i = 0; i < roamer.Stats.Mv; i++)
             {
-                Direction randomDirection =
+                var randomDirection =
                     (Direction) GameDriver.Random.Next(1, Enum.GetValues(typeof(Direction)).Length);
 
                 roamEventQueue.Enqueue(new CreepMoveEvent(roamer, randomDirection));
-                roamEventQueue.Enqueue(new WaitFramesEvent(15));
+                roamEventQueue.Enqueue(new SkippableWaitFramesEvent(15));
             }
 
             roamEventQueue.Enqueue(new CreepMoveEvent(roamer, Direction.None));

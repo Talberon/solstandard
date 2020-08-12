@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Statuses
                 target.Stats.CurrentAtkRange = atkRange.Concat(new[] {extraRange}).ToArray();
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,
                 50

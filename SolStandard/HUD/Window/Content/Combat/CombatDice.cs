@@ -35,7 +35,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         private List<Die> PopulateDice()
         {
-            List<Die> diceToGenerate = new List<Die>();
+            var diceToGenerate = new List<Die>();
 
             for (int i = 0; i < baseDice; i++)
             {
@@ -136,7 +136,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Vector2 dieOffset = new Vector2();
+            var dieOffset = new Vector2();
 
             for (int i = 0; i < dice.Count; i++)
             {

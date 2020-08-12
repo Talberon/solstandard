@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
+using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -32,19 +33,19 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             RemoveActionTilesOnUnmovableSpaces(mapLayer);
         }
 
         public static void RemoveActionTilesOnUnmovableSpaces(Layer mapLayer)
         {
-            List<MapElement> tilesToRemove = new List<MapElement>();
+            var tilesToRemove = new List<MapElement>();
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) mapLayer])
             {
                 if (mapElement == null) continue;
-                if (!UnitMovingContext.CanEndMoveAtCoordinates(mapElement.MapCoordinates))
+                if (!UnitMovingPhase.CanEndMoveAtCoordinates(mapElement.MapCoordinates))
                 {
                     tilesToRemove.Add(mapElement);
                 }
@@ -62,18 +63,18 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             {
                 if (CanMoveToTargetTile(targetSlice))
                 {
-                    UnitEntity targetEntity = GameContext.ActiveUnit.UnitEntity;
+                    UnitEntity targetEntity = GlobalContext.ActiveUnit.UnitEntity;
 
                     MapContainer.ClearDynamicAndPreviewGrids();
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(
                         new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetEntity.MapCoordinates)
                     );
                     eventQueue.Enqueue(new HideUnitEvent(targetEntity));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new BlinkCoordinatesEvent(
-                        GameContext.ActiveUnit.UnitEntity,
+                        GlobalContext.ActiveUnit.UnitEntity,
                         targetSlice.MapCoordinates
                     ));
                     eventQueue.Enqueue(new UnhideUnitEvent(targetEntity));
@@ -83,13 +84,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Item has no uses remaining!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Item has no uses remaining!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -32,16 +32,16 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
+            var attackTiles = new List<MapDistanceTile>();
 
-            int limitedGallopDistance = Math.Min(gallopDistance, GameContext.ActiveUnit.Stats.Mv);
+            int limitedGallopDistance = Math.Min(gallopDistance, GlobalContext.ActiveUnit.Stats.Mv);
 
             for (int i = limitedGallopDistance; i > 1; i--)
             {
-                Vector2 northTile = new Vector2(origin.X, origin.Y - i);
-                Vector2 southTile = new Vector2(origin.X, origin.Y + i);
-                Vector2 eastTile = new Vector2(origin.X + i, origin.Y);
-                Vector2 westTile = new Vector2(origin.X - i, origin.Y);
+                var northTile = new Vector2(origin.X, origin.Y - i);
+                var southTile = new Vector2(origin.X, origin.Y + i);
+                var eastTile = new Vector2(origin.X + i, origin.Y);
+                var westTile = new Vector2(origin.X - i, origin.Y);
                 Charge.AddTileWithinMapBounds(attackTiles, northTile, i, TileSprite);
                 Charge.AddTileWithinMapBounds(attackTiles, southTile, i, TileSprite);
                 Charge.AddTileWithinMapBounds(attackTiles, eastTile, i, TileSprite);
@@ -60,7 +60,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
                 if (!Charge.PathIsObstructed(targetSlice, targetUnit))
                 {
                     Queue<IEvent> eventQueue = PathingUtil.MoveToCoordinates(
-                        GameContext.ActiveUnit,
+                        GlobalContext.ActiveUnit,
                         targetUnit.UnitEntity.MapCoordinates,
                         true,
                         false,
@@ -72,13 +72,13 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

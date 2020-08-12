@@ -1,5 +1,5 @@
 using System.Linq;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Statuses.Duelist;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -46,7 +46,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                     }
                     else
                     {
-                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Max focus points reached!", 50);
+                        GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Max focus points reached!", 50);
                         AssetManager.WarningSFX.Play();
                     }
                 }
@@ -58,7 +58,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

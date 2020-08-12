@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Statuses.Marauder;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -40,7 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             {
                 if (UnitIsAtMaxHP(targetUnit))
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                         UnitStatistics.Abbreviation[Stats.Hp] + " is maxed out!",
                         50
                     );
@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                         (int) Math.Floor((float) (targetUnit.Stats.MaxHP - targetUnit.Stats.CurrentHP) /
                                          missingHpPerPoint);
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(
                         new CastStatusEffectEvent(targetUnit, new EnragedStatus(duration, halfMissingHP)));
                     eventQueue.Enqueue(new WaitFramesEvent(50));
@@ -64,7 +64,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

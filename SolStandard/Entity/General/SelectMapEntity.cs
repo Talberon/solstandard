@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Scenario.Objectives;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -72,7 +72,7 @@ namespace SolStandard.Entity.General
                                 new RenderText(AssetManager.WindowFont, $" Blue: {MaxBlueUnits}")
                             }
                         },
-                        TeamUtility.DetermineTeamColor(Team.Blue)
+                        TeamUtility.DetermineTeamWindowColor(Team.Blue)
                     ),
                     new Window(
                         new IRenderable[,]
@@ -82,7 +82,7 @@ namespace SolStandard.Entity.General
                                 new RenderText(AssetManager.WindowFont, $" Red: {MaxRedUnits}")
                             }
                         },
-                        TeamUtility.DetermineTeamColor(Team.Red)
+                        TeamUtility.DetermineTeamWindowColor(Team.Red)
                     )
                 }
             },
@@ -98,7 +98,7 @@ namespace SolStandard.Entity.General
                 throw new InvalidTimeEstimateException(timeEstimateOutofFive);
             }
 
-            IRenderable[,] clocks = new IRenderable[1, 5];
+            var clocks = new IRenderable[1, 5];
 
             IRenderable clockIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Clock, GameDriver.CellSizeVector);
             IRenderable darkClockIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Clock, GameDriver.CellSizeVector);
@@ -114,7 +114,7 @@ namespace SolStandard.Entity.General
 
         private static Vector2 FitImageToSize(Vector2 maximumSize, ITexture2D sourceImage)
         {
-            Vector2 imageSize = new Vector2(sourceImage.Width, sourceImage.Height);
+            var imageSize = new Vector2(sourceImage.Width, sourceImage.Height);
 
             if (!(imageSize.X > maximumSize.X || imageSize.Y > maximumSize.Y)) return imageSize;
 

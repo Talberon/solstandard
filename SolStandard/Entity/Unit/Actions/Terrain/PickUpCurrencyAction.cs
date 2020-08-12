@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General.Item;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PickUpCurrencyEvent(currency));
                 eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new AdditionalActionEvent());
@@ -39,14 +39,14 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot pick up money here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot pick up money here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         private bool SelectingItemAtUnitLocation(MapSlice targetSlice)
         {
-            return currency.MapCoordinates == GameContext.ActiveUnit.UnitEntity.MapCoordinates &&
+            return currency.MapCoordinates == GlobalContext.ActiveUnit.UnitEntity.MapCoordinates &&
                    targetSlice.DynamicEntity != null;
         }
     }

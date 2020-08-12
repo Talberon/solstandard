@@ -1,9 +1,10 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
@@ -41,8 +42,8 @@ namespace SolStandard.Utility.Events
                 }
             );
 
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
             AssetManager.MenuConfirmSFX.Play();
 
             Complete = true;

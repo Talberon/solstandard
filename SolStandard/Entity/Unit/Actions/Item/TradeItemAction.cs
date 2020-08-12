@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -31,12 +31,12 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         private void GiveItemToAlly(MapSlice targetSlice)
         {
-            GameUnit actingUnit = GameContext.ActiveUnit;
+            GameUnit actingUnit = GlobalContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             if (CanGiveItemToAlly(targetUnit, actingUnit, targetSlice))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new TransferUnitItemEvent(actingUnit, targetUnit, item));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new AdditionalActionEvent());
@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop/give item here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot drop/give item here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

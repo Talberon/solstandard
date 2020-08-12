@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions.Item;
@@ -45,8 +45,8 @@ namespace SolStandard.HUD.Menu.Options.StealMenu
 
         public override void Execute()
         {
-            GameContext.GameMapContext.ClearStealItemMenu();
-            TakeItemAction.TakeItemFromInventory(GameContext.ActiveUnit, target, itemToTake);
+            GlobalContext.WorldContext.ClearStealItemMenu();
+            TakeItemAction.TakeItemFromInventory(GlobalContext.ActiveUnit, target, itemToTake);
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
 
             if (freeAction)

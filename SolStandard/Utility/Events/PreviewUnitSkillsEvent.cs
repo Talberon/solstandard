@@ -1,4 +1,4 @@
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 
 namespace SolStandard.Utility.Events
 {
@@ -8,7 +8,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.GameMapContext.ShowUnitCodexEntry();
+            GlobalContext.WorldContext.ShowUnitCodexEntry();
             Complete = true;
         }
     }

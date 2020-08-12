@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
@@ -69,7 +69,7 @@ namespace SolStandard.Entity.General.Item
         public void Consume(GameUnit targetUnit)
         {
             IsBroken = true;
-            GameContext.ActiveUnit.RemoveItemFromInventory(this);
+            GlobalContext.ActiveUnit.RemoveItemFromInventory(this);
 
             switch (statistic)
             {

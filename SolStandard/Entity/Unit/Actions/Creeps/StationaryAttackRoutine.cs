@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -28,7 +28,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             List<GameUnit> enemiesInRange = GetEnemiesInRange();
 
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+            GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(30));
             if (enemiesInRange.Count > 0)
             {
                 GameUnit target = enemiesInRange[GameDriver.Random.Next(enemiesInRange.Count)];
@@ -38,7 +38,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                         $"Targeting {target.Id}!", 50
                     )
                 );
-                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+                GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(30));
                 GlobalEventQueue.QueueSingleEvent(new StartCombatEvent(target));
             }
             else
@@ -48,23 +48,23 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                         "No enemies in range! ", 50
                     )
                 );
-                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+                GlobalEventQueue.QueueSingleEvent(new SkippableWaitFramesEvent(50));
                 base.ExecuteAction(targetSlice);
             }
         }
 
         private static List<GameUnit> GetEnemiesInRange()
         {
-            GameUnit actor = GameContext.ActiveUnit;
+            GameUnit actor = GlobalContext.ActiveUnit;
 
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark))
+            new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark))
                 .GenerateTargetingGrid(actor.UnitEntity.MapCoordinates,
                     actor.AtkRange);
 
             List<MapElement> targetingTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
-            List<GameUnit> enemiesInRange = new List<GameUnit>();
+            var enemiesInRange = new List<GameUnit>();
             foreach (MapElement tile in targetingTiles)
             {
                 MapSlice slice = MapContainer.GetMapSliceAtCoordinates(tile.MapCoordinates);

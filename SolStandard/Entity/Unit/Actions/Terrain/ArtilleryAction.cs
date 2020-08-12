@@ -1,4 +1,4 @@
-﻿using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -34,13 +34,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     new StartCombatEvent(
                         targetUnit,
                         false, 
-                        GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(weaponStatistics)
+                        GlobalContext.ActiveUnit.Stats.ApplyWeaponStatistics(weaponStatistics)
                     )
                 );
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -37,9 +38,9 @@ namespace SolStandard.Entity.Unit.Actions.Item
             if (CanPlaceBombAtTarget(targetSlice))
             {
                 bombToDeploy.SnapToCoordinates(targetSlice.MapCoordinates);
-                GameContext.ActiveUnit.RemoveItemFromInventory(bombToDeploy);
+                GlobalContext.ActiveUnit.RemoveItemFromInventory(bombToDeploy);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(bombToDeploy.Duplicate() as Bomb, Layer.Entities,
                     AssetManager.CombatBlockSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
@@ -48,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     "Must place item on unoccupied space!",
                     50
                 );
@@ -58,7 +59,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         private static bool CanPlaceBombAtTarget(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.DynamicEntity != null && targetSlice.TerrainEntity == null;
         }
     }

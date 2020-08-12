@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 
 namespace SolStandard.Map.Camera
 {
@@ -14,23 +13,16 @@ namespace SolStandard.Map.Camera
         Left
     }
 
-    public class MapCamera
+    public class MapCamera : IMapCamera
     {
-        public enum ZoomLevel
-        {
-            Far,
-            Default,
-            Close,
-            Combat
-        }
-
-        private static readonly Dictionary<ZoomLevel, float> ZoomLevels = new Dictionary<ZoomLevel, float>
-        {
-            {ZoomLevel.Far, FarZoom},
-            {ZoomLevel.Default, DefaultZoomLevel},
-            {ZoomLevel.Close, CloseZoom},
-            {ZoomLevel.Combat, CombatZoom}
-        };
+        private static readonly Dictionary<IMapCamera.ZoomLevel, float> ZoomLevels =
+            new Dictionary<IMapCamera.ZoomLevel, float>
+            {
+                {IMapCamera.ZoomLevel.Far, FarZoom},
+                {IMapCamera.ZoomLevel.Default, DefaultZoomLevel},
+                {IMapCamera.ZoomLevel.Close, CloseZoom},
+                {IMapCamera.ZoomLevel.Combat, CombatZoom}
+            };
 
         private const double FloatTolerance = 0.01;
 
@@ -83,26 +75,26 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        public void SetZoomLevel(ZoomLevel zoomLevel)
+        public void SetZoomLevel(IMapCamera.ZoomLevel zoomLevel)
         {
             ZoomToCursor(ZoomLevels[zoomLevel]);
         }
 
         public void ZoomIn()
         {
-            if (CurrentZoom >= ZoomLevels[ZoomLevel.Close]) return;
+            if (CurrentZoom >= ZoomLevels[IMapCamera.ZoomLevel.Close]) return;
 
-            if (CurrentZoom >= ZoomLevels[ZoomLevel.Default]) SetZoomLevel(ZoomLevel.Close);
-            else if (CurrentZoom >= ZoomLevels[ZoomLevel.Far]) SetZoomLevel(ZoomLevel.Default);
+            if (CurrentZoom >= ZoomLevels[IMapCamera.ZoomLevel.Default]) SetZoomLevel(IMapCamera.ZoomLevel.Close);
+            else if (CurrentZoom >= ZoomLevels[IMapCamera.ZoomLevel.Far]) SetZoomLevel(IMapCamera.ZoomLevel.Default);
         }
 
         public void ZoomOut()
         {
-            if (CurrentZoom <= ZoomLevels[ZoomLevel.Far]) return;
+            if (CurrentZoom <= ZoomLevels[IMapCamera.ZoomLevel.Far]) return;
 
-            if (CurrentZoom <= ZoomLevels[ZoomLevel.Default]) SetZoomLevel(ZoomLevel.Far);
-            else if (CurrentZoom <= ZoomLevels[ZoomLevel.Close]) SetZoomLevel(ZoomLevel.Default);
-            else if (CurrentZoom <= ZoomLevels[ZoomLevel.Combat]) SetZoomLevel(ZoomLevel.Close);
+            if (CurrentZoom <= ZoomLevels[IMapCamera.ZoomLevel.Default]) SetZoomLevel(IMapCamera.ZoomLevel.Far);
+            else if (CurrentZoom <= ZoomLevels[IMapCamera.ZoomLevel.Close]) SetZoomLevel(IMapCamera.ZoomLevel.Default);
+            else if (CurrentZoom <= ZoomLevels[IMapCamera.ZoomLevel.Combat]) SetZoomLevel(IMapCamera.ZoomLevel.Close);
         }
 
         private void ZoomToCursor(float zoomLevel)
@@ -140,13 +132,13 @@ namespace SolStandard.Map.Camera
 
         public void SnapCameraCenterToCursor()
         {
-            CenterCameraToPoint(GameContext.MapCursor.CenterPixelPoint);
+            CenterCameraToPoint(GlobalContext.MapCursor.CenterPixelPoint);
             currentPosition = targetPosition;
         }
 
         public void CenterCameraToCursor()
         {
-            CenterCameraToPoint(GameContext.MapCursor.CenterPixelPoint);
+            CenterCameraToPoint(GlobalContext.MapCursor.CenterPixelPoint);
         }
 
         private void CenterCameraToPoint(Vector2 centerPoint)
@@ -275,22 +267,22 @@ namespace SolStandard.Map.Camera
         {
             if (movingCameraToCursor)
             {
-                if (GameContext.MapCursor.CenterCursorScreenCoordinates.X < WestBound)
+                if (GlobalContext.MapCursor.CenterCursorScreenCoordinates.X < WestBound)
                 {
                     MoveCameraInDirection(CameraDirection.Left);
                 }
 
-                if (GameContext.MapCursor.CenterCursorScreenCoordinates.X > EastBound)
+                if (GlobalContext.MapCursor.CenterCursorScreenCoordinates.X > EastBound)
                 {
                     MoveCameraInDirection(CameraDirection.Right);
                 }
 
-                if (GameContext.MapCursor.CenterCursorScreenCoordinates.Y < NorthBound)
+                if (GlobalContext.MapCursor.CenterCursorScreenCoordinates.Y < NorthBound)
                 {
                     MoveCameraInDirection(CameraDirection.Up);
                 }
 
-                if (GameContext.MapCursor.CenterCursorScreenCoordinates.Y > SouthBound)
+                if (GlobalContext.MapCursor.CenterCursorScreenCoordinates.Y > SouthBound)
                 {
                     MoveCameraInDirection(CameraDirection.Down);
                 }
@@ -304,17 +296,17 @@ namespace SolStandard.Map.Camera
 
         private float WestBound =>
             0 + HorizontalCursorThreshold +
-            (GameContext.MapCursor.RenderSprite.Width * CurrentZoom);
+            (GlobalContext.MapCursor.RenderSprite.Width * CurrentZoom);
 
         private float EastBound =>
             GameDriver.ScreenSize.X - HorizontalCursorThreshold -
-            (GameContext.MapCursor.RenderSprite.Width * CurrentZoom);
+            (GlobalContext.MapCursor.RenderSprite.Width * CurrentZoom);
 
         private float NorthBound => 0 + TopCursorThreshold;
 
         private float SouthBound =>
             GameDriver.ScreenSize.Y - BottomCursorThreshold -
-            (GameContext.MapCursor.RenderSprite.Height * CurrentZoom);
+            (GlobalContext.MapCursor.RenderSprite.Height * CurrentZoom);
 
         private void CorrectCameraToMap()
         {

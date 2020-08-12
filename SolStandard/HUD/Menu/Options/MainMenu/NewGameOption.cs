@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -16,7 +16,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
 
         public override void Execute()
         {
-            GameContext.LoadMapSelect();
+            GlobalContext.LoadMapSelect();
         }
 
         public override IRenderable Clone()

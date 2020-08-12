@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
 using SolStandard.Entity.Unit;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.AI;
@@ -15,7 +15,7 @@ namespace SolStandard.Utility
         {
             MapContainer.ClearDynamicAndPreviewGrids();
             
-            Queue<IEvent> pathToItemQueue = new Queue<IEvent>();
+            var pathToItemQueue = new Queue<IEvent>();
             if (!movingUnit.IsAlive || movingUnit.UnitEntity == null) return pathToItemQueue;
 
             List<Direction> directionsToDestination = AStarAlgorithm.DirectionsToDestination(

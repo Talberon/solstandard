@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Entity.Unit.Statuses.Pugilist;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -45,17 +45,17 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                GameUnit attacker = GameContext.ActiveUnit;
-                FlowStatus currentFlow =
+                GameUnit attacker = GlobalContext.ActiveUnit;
+                var currentFlow =
                     attacker.StatusEffects.SingleOrDefault(status => status is FlowStatus) as FlowStatus;
 
                 int atkDamage = Execute.ApplyPercentageRoundedUp(attacker.Stats.Atk, percent);
-                WeaponStatistics flowStrikeFist =
+                var flowStrikeFist =
                     new WeaponStatistics(atkDamage, 0, attacker.Stats.CurrentAtkRange, 1);
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(
                         attacker,
@@ -75,7 +75,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

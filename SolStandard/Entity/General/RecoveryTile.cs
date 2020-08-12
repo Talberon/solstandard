@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -33,8 +33,8 @@ namespace SolStandard.Entity.General
 
             if (unitOnTile == null) return false;
 
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
-            GameContext.MapCamera.SnapCameraCenterToCursor();
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
+            GlobalContext.MapCamera.SnapCameraCenterToCursor();
 
             if (hpPerTurn > 0)
             {
@@ -69,7 +69,7 @@ namespace SolStandard.Entity.General
                     toastMessage = $"{unitOnTile.Id} recovers {amrPerTurn} {UnitStatistics.Abbreviation[Stats.Armor]}!";
                 }
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(
                     toastMessage,
                     unitOnTile.UnitEntity.MapCoordinates,
                     50

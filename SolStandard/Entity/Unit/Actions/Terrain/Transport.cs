@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -30,13 +29,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Entities])
             {
-                MapEntity entity = (MapEntity) mapElement;
+                var entity = (MapEntity) mapElement;
                 if (entity != null && entity.Name == targetLabel)
                 {
                     MapContainer
                             .GameGrid[(int) mapLayer][(int) entity.MapCoordinates.X, (int) entity.MapCoordinates.Y] =
                         new MapDistanceTile(TileSprite, entity.MapCoordinates);
-                    GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(entity.MapCoordinates);
+                    GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(entity.MapCoordinates);
                 }
             }
         }
@@ -45,15 +44,15 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             if (CanMoveToTargetTile(targetSlice))
             {
-                UnitEntity targetEntity = GameContext.ActiveUnit.UnitEntity;
+                UnitEntity targetEntity = GlobalContext.ActiveUnit.UnitEntity;
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new HideUnitEvent(targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new BlinkCoordinatesEvent(
-                    GameContext.ActiveUnit.UnitEntity,
+                    GlobalContext.ActiveUnit.UnitEntity,
                     targetSlice.MapCoordinates
                 ));
                 eventQueue.Enqueue(new UnhideUnitEvent(targetEntity));
@@ -63,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't transport here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't transport here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

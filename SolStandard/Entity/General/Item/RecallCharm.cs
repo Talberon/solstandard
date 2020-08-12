@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Terrain;
@@ -61,9 +61,9 @@ namespace SolStandard.Entity.General.Item
         public void DeployRecall()
         {
             //Re-add this item to the unit's inventory to update the UseAction immediately
-            GameContext.ActiveUnit.RemoveItemFromInventory(this);
+            GlobalContext.ActiveUnit.RemoveItemFromInventory(this);
             recallDeployed = true;
-            GameContext.ActiveUnit.AddItemToInventory(this);
+            GlobalContext.ActiveUnit.AddItemToInventory(this);
         }
 
         public bool IsBroken => usesRemaining < 1;

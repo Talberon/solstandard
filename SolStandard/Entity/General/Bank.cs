@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
@@ -41,7 +42,7 @@ namespace SolStandard.Entity.General
 
         public static void Deposit(GameUnit depositer, int goldToDeposit)
         {
-            GameContext.InitiativeContext.DeductGoldFromTeam(goldToDeposit, depositer.Team);
+            GlobalContext.InitiativePhase.DeductGoldFromTeam(goldToDeposit, depositer.Team);
 
             switch (depositer.Team)
             {
@@ -56,16 +57,16 @@ namespace SolStandard.Entity.General
             }
 
             AssetManager.CoinSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                 $"{depositer.Id} deposits {goldToDeposit}{Currency.CurrencyAbbreviation} to the bank!",
                 50
             );
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
         }
 
         public static void Withdraw(GameUnit depositer, int goldToWithdraw)
         {
-            GameContext.InitiativeContext.AddGoldToTeam(goldToWithdraw, depositer.Team);
+            GlobalContext.InitiativePhase.AddGoldToTeam(goldToWithdraw, depositer.Team);
 
             switch (depositer.Team)
             {
@@ -80,11 +81,11 @@ namespace SolStandard.Entity.General
             }
 
             AssetManager.CoinSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                 $"{depositer.Id} withdraws {goldToWithdraw}{Currency.CurrencyAbbreviation} from the bank!",
                 50
             );
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
         }
 
         public static int GetTeamGoldInBank(Team team)
@@ -121,7 +122,7 @@ namespace SolStandard.Entity.General
                                         "Blue Gold: " + BlueMoney + Currency.CurrencyAbbreviation)
                                 }
                             },
-                            TeamUtility.DetermineTeamColor(Team.Blue)
+                            TeamUtility.DetermineTeamWindowColor(Team.Blue)
                         )
                     },
                     {
@@ -137,7 +138,7 @@ namespace SolStandard.Entity.General
                                         "Red Gold: " + RedMoney + Currency.CurrencyAbbreviation)
                                 }
                             },
-                            TeamUtility.DetermineTeamColor(Team.Red)
+                            TeamUtility.DetermineTeamWindowColor(Team.Red)
                         )
                     },
                 },

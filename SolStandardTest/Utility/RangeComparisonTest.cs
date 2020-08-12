@@ -10,7 +10,7 @@ namespace SolStandardTest.Utility
         [Test]
         public void TargetIsSelf_RangeZero()
         {
-            Vector2 origin = new Vector2(5, 5);
+            var origin = new Vector2(5, 5);
             int[] rangeFromOrigin = {0};
             Vector2 target = origin;
 
@@ -22,9 +22,9 @@ namespace SolStandardTest.Utility
         [Test]
         public void TargetIsSelf_OutOfRange()
         {
-            Vector2 origin = new Vector2(5, 5);
+            var origin = new Vector2(5, 5);
             int[] rangeFromOrigin = {0};
-            Vector2 target = new Vector2(5, 6);
+            var target = new Vector2(5, 6);
 
             bool targetIsInRange = RangeComparison.TargetIsWithinRangeOfOrigin(origin, rangeFromOrigin, target);
 
@@ -34,9 +34,9 @@ namespace SolStandardTest.Utility
         [Test]
         public void TargetWithinAreaOfEffect_North()
         {
-            Vector2 origin = new Vector2(5, 5);
+            var origin = new Vector2(5, 5);
             int[] rangeFromOrigin = {0, 1, 2};
-            Vector2 target = new Vector2(5, 3);
+            var target = new Vector2(5, 3);
 
             bool targetIsInRange = RangeComparison.TargetIsWithinRangeOfOrigin(origin, rangeFromOrigin, target);
 
@@ -46,9 +46,9 @@ namespace SolStandardTest.Utility
         [Test]
         public void TargetWithinAreaOfEffect_SouthWest()
         {
-            Vector2 origin = new Vector2(5, 5);
+            var origin = new Vector2(5, 5);
             int[] rangeFromOrigin = {0, 1, 2};
-            Vector2 target = new Vector2(4, 6);
+            var target = new Vector2(4, 6);
 
             bool targetIsInRange = RangeComparison.TargetIsWithinRangeOfOrigin(origin, rangeFromOrigin, target);
 
@@ -58,9 +58,9 @@ namespace SolStandardTest.Utility
         [Test]
         public void TargetBeyondAreaOfEffect_East()
         {
-            Vector2 origin = new Vector2(5, 5);
+            var origin = new Vector2(5, 5);
             int[] rangeFromOrigin = {0, 1};
-            Vector2 target = new Vector2(8, 5);
+            var target = new Vector2(8, 5);
 
             bool targetIsInRange = RangeComparison.TargetIsWithinRangeOfOrigin(origin, rangeFromOrigin, target);
 
@@ -70,9 +70,9 @@ namespace SolStandardTest.Utility
         [Test]
         public void TargetBeyondAreaOfEffect_NorthEastCorner()
         {
-            Vector2 origin = new Vector2(5, 5);
+            var origin = new Vector2(5, 5);
             int[] rangeFromOrigin = {0, 1, 2};
-            Vector2 target = new Vector2(7, 7);
+            var target = new Vector2(7, 7);
 
             bool targetIsInRange = RangeComparison.TargetIsWithinRangeOfOrigin(origin, rangeFromOrigin, target);
 
@@ -82,9 +82,9 @@ namespace SolStandardTest.Utility
         [Test]
         public void TargetBeyondAreaOfEffect_NorthEastAlmostCorner()
         {
-            Vector2 origin = new Vector2(5, 5);
+            var origin = new Vector2(5, 5);
             int[] rangeFromOrigin = {0, 1, 2};
-            Vector2 target = new Vector2(7, 6);
+            var target = new Vector2(7, 6);
 
             bool targetIsInRange = RangeComparison.TargetIsWithinRangeOfOrigin(origin, rangeFromOrigin, target);
 

@@ -7,8 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Lidgren.Network;
 using NLog;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.View;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.Network;
@@ -21,6 +20,13 @@ namespace SolStandard.Utility.Network
 
         private NetServer server;
         private NetClient client;
+        private readonly string appIdentifier;
+
+        public ConnectionManager()
+        {
+            appIdentifier = $"Sol Standard {GameDriver.VersionNumber}";
+        }
+
         public const int NetworkPort = 1993;
 
         public bool ConnectedAsServer =>
@@ -33,7 +39,7 @@ namespace SolStandard.Utility.Network
         {
             StopClientAndServer();
 
-            NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard")
+            var config = new NetPeerConfiguration(appIdentifier)
             {
                 Port = NetworkPort,
                 EnableUPnP = true
@@ -59,7 +65,7 @@ namespace SolStandard.Utility.Network
         private static string GetExternalIP()
         {
             const string apiUrl = "https://ipinfo.io/ip";
-            using HttpClient httpClient = new HttpClient();
+            using var httpClient = new HttpClient();
             Task<string> responseString = httpClient.GetStringAsync(apiUrl);
             return responseString.Result.Trim();
         }
@@ -68,7 +74,7 @@ namespace SolStandard.Utility.Network
         {
             StopClientAndServer();
 
-            NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard");
+            var config = new NetPeerConfiguration(appIdentifier);
 
             Logger.Debug("Starting client!");
             client = new NetClient(config);
@@ -132,7 +138,7 @@ namespace SolStandard.Utility.Network
                                 break;
                             case NetConnectionStatus.InitiatedConnect:
                                 Logger.Debug("Initiating connection...");
-                                GlobalHudView.AddNotification("Initiating connection...");
+                                GlobalHUDUtils.AddNotification("Initiating connection...");
                                 break;
                             case NetConnectionStatus.ReceivedInitiation:
                                 Logger.Debug("Received Initiation...");
@@ -142,31 +148,21 @@ namespace SolStandard.Utility.Network
                                 break;
                             case NetConnectionStatus.RespondedConnect:
                                 Logger.Debug("Connecting...");
-                                GlobalHudView.AddNotification("Connecting...");
+                                GlobalHUDUtils.AddNotification("Connecting...");
                                 break;
                             case NetConnectionStatus.Connected:
                                 Logger.Debug("Connected!");
-                                GlobalHudView.AddNotification("Connected to peer!");
-
-                                GameContext.LoadMapSelect();
-
-                                if (ConnectedAsServer)
-                                {
-                                    int newRandomSeed = GameDriver.Random.Next();
-                                    GameDriver.Random = new Random(newRandomSeed);
-                                    GlobalEventQueue.QueueSingleEvent(new InitializeRandomizerNet(newRandomSeed));
-                                }
-
-                                GameDriver.InitializeControlMappers(peer is NetClient ? Team.Red : Team.Blue);
+                                GlobalHUDUtils.AddNotification("Connected to peer!");
+                                ConnectionEstablished(peer);
                                 break;
                             case NetConnectionStatus.Disconnecting:
                                 Logger.Debug("Disconnecting...");
-                                GlobalHudView.AddNotification("Disconnecting...");
+                                GlobalHUDUtils.AddNotification("Disconnecting...");
                                 break;
                             case NetConnectionStatus.Disconnected:
                                 Logger.Debug("Disconnected!");
                                 Logger.Debug(received.ReadString());
-                                GlobalHudView.AddNotification("Disconnected from peer!");
+                                GlobalHUDUtils.AddNotification("Disconnected from peer!");
                                 break;
                             default:
                                 throw new ArgumentOutOfRangeException();
@@ -188,6 +184,20 @@ namespace SolStandard.Utility.Network
             }
         }
 
+        private void ConnectionEstablished(NetPeer peer)
+        {
+            GlobalContext.LoadMapSelect();
+
+            if (ConnectedAsServer)
+            {
+                int newRandomSeed = GameDriver.Random.Next();
+                GameDriver.Random = new Random(newRandomSeed);
+                GlobalEventQueue.QueueSingleEvent(new InitializeRandomizerNet(newRandomSeed));
+            }
+
+            GameDriver.InitializeControlMappers(peer is NetClient ? Team.Red : Team.Blue);
+        }
+
         private static void ReadNetworkEvent(NetBuffer received)
         {
             Logger.Debug("Reading network event...");
@@ -195,7 +205,7 @@ namespace SolStandard.Utility.Network
 
             using Stream memoryStream = new MemoryStream(messageBytes);
             IFormatter formatter = new BinaryFormatter();
-            NetworkEvent receivedNetworkEvent = (NetworkEvent) formatter.Deserialize(memoryStream);
+            var receivedNetworkEvent = (NetworkEvent) formatter.Deserialize(memoryStream);
             Logger.Debug("Received event:" + receivedNetworkEvent);
 
             GlobalEventQueue.QueueSingleEvent(receivedNetworkEvent);
@@ -206,7 +216,7 @@ namespace SolStandard.Utility.Network
             Logger.Debug("Sending event to server!");
             NetOutgoingMessage message = client.CreateMessage();
 
-            using MemoryStream memoryStream = new MemoryStream();
+            using var memoryStream = new MemoryStream();
             new BinaryFormatter().Serialize(memoryStream, networkEvent);
             byte[] controlBytes = memoryStream.ToArray();
             Logger.Debug($"Sending control message. Size: {memoryStream.Length}");
@@ -219,7 +229,7 @@ namespace SolStandard.Utility.Network
             Logger.Debug("Sending event to client!");
             NetOutgoingMessage message = server.CreateMessage();
 
-            using MemoryStream memoryStream = new MemoryStream();
+            using var memoryStream = new MemoryStream();
             new BinaryFormatter().Serialize(memoryStream, networkEvent);
             byte[] controlBytes = memoryStream.ToArray();
             Logger.Debug($"Sending control message. Size: {memoryStream.Length}");

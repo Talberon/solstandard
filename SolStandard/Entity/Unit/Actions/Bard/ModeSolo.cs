@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Statuses.Bard;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -46,7 +46,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
 
                 targetUnit.StatusEffects.RemoveAll(status => status is ConcertoStatus);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new SoloStatus()));
                 eventQueue.Enqueue(new ToastAtCursorEvent("Song range limited at increased potency!"));
                 eventQueue.Enqueue(new WaitFramesEvent(50));
@@ -55,7 +55,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

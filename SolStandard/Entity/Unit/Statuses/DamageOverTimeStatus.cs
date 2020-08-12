@@ -1,4 +1,4 @@
-﻿using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Components.Global;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -28,7 +28,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public override void ApplyEffect(GameUnit target)
         {
             AssetManager.SkillBuffSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 applyMessage,
                 50
@@ -43,7 +43,7 @@ namespace SolStandard.Entity.Unit.Statuses
                 target.DamageUnit();
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 target.Id + " takes [" + damage + "] Damage from " + abilityName + "!",
                 50

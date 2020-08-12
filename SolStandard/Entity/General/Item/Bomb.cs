@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
@@ -65,7 +65,7 @@ namespace SolStandard.Entity.General.Item
 
             if (turnsRemaining > 0)
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(
                     "Fuse is burning...",
                     MapCoordinates,
                     50
@@ -74,11 +74,11 @@ namespace SolStandard.Entity.General.Item
                 return true;
             }
 
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
-            GameContext.MapCamera.SnapCameraCenterToCursor();
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
+            GlobalContext.MapCamera.SnapCameraCenterToCursor();
 
-            UnitTargetingContext bombTargetContext =
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack));
+            var bombTargetContext =
+                new UnitTargetingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack));
 
             MapContainer.ClearDynamicAndPreviewGrids();
             bombTargetContext.GenerateTargetingGrid(MapCoordinates, Range);
@@ -101,14 +101,14 @@ namespace SolStandard.Entity.General.Item
 
                 if (EntityAtSliceCanTakeDamage(slice))
                 {
-                    BreakableObstacle breakableObstacle = (BreakableObstacle) slice.TerrainEntity;
+                    var breakableObstacle = (BreakableObstacle) slice.TerrainEntity;
                     breakableObstacle.DealDamage(Damage);
                 }
             }
 
             MapContainer.ClearDynamicAndPreviewGrids();
             IsExpired = true;
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
                 50);
             AssetManager.CombatDeathSFX.Play();
 

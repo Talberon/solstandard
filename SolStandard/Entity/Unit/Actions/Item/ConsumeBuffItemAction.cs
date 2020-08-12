@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General.Item;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         private static IRenderable ItemDescription(Stats statistic, int statModifier, int buffDuration)
         {
             ISpriteFont descriptionFont = AssetManager.WindowFont;
-            Vector2 iconSize = new Vector2(descriptionFont.MeasureString("A").Y);
+            var iconSize = new Vector2(descriptionFont.MeasureString("A").Y);
             return new WindowContentGrid(new IRenderable[,]
                 {
                     {
@@ -58,14 +58,14 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
                 item.Consume(targetUnit);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
 
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a friendly unit in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a friendly unit in range!", 50);
             }
         }
     }

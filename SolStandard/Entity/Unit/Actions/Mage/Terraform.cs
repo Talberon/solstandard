@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
+using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -26,14 +27,14 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             RemoveActionTilesOnUnplaceableSpaces(mapLayer);
         }
 
         private static void RemoveActionTilesOnUnplaceableSpaces(Layer mapLayer)
         {
-            List<MapElement> tilesToRemove = new List<MapElement>();
+            var tilesToRemove = new List<MapElement>();
             List<MapElement> targetTiles = MapContainer.GetMapElementsFromLayer(mapLayer);
 
             foreach (MapElement element in targetTiles)
@@ -59,7 +60,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
                 BreakableObstacle rubble = GenerateObstacle(targetSlice.MapCoordinates);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                 );
@@ -70,7 +71,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             }
             else
             {
-                GameContext.GameMapContext.MapContainer
+                GlobalContext.WorldContext.MapContainer
                     .AddNewToastAtMapCursor("Must target unoccupied tile in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
@@ -83,7 +84,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         private static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    (targetSlice.DynamicEntity != null || targetSlice.PreviewEntity != null) &&
                    targetSlice.CollideTile == null && targetSlice.TerrainEntity == null &&
                    targetSlice.UnitEntity == null;

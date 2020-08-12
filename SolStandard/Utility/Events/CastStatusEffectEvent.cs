@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Utility.Assets;
@@ -22,7 +22,7 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             targetUnit.AddStatusEffect(statusEffect);
-            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.WorldContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Interact, GameDriver.CellSizeVector),
                 targetUnit.UnitEntity?.MapCoordinates ?? Vector2.Zero
             );

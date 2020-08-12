@@ -1,4 +1,5 @@
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World;
 using SolStandard.Entity.General.Item;
 using SolStandard.Utility.Assets;
 
@@ -17,12 +18,12 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.InitiativeContext.DeductGoldFromTeam(gold, GameContext.ActiveTeam);
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                $"{GameContext.ActiveTeam} team lost {gold} {Currency.CurrencyAbbreviation}!", 50
+            GlobalContext.InitiativePhase.DeductGoldFromTeam(gold, GlobalContext.ActiveTeam);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
+                $"{GlobalContext.ActiveTeam} team lost {gold} {Currency.CurrencyAbbreviation}!", 50
             );
             AssetManager.CoinSFX.Play();
-            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            WorldContext.WorldHUD.GenerateObjectiveWindow();
             Complete = true;
         }
     }

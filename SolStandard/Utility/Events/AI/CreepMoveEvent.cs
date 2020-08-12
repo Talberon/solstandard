@@ -1,4 +1,4 @@
-﻿using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
@@ -23,7 +23,7 @@ namespace SolStandard.Utility.Events.AI
         public void Continue()
         {
             unitToMove.MoveUnitInDirection(directionToMove, ignoreCollision);
-            GameContext.GameMapContext.ResetCursorToActiveUnit();
+            GlobalContext.WorldContext.ResetCursorToActiveUnit();
 
             if (directionToMove != Direction.None) AssetManager.MapUnitMoveSFX.Play();
 

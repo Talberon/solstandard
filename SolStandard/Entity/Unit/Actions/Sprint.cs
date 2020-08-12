@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            GenerateSprintGrid(origin, GameContext.ActiveUnit, maxDistance, mapLayer);
+            GenerateSprintGrid(origin, GlobalContext.ActiveUnit, maxDistance, mapLayer);
         }
 
         public static void GenerateSprintGrid(Vector2 origin, GameUnit sprintingUnit, int maxDistance,
@@ -39,34 +39,34 @@ namespace SolStandard.Entity.Unit.Actions
         {
             int lowerMv = sprintingUnit.Stats.Mv < maxDistance ? sprintingUnit.Stats.Mv : maxDistance;
 
-            UnitMovingContext unitMovingContext =
-                new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement));
+            var unitMovingContext =
+                new UnitMovingPhase(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement));
             unitMovingContext.GenerateMoveGrid(origin, lowerMv, sprintingUnit.Team);
 
             //Delete the origin space to prevent players standing still and wasting action.
             MapContainer.GameGrid[(int) mapLayer][(int) origin.X, (int) origin.Y] = null;
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
+            GlobalContext.WorldContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (CanMove(GameContext.ActiveUnit))
+            if (CanMove(GlobalContext.ActiveUnit))
             {
                 if (CanMoveToTargetTile(targetSlice))
                 {
-                    MoveUnitToTargetPosition(GameContext.ActiveUnit, targetSlice.MapCoordinates);
+                    MoveUnitToTargetPosition(GlobalContext.ActiveUnit, targetSlice.MapCoordinates);
                     GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid tile!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a valid tile!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't move!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't move!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

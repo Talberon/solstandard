@@ -4,16 +4,16 @@ namespace SolStandard.Utility.Monogame
 {
     public static class MusicBox
     {
-        private const float DefaultVolume = 0.7f;
         private const float MaxVolume = 1f;
         private const float MinVolume = 0f;
-        public static bool Muted { get; private set; }
+        public static bool Muted { get; private set; } = LoadMuted();
         private static IPlayableAudio _currentSong;
-        private static float _currentVolume;
+        private static float _currentVolume = LoadVolume();
 
         public static void ToggleMute()
         {
             Muted = !Muted;
+            SaveMuted();
 
             if (Muted)
             {
@@ -21,28 +21,28 @@ namespace SolStandard.Utility.Monogame
             }
             else
             {
-                Play(_currentSong, _currentVolume);
+                PlayLoop(_currentSong);
             }
         }
 
-        public static void Play(IPlayableAudio song, float volume = DefaultVolume)
+        public static void PlayOnce(IPlayableAudio song)
         {
+            MediaPlayer.Volume = _currentVolume;
             _currentSong?.Stop();
-            
+
             _currentSong = song;
-            _currentVolume = volume;
             if (Muted) return;
 
             song.Volume = _currentVolume;
             song.PlayOnce();
         }
 
-        public static void PlayLoop(IPlayableAudio song, float volume = DefaultVolume)
+        public static void PlayLoop(IPlayableAudio song)
         {
+            MediaPlayer.Volume = _currentVolume;
             _currentSong?.Stop();
-            
+
             _currentSong = song;
-            _currentVolume = volume;
             if (Muted) return;
 
             song.Volume = _currentVolume;
@@ -61,6 +61,7 @@ namespace SolStandard.Utility.Monogame
             }
 
             MediaPlayer.Volume = _currentVolume;
+            SaveVolume();
         }
 
         public static void ReduceVolume(float reducedBy)
@@ -75,11 +76,41 @@ namespace SolStandard.Utility.Monogame
             }
 
             MediaPlayer.Volume = _currentVolume;
+            SaveVolume();
         }
 
         public static void Pause()
         {
             _currentSong?.Pause();
+        }
+
+
+        private const string SaveFileName = "musicvolume";
+
+        private static void SaveVolume()
+        {
+            GameDriver.FileIO.Save(SaveFileName, _currentVolume);
+        }
+
+        private static float LoadVolume()
+        {
+            const float defaultVolume = 0.7f;
+
+            return GameDriver.FileIO.FileExists(SaveFileName)
+                ? GameDriver.FileIO.Load<float>(SaveFileName)
+                : defaultVolume;
+        }
+
+        private const string MutedFileName = "musicmuted";
+
+        private static void SaveMuted()
+        {
+            GameDriver.FileIO.Save(MutedFileName, Muted);
+        }
+
+        private static bool LoadMuted()
+        {
+            return GameDriver.FileIO.FileExists(MutedFileName) && GameDriver.FileIO.Load<bool>(MutedFileName);
         }
     }
 }

@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.View;
+using SolStandard.Containers.Components.Network;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -9,24 +9,24 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
 {
     public class BackspaceOption : MenuOption
     {
-        private NetworkMenuView NetworkMenuView { get; }
+        private NetworkHUD NetworkHUD { get; }
         private const string Backspace = "<<";
 
-        public BackspaceOption(Color color, NetworkMenuView networkMenuView) : base(
+        public BackspaceOption(Color color, NetworkHUD networkHUD) : base(
             new RenderText(AssetManager.MainMenuFont, Backspace), color, HorizontalAlignment.Centered
         )
         {
-            NetworkMenuView = networkMenuView;
+            NetworkHUD = networkHUD;
         }
 
         public override void Execute()
         {
-            NetworkMenuView.BackspaceCharacter();
+            NetworkHUD.BackspaceCharacter();
         }
 
         public override IRenderable Clone()
         {
-            return new BackspaceOption(DefaultColor, NetworkMenuView);
+            return new BackspaceOption(DefaultColor, NetworkHUD);
         }
     }
 }

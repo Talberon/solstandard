@@ -1,4 +1,5 @@
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World;
 
 namespace SolStandard.Utility.Events
 {
@@ -8,13 +9,13 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            if (GameContext.ActiveUnit.IsAlive)
+            if (GlobalContext.ActiveUnit.IsAlive)
             {
                 StartExtraAction("Extra action!");
             }
             else
             {
-                GameMapContext.FinishTurn(true);
+                WorldContext.FinishTurn(true);
             }
 
             Complete = true;
@@ -22,9 +23,9 @@ namespace SolStandard.Utility.Events
 
         public static void StartExtraAction(string message)
         {
-            GameContext.GameMapContext.ResetToActionMenu();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(message, 50);
-            GameMapContext.UpdateWindowsEachTurn();
+            GlobalContext.WorldContext.ResetToActionMenu();
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(message, 50);
+            WorldContext.UpdateWindowsEachTurn();
         }
     }
 }

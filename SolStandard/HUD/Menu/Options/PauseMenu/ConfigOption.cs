@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers.View;
+using SolStandard.Containers.Components.World.SubContext.Pause;
 using SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -17,7 +17,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
         public override void Execute()
         {
             ReturnToPauseMenuOption.FromMainMenu = false;
-            PauseScreenView.OpenScreen(PauseScreenView.PauseMenus.PauseConfig);
+            PauseScreenUtils.OpenScreen(PauseScreenUtils.PauseMenus.PauseConfig);
         }
 
         public override IRenderable Clone()

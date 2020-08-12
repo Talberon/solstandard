@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -37,7 +38,7 @@ namespace SolStandard.Entity.General
         public static AnimatedSpriteSheet BuildSpringSprite(SpringType springType)
         {
             const int springCellSize = 48;
-            AnimatedSpriteSheet sprite = new AnimatedSpriteSheet(AssetManager.SpringTexture, springCellSize,
+            var sprite = new AnimatedSpriteSheet(AssetManager.SpringTexture, springCellSize,
                 GameDriver.CellSizeVector * 3, 6, false, Color.White);
             sprite.SetSpriteCell(0, (int) springType);
             sprite.Pause();
@@ -52,7 +53,7 @@ namespace SolStandard.Entity.General
             get
             {
                 UnitEntity target = MapContainer.GetMapSliceAtCoordinates(MapCoordinates).UnitEntity;
-                return !UnitMovingContext.CanEndMoveAtCoordinates(target, trapLaunchCoordinates);
+                return !UnitMovingPhase.CanEndMoveAtCoordinates(target, trapLaunchCoordinates);
             }
         }
 
@@ -71,7 +72,7 @@ namespace SolStandard.Entity.General
 
                 if (!TargetTileIsObstructed)
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,
                         "LAUNCHED!", 50);
                     (Sprite as AnimatedSpriteSheet)?.PlayOnce();
                     MoveUnitToCoordinates(unitOnSpring, trapLaunchCoordinates);
@@ -79,14 +80,14 @@ namespace SolStandard.Entity.General
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,
                         "Destination is obstructed; can't launch!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(
                     "No unit on spring!", MapCoordinates, 50);
                 AssetManager.WarningSFX.Play();
             }

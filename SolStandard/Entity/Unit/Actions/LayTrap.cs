@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -64,7 +63,7 @@ namespace SolStandard.Entity.Unit.Actions
 
                     if (trapItem != null)
                     {
-                        GameContext.ActiveUnit.RemoveItemFromInventory(trapItem);
+                        GlobalContext.ActiveUnit.RemoveItemFromInventory(trapItem);
                         trapItem.SnapToCoordinates(targetSlice.MapCoordinates);
                         trapToPlace = trapItem;
                     }
@@ -75,7 +74,7 @@ namespace SolStandard.Entity.Unit.Actions
                     }
 
                     MapContainer.ClearDynamicAndPreviewGrids();
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(
                         new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                     );
@@ -95,13 +94,13 @@ namespace SolStandard.Entity.Unit.Actions
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

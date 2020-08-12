@@ -60,7 +60,7 @@ namespace SolStandard.Map.Elements
 
         protected Vector2 CurrentDrawCoordinates { get; private set; }
 
-        private Vector2 MapPixelCoordinates => MapCoordinates * GameDriver.CellSize;
+        public Vector2 MapPixelCoordinates => MapCoordinates * GameDriver.CellSize;
 
         public void SlideToCoordinates(Vector2 coordinates)
         {
@@ -83,7 +83,7 @@ namespace SolStandard.Map.Elements
         {
             get
             {
-                Vector2 spriteSize = new Vector2(Sprite.Width, Sprite.Height);
+                var spriteSize = new Vector2(Sprite.Width, Sprite.Height);
 
                 if (spriteSize == GameDriver.CellSizeVector) return Vector2.Zero;
 

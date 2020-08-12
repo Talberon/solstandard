@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.World;
 using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -34,7 +34,7 @@ namespace SolStandard.HUD.Menu.Options
 
         public override void Execute()
         {
-            GameMapContext.GameMapView.ActionMenuContext.OpenSubMenu(submenu);
+            WorldContext.WorldHUD.ActionMenuContext.OpenSubMenu(submenu);
         }
 
         public override IRenderable Clone()

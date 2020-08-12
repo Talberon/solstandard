@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -32,17 +33,17 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
+            var attackTiles = new List<MapDistanceTile>();
 
-            int limitedGallopDistance = Math.Min(chargeDistance, GameContext.ActiveUnit.Stats.Mv);
+            int limitedGallopDistance = Math.Min(chargeDistance, GlobalContext.ActiveUnit.Stats.Mv);
 
             for (int i = limitedGallopDistance; i > 1; i--)
             {
                 (float originX, float originY) = origin;
-                Vector2 northTile = new Vector2(originX, originY - i);
-                Vector2 southTile = new Vector2(originX, originY + i);
-                Vector2 eastTile = new Vector2(originX + i, originY);
-                Vector2 westTile = new Vector2(originX - i, originY);
+                var northTile = new Vector2(originX, originY - i);
+                var southTile = new Vector2(originX, originY + i);
+                var eastTile = new Vector2(originX + i, originY);
+                var westTile = new Vector2(originX - i, originY);
                 AddTileWithinMapBounds(attackTiles, northTile, i, TileSprite);
                 AddTileWithinMapBounds(attackTiles, southTile, i, TileSprite);
                 AddTileWithinMapBounds(attackTiles, eastTile, i, TileSprite);
@@ -61,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                 if (!PathIsObstructed(targetSlice, targetUnit))
                 {
                     Queue<IEvent> eventQueue = PathingUtil.MoveToCoordinates(
-                        GameContext.ActiveUnit,
+                        GlobalContext.ActiveUnit,
                         targetUnit.UnitEntity.MapCoordinates,
                         true,
                         false,
@@ -73,13 +74,13 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -90,18 +91,18 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             if (TargetIsNorth(targetSlice))
             {
                 int distanceToTarget = Convert.ToInt32(
-                    GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y - targetSlice.MapCoordinates.Y
+                    GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y - targetSlice.MapCoordinates.Y
                 );
 
                 for (int northDistance = 1; northDistance < distanceToTarget; northDistance++)
                 {
-                    Vector2 coordinatesToCheck = new Vector2(
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.X,
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y - northDistance
+                    var coordinatesToCheck = new Vector2(
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X,
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y - northDistance
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
+                    if (!UnitMovingPhase.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
             }
@@ -109,18 +110,18 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             if (TargetIsSouth(targetSlice))
             {
                 int distanceToTarget = Convert.ToInt32(
-                    targetSlice.MapCoordinates.Y - GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y
+                    targetSlice.MapCoordinates.Y - GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y
                 );
 
                 for (int southDistance = 1; southDistance < distanceToTarget; southDistance++)
                 {
-                    Vector2 coordinatesToCheck = new Vector2(
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.X,
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y + southDistance
+                    var coordinatesToCheck = new Vector2(
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X,
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y + southDistance
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
+                    if (!UnitMovingPhase.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
             }
@@ -128,18 +129,18 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             if (TargetIsEast(targetSlice))
             {
                 int distanceToTarget = Convert.ToInt32(
-                    targetSlice.MapCoordinates.X - GameContext.ActiveUnit.UnitEntity.MapCoordinates.X
+                    targetSlice.MapCoordinates.X - GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X
                 );
 
                 for (int eastDistance = 1; eastDistance < distanceToTarget; eastDistance++)
                 {
-                    Vector2 coordinatesToCheck = new Vector2(
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.X + eastDistance,
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y
+                    var coordinatesToCheck = new Vector2(
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X + eastDistance,
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
+                    if (!UnitMovingPhase.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
             }
@@ -147,18 +148,18 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             if (TargetIsWest(targetSlice))
             {
                 int distanceToTarget = Convert.ToInt32(
-                    GameContext.ActiveUnit.UnitEntity.MapCoordinates.X - targetSlice.MapCoordinates.X
+                    GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X - targetSlice.MapCoordinates.X
                 );
 
                 for (int westDistance = 1; westDistance < distanceToTarget; westDistance++)
                 {
-                    Vector2 coordinatesToCheck = new Vector2(
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.X - westDistance,
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y
+                    var coordinatesToCheck = new Vector2(
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X - westDistance,
+                        GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
+                    if (!UnitMovingPhase.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
             }
@@ -173,29 +174,29 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         private static bool TargetIsNorth(MapSlice targetSlice)
         {
-            return targetSlice.MapCoordinates.Y < GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y;
+            return targetSlice.MapCoordinates.Y < GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y;
         }
 
         private static bool TargetIsSouth(MapSlice targetSlice)
         {
-            return targetSlice.MapCoordinates.Y > GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y;
+            return targetSlice.MapCoordinates.Y > GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.Y;
         }
 
         private static bool TargetIsEast(MapSlice targetSlice)
         {
-            return targetSlice.MapCoordinates.X > GameContext.ActiveUnit.UnitEntity.MapCoordinates.X;
+            return targetSlice.MapCoordinates.X > GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X;
         }
 
         private static bool TargetIsWest(MapSlice targetSlice)
         {
-            return targetSlice.MapCoordinates.X < GameContext.ActiveUnit.UnitEntity.MapCoordinates.X;
+            return targetSlice.MapCoordinates.X < GlobalContext.ActiveUnit.UnitEntity.MapCoordinates.X;
         }
 
 
         public static void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates,
             int distance, IRenderable tileSprite)
         {
-            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (WorldContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(tileSprite, tileCoordinates, distance));
             }

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Targeting;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -30,14 +30,14 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingPhase(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             RemoveActionTilesOnUntargetableSpaces(mapLayer);
         }
 
         private static void RemoveActionTilesOnUntargetableSpaces(Layer mapLayer)
         {
-            List<MapElement> tilesToRemove = new List<MapElement>();
+            var tilesToRemove = new List<MapElement>();
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) mapLayer])
             {
@@ -59,14 +59,14 @@ namespace SolStandard.Entity.Unit.Actions.Mage
         {
             if (TargetIsAnotherMovableUnit(targetSlice))
             {
-                Vector2 casterCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+                Vector2 casterCoordinates = GlobalContext.ActiveUnit.UnitEntity.MapCoordinates;
 
-                UnitEntity caster = GameContext.ActiveUnit.UnitEntity;
+                UnitEntity caster = GlobalContext.ActiveUnit.UnitEntity;
                 UnitEntity targetUnit = targetSlice.UnitEntity;
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new HideUnitEvent(caster));
                 eventQueue.Enqueue(
                     new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, caster.MapCoordinates)
@@ -77,7 +77,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 );
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new BlinkCoordinatesEvent(
-                    GameContext.ActiveUnit.UnitEntity,
+                    GlobalContext.ActiveUnit.UnitEntity,
                     targetSlice.MapCoordinates
                 ));
                 eventQueue.Enqueue(new BlinkCoordinatesEvent(
@@ -98,7 +98,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't target here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't target here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -109,7 +109,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
             return (targetSlice.DynamicEntity != null || targetSlice.PreviewEntity != null) &&
                    targetUnit != null &&
-                   targetUnit != GameContext.ActiveUnit &&
+                   targetUnit != GlobalContext.ActiveUnit &&
                    targetUnit.IsMovable;
         }
     }

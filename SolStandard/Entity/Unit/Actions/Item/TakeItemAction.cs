@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -36,7 +35,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
             if (firstTile != null)
             {
-                GameContext.GameMapContext.MapContainer.MapCursor
+                GlobalContext.WorldContext.MapContainer.MapCursor
                     .SnapCameraAndCursorToCoordinates(firstTile.MapCoordinates);
             }
         }
@@ -50,11 +49,11 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 if (targetUnit.Inventory.Count > 0)
                 {
                     MapContainer.ClearDynamicAndPreviewGrids();
-                    GameContext.GameMapContext.OpenTakeItemMenu(targetUnit, true);
+                    GlobalContext.WorldContext.OpenTakeItemMenu(targetUnit, true);
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                         "Target has no items in inventory!", 50
                     );
                     AssetManager.WarningSFX.Play();
@@ -62,7 +61,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -74,7 +73,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             taker.AddItemToInventory(itemToTake);
             takenFrom.RemoveItemFromInventory(itemToTake);
             AssetManager.CombatBlockSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor($"Took {itemToTake.Name}!", 50);
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor($"Took {itemToTake.Name}!", 50);
         }
 
         private static void RemoveUnselectableOptionsFromGrid(Layer mapLayer, IEnumerable<MapElement> elements)
@@ -84,7 +83,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 MapSlice elementSlice = MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates);
                 GameUnit targetUnit = UnitSelector.SelectUnit(elementSlice.UnitEntity);
 
-                if (targetUnit == null || targetUnit.Team != GameContext.ActiveUnit.Team)
+                if (targetUnit == null || targetUnit.Team != GlobalContext.ActiveUnit.Team)
                 {
                     MapContainer.GameGrid[(int) mapLayer][(int) elementSlice.MapCoordinates.X,
                         (int) elementSlice.MapCoordinates.Y] = null;

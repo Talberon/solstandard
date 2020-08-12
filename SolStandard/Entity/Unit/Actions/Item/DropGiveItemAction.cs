@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map.Elements;
@@ -28,8 +29,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            TerrainEntity itemTile = item as TerrainEntity;
-            GameUnit actingUnit = GameContext.ActiveUnit;
+            var itemTile = item as TerrainEntity;
+            GameUnit actingUnit = GlobalContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             if (TradeItemAction.CanGiveItemToAlly(targetUnit, actingUnit, targetSlice))
@@ -38,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else if (CanPlaceItemAtSlice(itemTile, targetSlice))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new DropItemEvent(itemTile, targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new AdditionalActionEvent());
@@ -46,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop/give item here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Cannot drop/give item here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -61,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                        )
                    && itemTile != null
                    && targetSlice.DynamicEntity != null
-                   && UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+                   && UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

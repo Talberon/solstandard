@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                GameUnit attacker = GameContext.ActiveUnit;
+                GameUnit attacker = GlobalContext.ActiveUnit;
 
                 //Subtract the remaining percent damage from Attacker's ATK stat
                 float remainingPercentage = 100 - percent;
@@ -43,7 +43,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(
                         attacker,
@@ -55,7 +55,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

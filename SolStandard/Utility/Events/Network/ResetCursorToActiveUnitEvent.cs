@@ -1,5 +1,5 @@
 using System;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events.Network
@@ -9,7 +9,7 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            GameContext.GameMapContext.ResetCursorToActiveUnit();
+            GlobalContext.WorldContext.ResetCursorToActiveUnit();
             AssetManager.MapUnitCancelSFX.Play();
             Complete = true;
         }

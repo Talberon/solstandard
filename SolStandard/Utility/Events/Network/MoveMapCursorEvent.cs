@@ -1,5 +1,5 @@
 using System;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Map.Elements;
 
 namespace SolStandard.Utility.Events.Network
@@ -8,9 +8,9 @@ namespace SolStandard.Utility.Events.Network
     public class MoveMapCursorEvent : NetworkEvent
     {
         private readonly Direction direction;
-        private readonly GameContext.GameState gameState;
+        private readonly GlobalContext.GameState gameState;
 
-        public MoveMapCursorEvent(Direction direction, GameContext.GameState gameState)
+        public MoveMapCursorEvent(Direction direction, GlobalContext.GameState gameState)
         {
             this.direction = direction;
             this.gameState = gameState;
@@ -20,15 +20,15 @@ namespace SolStandard.Utility.Events.Network
         {
             switch (gameState)
             {
-                case GameContext.GameState.Deployment:
-                    GameContext.DeploymentContext.MoveCursorOnMap(direction);
+                case GlobalContext.GameState.Deployment:
+                    GlobalContext.DeploymentContext.MoveCursorOnMap(direction);
                     break;
-                case GameContext.GameState.MapSelect:
-                    GameContext.MapCursor.MoveCursorInDirection(direction);
-                    GameContext.MapSelectContext.HoverOverEntity();
+                case GlobalContext.GameState.MapSelect:
+                    GlobalContext.MapCursor.MoveCursorInDirection(direction);
+                    GlobalContext.MapSelectContext.HoverOverEntity();
                     break;
-                case GameContext.GameState.InGame:
-                    GameContext.GameMapContext.MoveCursorOnMap(direction);
+                case GlobalContext.GameState.InGame:
+                    GlobalContext.WorldContext.MoveCursorOnMap(direction);
                     break;
             }
 

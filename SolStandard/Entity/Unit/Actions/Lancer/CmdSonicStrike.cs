@@ -1,6 +1,6 @@
 using System;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 
@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         public override void CancelAction()
         {
-            if (CurrentPhase == ActionPhase.SelectLandingSpace) GameContext.ActiveUnit.AddCommandPoints(cmdCost);
+            if (CurrentPhase == ActionPhase.SelectLandingSpace) GlobalContext.ActiveUnit.AddCommandPoints(cmdCost);
             base.CancelAction();
         }
 
@@ -32,15 +32,15 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         {
             if (CurrentPhase == ActionPhase.SelectTarget)
             {
-                if (!CanAffordCommandCost(GameContext.ActiveUnit, cmdCost))
+                if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                         $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                     AssetManager.WarningSFX.Play();
                     return;
                 }
 
-                GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
+                GlobalContext.ActiveUnit.RemoveCommandPoints(cmdCost);
             }
 
             base.ExecuteAction(targetSlice);

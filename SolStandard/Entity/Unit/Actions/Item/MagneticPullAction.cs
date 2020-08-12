@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Map;
@@ -32,14 +32,14 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
+            var attackTiles = new List<MapDistanceTile>();
 
             foreach (int skillRange in Range)
             {
-                Vector2 northTile = new Vector2(origin.X, origin.Y - skillRange);
-                Vector2 southTile = new Vector2(origin.X, origin.Y + skillRange);
-                Vector2 eastTile = new Vector2(origin.X + skillRange, origin.Y);
-                Vector2 westTile = new Vector2(origin.X - skillRange, origin.Y);
+                var northTile = new Vector2(origin.X, origin.Y - skillRange);
+                var southTile = new Vector2(origin.X, origin.Y + skillRange);
+                var eastTile = new Vector2(origin.X + skillRange, origin.Y);
+                var westTile = new Vector2(origin.X - skillRange, origin.Y);
 
                 AddTileWithinMapBounds(attackTiles, northTile, skillRange);
                 AddTileWithinMapBounds(attackTiles, southTile, skillRange);
@@ -64,7 +64,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
                         MapContainer.ClearDynamicAndPreviewGrids();
 
-                        Queue<IEvent> eventQueue = new Queue<IEvent>();
+                        var eventQueue = new Queue<IEvent>();
                         eventQueue.Enqueue(new PullEvent(targetUnit));
                         eventQueue.Enqueue(new WaitFramesEvent(10));
                         eventQueue.Enqueue(new AdditionalActionEvent());
@@ -72,19 +72,19 @@ namespace SolStandard.Entity.Unit.Actions.Item
                     }
                     else
                     {
-                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
+                        GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
                         AssetManager.WarningSFX.Play();
                     }
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
+                    GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Item is broken!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Item is broken!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -92,7 +92,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {
-            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (WorldContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
             }

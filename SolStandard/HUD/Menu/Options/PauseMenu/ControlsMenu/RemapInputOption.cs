@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.InputRemapping;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -38,7 +39,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 
         public override void Execute()
         {
-            GameContext.ControlConfigContext.StartListeningForInput(device, Input);
+            GlobalContext.ControlConfigContext.StartListeningForInput(device, Input);
         }
 
         public override IRenderable Clone()

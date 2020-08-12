@@ -5,9 +5,15 @@ using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
-using SolStandard.Containers.View;
+using MonoGame.Extended;
+using MonoGame.Extended.ViewportAdapters;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.InputRemapping;
+using SolStandard.Containers.Components.MainMenu;
+using SolStandard.Containers.Components.Network;
+using SolStandard.Containers.Components.World;
+using SolStandard.Containers.Components.World.SubContext.Pause;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -18,32 +24,40 @@ using SolStandard.Utility.Inputs.KeyboardInput;
 using SolStandard.Utility.Monogame;
 using SolStandard.Utility.Network;
 using SolStandard.Utility.System;
+using static System.Reflection.Assembly;
 
 namespace SolStandard
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     public class GameDriver : Game
     {
         // ReSharper disable once NotAccessedField.Local
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private GraphicsDeviceManager graphics;
+        
+        public static readonly IFileIO FileIO = new TemporaryFilesIO();
 
-        public static readonly IFileIO SystemFileIO = new WindowsFileIO();
+        // ReSharper disable once RedundantDefaultMemberInitializer
+        public const bool DeveloperMode = false;
+
+        // ReSharper disable once RedundantDefaultMemberInitializer
+        public static bool DebugMode = false;
 
         //Project Site
         public const string SolStandardUrl = "https://solstandard.talberon.com";
 
+        public static readonly string VersionNumber = GetExecutingAssembly().GetName().Version?.ToString()!;
+
         //Tile Size of Sprites
         public const int CellSize = 32;
-        public static readonly Vector2 CellSizeVector = new Vector2(CellSize);
-        public static readonly string TmxObjectTypeDefaults = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/TmxMaps/objecttypes.xml");
+        public const float CellSizeFloat = CellSize;
+        public static readonly Vector2 CellSizeVector = new Vector2(CellSizeFloat);
+
+        public static readonly string TmxObjectTypeDefaults =
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "Content/TmxMaps/objecttypes.xml");
 
         private static readonly Color BackgroundColor = new Color(20, 11, 40);
         private static readonly Color ActionFade = new Color(0, 0, 0, 190);
         public static Random Random = new Random();
-        public static Vector2 ScreenSize { get; private set; }
         public static ConnectionManager ConnectionManager;
 
         private SpriteBatch spriteBatch;
@@ -54,6 +68,18 @@ namespace SolStandard
         public static GameControlParser KeyboardParser;
         public static GameControlParser P1GamepadParser;
         public static GameControlParser P2GamepadParser;
+        private IRenderable mainMenuLogo;
+
+        //Resolution
+        public static Vector2 ScreenSize { get; private set; }
+        public static Vector2 RenderResolution { get; private set; }
+        public static RectangleF VirtualBounds => new RectangleF(Point2.Zero, VirtualResolution);
+        public static Point VirtualResolution { get; private set; }
+
+        public static Vector2 CenterScreen =>
+            new Vector2((float) VirtualResolution.X / 2, (float) VirtualResolution.Y / 2);
+
+        public static BoxingViewportAdapter BoxingViewportAdapter { get; set; }
 
         public GameDriver()
         {
@@ -61,9 +87,28 @@ namespace SolStandard
             UseDefaultResolution();
 //            UseBorderlessFullscreen();
             Content.RootDirectory = "Content";
+
+            IsMouseVisible = true;
+            IsFixedTimeStep = true;
+            Window.AllowUserResizing = true;
+
+            VirtualResolution = new Point(1600, 900);
+            var windowResolution = new Point(1280, 720);
+
+            graphics.PreferredBackBufferWidth = windowResolution.X;
+            graphics.PreferredBackBufferHeight = windowResolution.Y;
+
+            BoxingViewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, VirtualResolution.X,
+                VirtualResolution.Y);
+        }
+        
+        public void ToggleFullscreen()
+        {
+            graphics.HardwareModeSwitch = false;
+            graphics.ToggleFullScreen();
         }
 
-        public void UseDefaultResolution()
+        private void UseDefaultResolution()
         {
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
@@ -73,50 +118,32 @@ namespace SolStandard
             Window.IsBorderless = false;
             Window.AllowUserResizing = true;
         }
-
-        public void UseBorderlessFullscreen()
-        {
-            graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
-            graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
-            graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            graphics.ApplyChanges();
-
-            Window.IsBorderless = true;
-            Window.Position = new Point(0, 0);
-            Window.AllowUserResizing = false;
-        }
-
-
-        /// <summary>
-        /// Starts a new game by generating a new map
-        /// </summary>
         public static void NewGame(string mapName, Scenario scenario, Team firstTeam)
         {
-            GameContext.StartGame(mapName, scenario, firstTeam);
+            GlobalContext.StartGame(mapName, scenario, firstTeam);
         }
 
         public static void HostGame()
         {
             //Start Server
             string serverIP = ConnectionManager.StartServer();
-            GameContext.NetworkMenuView.UpdateStatus(serverIP, true, serverIP != null);
-            GameContext.NetworkMenuView.GenerateHostMenu();
-            GameContext.NetworkMenuView.RemoveDialMenu();
-            GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
+            GlobalContext.NetworkHUD.UpdateStatus(serverIP, true, serverIP != null);
+            GlobalContext.NetworkHUD.GenerateHostMenu();
+            GlobalContext.NetworkHUD.RemoveDialMenu();
+            GlobalContext.CurrentGameState = GlobalContext.GameState.NetworkMenu;
         }
 
         public static void JoinGame(string serverIPAddress = "127.0.0.1")
         {
             //Start Client
             ConnectionManager.StartClient(serverIPAddress, ConnectionManager.NetworkPort);
-            GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, false);
-            GameContext.NetworkMenuView.GenerateDialMenu();
-            GameContext.NetworkMenuView.RemoveHostMenu();
-            GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
+            GlobalContext.NetworkHUD.UpdateStatus(serverIPAddress, false);
+            GlobalContext.NetworkHUD.GenerateDialMenu();
+            GlobalContext.NetworkHUD.RemoveHostMenu();
+            GlobalContext.CurrentGameState = GlobalContext.GameState.NetworkMenu;
         }
 
         public static bool ConnectedAsServer => ConnectionManager.ConnectedAsServer;
-
         public static bool ConnectedAsClient => ConnectionManager.ConnectedAsClient;
 
         public static void InitializeControlMappers(Team playerOneTeam)
@@ -141,11 +168,10 @@ namespace SolStandard
             _quitting = true;
         }
 
-
         private static void CleanTmxFiles()
         {
-            string tmxPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/TmxMaps/");
-            Regex tmxName = new Regex("([\\w])+.tmx");
+            string tmxPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"Content/TmxMaps/");
+            var tmxName = new Regex("([\\w])+.tmx");
             foreach (string tmxFile in Directory.GetFiles(tmxPath).Where(filename => tmxName.IsMatch(filename)))
             {
                 string text = File.ReadAllText(tmxFile);
@@ -154,29 +180,32 @@ namespace SolStandard
             }
         }
 
-        private static ControlMapper GetControlMapperForPlayer(PlayerIndex playerIndex)
+        public static ControlMapper GetControlMapperForPlayer(PlayerIndex playerIndex)
         {
             return playerIndex switch
             {
-                PlayerIndex.One => ((GameContext.P1Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
-                PlayerIndex.Two => ((GameContext.P2Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
+                PlayerIndex.One => ((GlobalContext.P1Team == Team.Blue)
+                    ? _blueTeamControlMapper
+                    : _redTeamControlMapper),
+                PlayerIndex.Two => ((GlobalContext.P2Team == Team.Blue)
+                    ? _blueTeamControlMapper
+                    : _redTeamControlMapper),
                 _ => GetControlMapperForPlayer(PlayerIndex.One)
             };
         }
 
-
         private static void InitializeControllers()
         {
-            IController loadedKeyboardConfig =
-                SystemFileIO.Load<IController>(ControlConfigContext.KeyboardConfigFileName);
+            var loadedKeyboardConfig =
+                FileIO.Load<IController>(ControlConfigContext.KeyboardConfigFileName);
             KeyboardParser = new GameControlParser(loadedKeyboardConfig ?? new KeyboardController());
 
-            IController loadedP1GamepadConfig =
-                SystemFileIO.Load<IController>(ControlConfigContext.P1GamepadConfigFileName);
+            var loadedP1GamepadConfig =
+                FileIO.Load<IController>(ControlConfigContext.P1GamepadConfigFileName);
             P1GamepadParser = new GameControlParser(loadedP1GamepadConfig ?? new GamepadController(PlayerIndex.One));
 
-            IController loadedP2GamepadConfig =
-                SystemFileIO.Load<IController>(ControlConfigContext.P2GamepadConfigFileName);
+            var loadedP2GamepadConfig =
+                FileIO.Load<IController>(ControlConfigContext.P2GamepadConfigFileName);
             P2GamepadParser = new GameControlParser(loadedP2GamepadConfig ?? new GamepadController(PlayerIndex.Two));
         }
 
@@ -190,14 +219,15 @@ namespace SolStandard
         {
             base.Initialize();
 
-            ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+            RenderResolution = new Vector2(BoxingViewportAdapter.VirtualWidth, BoxingViewportAdapter.VirtualHeight);
+            ScreenSize = VirtualResolution.ToVector2();
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
             CleanTmxFiles();
 
-            const int solTextHeight = 460;
+            const int solTextHeight = 250;
             ITexture2D logoTextTexture = AssetManager.MainMenuLogoTexture;
-            IRenderable mainMenuTitleSprite = new SpriteAtlas(
+            mainMenuLogo = new SpriteAtlas(
                 logoTextTexture,
                 new Vector2(logoTextTexture.Width, logoTextTexture.Height),
                 new Vector2((float) logoTextTexture.Width * solTextHeight / logoTextTexture.Height, solTextHeight)
@@ -205,14 +235,14 @@ namespace SolStandard
 
             InitializeControllers();
 
-            MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite);
-            NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite);
+            var mainMenu = new MainMenuHUD(mainMenuLogo);
+            var networkMenu = new NetworkHUD(mainMenuLogo);
 
 
-            PauseScreenView.Initialize(this);
+            PauseScreenUtils.Initialize(this);
 
-            GameContext.Initialize(mainMenu, networkMenu);
-            InitializeControlMappers(GameContext.P1Team);
+            GlobalContext.Initialize(mainMenu, networkMenu);
+            InitializeControlMappers(GlobalContext.P1Team);
 
             ConnectionManager = new ConnectionManager();
         }
@@ -227,7 +257,6 @@ namespace SolStandard
             spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetManager.LoadContent(Content);
         }
-
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -245,37 +274,101 @@ namespace SolStandard
         protected override void Update(GameTime gameTime)
         {
             ConnectionManager.Listen();
-            ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             if (_quitting)
             {
                 Exit();
             }
 
-            if (new InputKey(Keys.F10).Pressed)
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            if (DeveloperMode)
             {
-                UseDefaultResolution();
+                if (Keyboard.GetState().IsKeyDown(Keys.D1)) DebugMode = true;
+                if (Keyboard.GetState().IsKeyDown(Keys.D2)) DebugMode = false;
+
+                if (new InputKey(Keys.D0).Pressed)
+                {
+                    MusicBox.Pause();
+                }
             }
 
             if (new InputKey(Keys.F11).Pressed)
             {
-                UseBorderlessFullscreen();
+                ToggleFullscreen();
             }
 
-            if (new InputKey(Keys.D0).Pressed)
+            if (GlobalContext.CurrentGameState == GlobalContext.GameState.SplashScreen)
             {
-                MusicBox.Pause();
+                GlobalContext.SplashScreenContext.Update(gameTime);
             }
 
+            HandleInput();
+            UpdateCamera();
+            GlobalAsyncActions.Update(gameTime);
+
+            base.Update(gameTime);
+        }
+
+        private static void UpdateCamera()
+        {
+            switch (GlobalContext.CurrentGameState)
+            {
+                case GlobalContext.GameState.SplashScreen:
+                    return;
+                case GlobalContext.GameState.EULAConfirm:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.MainMenu:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.NetworkMenu:
+                    break;
+                case GlobalContext.GameState.ArmyDraft:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.Deployment:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.MapSelect:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.PauseScreen:
+                    break;
+                case GlobalContext.GameState.InGame:
+                    GlobalContext.WorldContext.UpdateHoverContextWindows();
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.Codex:
+                    break;
+                case GlobalContext.GameState.Credits:
+                    break;
+                case GlobalContext.GameState.Results:
+                    GlobalContext.UpdateCamera();
+                    break;
+                case GlobalContext.GameState.ItemPreview:
+                    break;
+                case GlobalContext.GameState.ControlConfig:
+                    GlobalContext.ControlConfigContext.Update();
+                    break;
+                case GlobalContext.GameState.HowToPlay:
+                    GlobalContext.UpdateCamera();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private static void HandleInput()
+        {
             if (GlobalEventQueue.UpdateEventsEveryFrame())
             {
-                ControlMapper activeController = GetControlMapperForPlayer(GameContext.ActivePlayer);
-                switch (GameContext.ActivePlayer)
+                ControlMapper activeController = GetControlMapperForPlayer(GlobalContext.ActivePlayer);
+                switch (GlobalContext.ActivePlayer)
                 {
                     case PlayerIndex.One:
                         if (ConnectionManager.ConnectedAsServer)
                         {
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
                         else if (ConnectionManager.ConnectedAsClient)
                         {
@@ -283,14 +376,14 @@ namespace SolStandard
                         }
                         else
                         {
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
 
                         break;
                     case PlayerIndex.Two:
                         if (ConnectionManager.ConnectedAsClient)
                         {
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
                         else if (ConnectionManager.ConnectedAsServer)
                         {
@@ -298,7 +391,7 @@ namespace SolStandard
                         }
                         else
                         {
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
 
                         break;
@@ -307,7 +400,7 @@ namespace SolStandard
                         if (ConnectionManager.ConnectedAsServer)
                         {
                             //Only allow host to proceed through AI phase
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
                         else if (ConnectionManager.ConnectedAsClient)
                         {
@@ -316,63 +409,17 @@ namespace SolStandard
                         else
                         {
                             //Either player can proceed offline
-                            ControlContext.ListenForInputs(activeController);
+                            InputListener.ListenForInputs(activeController);
                         }
 
                         break;
                     case PlayerIndex.Four:
-                        ControlContext.ListenForInputs(activeController);
+                        InputListener.ListenForInputs(activeController);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
-
-            switch (GameContext.CurrentGameState)
-            {
-                case GameContext.GameState.EULAConfirm:
-                    GameContext.UpdateCamera();
-                    break;
-                case GameContext.GameState.MainMenu:
-                    GameContext.UpdateCamera();
-                    break;
-                case GameContext.GameState.NetworkMenu:
-                    break;
-                case GameContext.GameState.ArmyDraft:
-                    GameContext.UpdateCamera();
-                    break;
-                case GameContext.GameState.Deployment:
-                    GameContext.UpdateCamera();
-                    break;
-                case GameContext.GameState.MapSelect:
-                    GameContext.UpdateCamera();
-                    break;
-                case GameContext.GameState.PauseScreen:
-                    break;
-                case GameContext.GameState.InGame:
-                    GameContext.GameMapContext.UpdateHoverContextWindows();
-                    GameContext.UpdateCamera();
-                    break;
-                case GameContext.GameState.Codex:
-                    break;
-                case GameContext.GameState.Credits:
-                    break;
-                case GameContext.GameState.Results:
-                    GameContext.UpdateCamera();
-                    break;
-                case GameContext.GameState.ItemPreview:
-                    break;
-                case GameContext.GameState.ControlConfig:
-                    GameContext.ControlConfigContext.Update();
-                    break;
-                case GameContext.GameState.HowToPlay:
-                    GameContext.UpdateCamera();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            base.Update(gameTime);
         }
 
         /// <summary>
@@ -383,69 +430,72 @@ namespace SolStandard
         {
             GraphicsDevice.Clear(BackgroundColor);
 
-            switch (GameContext.CurrentGameState)
+            switch (GlobalContext.CurrentGameState)
             {
-                case GameContext.GameState.EULAConfirm:
+                case GlobalContext.GameState.SplashScreen:
+                    DrawSplashScreen();
+                    break;
+                case GlobalContext.GameState.EULAConfirm:
                     DrawBackgroundWallpaper();
                     DrawMapSelectMap();
                     DrawEULAPrompt();
                     break;
-                case GameContext.GameState.MainMenu:
+                case GlobalContext.GameState.MainMenu:
                     DrawBackgroundWallpaper();
                     DrawMapSelectMap();
                     DrawMainMenu();
                     break;
-                case GameContext.GameState.NetworkMenu:
+                case GlobalContext.GameState.NetworkMenu:
                     DrawBackgroundWallpaper();
                     DrawNetworkMenu();
                     break;
-                case GameContext.GameState.Deployment:
+                case GlobalContext.GameState.Deployment:
                     DrawInGameMap();
                     DrawDeploymentHUD();
                     break;
-                case GameContext.GameState.ArmyDraft:
+                case GlobalContext.GameState.ArmyDraft:
                     DrawInGameMap();
                     DrawDraftMenu();
                     break;
-                case GameContext.GameState.MapSelect:
+                case GlobalContext.GameState.MapSelect:
                     DrawMapSelectMap();
                     DrawMapSelectHUD();
                     break;
-                case GameContext.GameState.PauseScreen:
+                case GlobalContext.GameState.PauseScreen:
                     DrawBackgroundWallpaper();
                     DrawPauseMenu();
                     break;
-                case GameContext.GameState.InGame:
+                case GlobalContext.GameState.InGame:
                     DrawInGameMap();
-                    if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
+                    if (GlobalContext.WorldContext.CurrentTurnState == WorldContext.TurnState.UnitActing)
                     {
                         DrawColorEntireScreen(ActionFade);
                     }
 
                     DrawInGameHUD();
                     break;
-                case GameContext.GameState.Codex:
+                case GlobalContext.GameState.Codex:
                     DrawBackgroundWallpaper();
                     DrawCodexScreen();
                     break;
-                case GameContext.GameState.Results:
+                case GlobalContext.GameState.Results:
                     DrawInGameMap();
                     DrawGameResultsScreen();
                     break;
-                case GameContext.GameState.Credits:
+                case GlobalContext.GameState.Credits:
                     DrawBackgroundWallpaper();
                     DrawCreditsScreen();
                     break;
-                case GameContext.GameState.ItemPreview:
+                case GlobalContext.GameState.ItemPreview:
                     DrawInGameMap();
                     DrawColorEntireScreen(ActionFade);
                     DrawInGameHUD();
                     break;
-                case GameContext.GameState.ControlConfig:
+                case GlobalContext.GameState.ControlConfig:
                     DrawBackgroundWallpaper();
                     DrawControlConfigScreen();
                     break;
-                case GameContext.GameState.HowToPlay:
+                case GlobalContext.GameState.HowToPlay:
                     DrawBackgroundWallpaper();
                     DrawHowToPlayScreen();
                     break;
@@ -458,93 +508,104 @@ namespace SolStandard
 
         private void DrawBackgroundWallpaper()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.BackgroundView.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.StaticBackgroundView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawPauseMenu()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            PauseScreenView.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            PauseScreenUtils.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        private void DrawSplashScreen()
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.SplashScreenContext.SplashScreenHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawEULAPrompt()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.EULAContext.EULAView.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.EULAContext.EULAHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawMainMenu()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.MainMenuView.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.MainMenuHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawNetworkMenu()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.NetworkMenuView.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.NetworkHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawMapSelectMap()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
-                GameContext.MapCamera.CameraMatrix);
-
-            GameContext.MapSelectContext.MapContainer.Draw(spriteBatch);
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GlobalContext.MapCamera.CameraMatrix);
+            GlobalContext.MapSelectContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawMapSelectHUD()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.MapSelectContext.MapSelectScreenView.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.MapSelectContext.MapSelectHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawDraftMenu()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.DraftContext.DraftView.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.DraftContext.DraftHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawGameResultsScreen()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-
-            GameContext.StatusScreenView.Draw(spriteBatch);
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.StatusScreenHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawCreditsScreen()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-
-            GameContext.CreditsContext.CreditsView.Draw(spriteBatch);
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.CreditsContext.CreditsHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawHowToPlayScreen()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-
-            GameContext.HowToPlayContext.HowToPlayView.Draw(spriteBatch);
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.HowToPlayContext.HowToPlayHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawColorEntireScreen(Color color)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
             spriteBatch.Draw(AssetManager.WhitePixel.MonoGameTexture,
                 new Rectangle(0, 0, (int) ScreenSize.X, (int) ScreenSize.Y), color);
             spriteBatch.End();
@@ -552,46 +613,48 @@ namespace SolStandard
 
         private void DrawDeploymentHUD()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.DeploymentContext.DeploymentView.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.DeploymentContext.DeploymentHUD.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawCodexScreen()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.CodexContext.CodexView.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.CodexContext.CodexView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawControlConfigScreen()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.ControlConfigContext.View.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalContext.ControlConfigContext.View.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawInGameMap()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
-                GameContext.MapCamera.CameraMatrix);
-            GameContext.GameMapContext.MapContainer.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GlobalContext.MapCamera.CameraMatrix);
+            GlobalContext.WorldContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawInGameHUD()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
 
-            if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
+            if (GlobalContext.WorldContext.CurrentTurnState == WorldContext.TurnState.UnitActing)
             {
-                GameContext.BattleContext.Draw(spriteBatch);
+                GlobalContext.CombatPhase.Draw(spriteBatch);
             }
             else
             {
-                GameMapContext.GameMapView.Draw(spriteBatch);
+                WorldContext.WorldHUD.Draw(spriteBatch);
             }
 
             spriteBatch.End();
@@ -599,9 +662,20 @@ namespace SolStandard
 
         private void DrawSystemHUD()
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GlobalHudView.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp,
+                transformMatrix: GetRenderResolutionForVirtualResolution(VirtualResolution));
+            GlobalHUDUtils.Draw(spriteBatch);
             spriteBatch.End();
+        }
+
+        private Matrix GetRenderResolutionForVirtualResolution(Point virtualResolution)
+        {
+            (int x, int y) = virtualResolution;
+            return Matrix.CreateScale(
+                (float) GraphicsDevice.Viewport.Width / x,
+                (float) GraphicsDevice.Viewport.Height / y,
+                1f
+            );
         }
     }
 }

@@ -4,7 +4,7 @@
     {
         public static T[] DeepCopyArray(T[] array)
         {
-            T[] newArray = new T[array.Length];
+            var newArray = new T[array.Length];
 
             for (int i = 0; i < array.Length; i++)
             {

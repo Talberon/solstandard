@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
@@ -95,11 +94,11 @@ namespace SolStandard.Entity.General
         {
             get
             {
-                List<IRemotelyTriggerable> fetchedTiles = new List<IRemotelyTriggerable>();
+                var fetchedTiles = new List<IRemotelyTriggerable>();
 
                 foreach (MapElement element in MapContainer.GameGrid[(int) Layer.Entities])
                 {
-                    MapEntity entity = element as MapEntity;
+                    var entity = element as MapEntity;
 
                     if (entity is IRemotelyTriggerable triggerTile && entity.Name == triggersId)
                     {
@@ -117,7 +116,7 @@ namespace SolStandard.Entity.General
             .Any(item => item.MapCoordinates == MapCoordinates);
 
         private bool UnitIsStandingOnPressurePlate =>
-            GameContext.Units.Any(unit => unit.UnitEntity != null && unit.UnitEntity.MapCoordinates == MapCoordinates);
+            GlobalContext.Units.Any(unit => unit.UnitEntity != null && unit.UnitEntity.MapCoordinates == MapCoordinates);
 
         protected override IRenderable EntityInfo =>
             new WindowContentGrid(

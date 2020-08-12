@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Elements;
 
@@ -10,12 +10,12 @@ namespace SolStandard.Utility
     {
         public static GameUnit SelectUnit(MapEntity unit)
         {
-            return unit == null ? null : GameContext.Units.First(gameUnit => gameUnit.UnitEntity == unit);
+            return unit == null ? null : GlobalContext.Units.First(gameUnit => gameUnit.UnitEntity == unit);
         }
 
         public static UnitEntity FindOtherUnitEntityAtCoordinates(Vector2 coordinates, MapEntity excludedEntity)
         {
-            foreach (GameUnit unit in GameContext.Units)
+            foreach (GameUnit unit in GlobalContext.Units)
             {
                 if (unit.UnitEntity != null && unit.UnitEntity != excludedEntity)
                 {

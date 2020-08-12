@@ -61,10 +61,10 @@ namespace SolStandard.Map.Elements
         private Vector2 CenterTextToTile()
         {
             Vector2 tileCorner = MapCoordinates * GameDriver.CellSize;
-            Vector2 centerOfText = new Vector2((float) renderText.Width / 2, (float) renderText.Height / 2);
-            Vector2 centerOfTile = new Vector2((float) GameDriver.CellSize / 2, (float) GameDriver.CellSize / 2);
+            var centerOfText = new Vector2((float) renderText.Width / 2, (float) renderText.Height / 2);
+            var centerOfTile = new Vector2((float) GameDriver.CellSize / 2, (float) GameDriver.CellSize / 2);
 
-            Vector2 textTarget = new Vector2(tileCorner.X + centerOfTile.X - centerOfText.X,
+            var textTarget = new Vector2(tileCorner.X + centerOfTile.X - centerOfText.X,
                 tileCorner.Y + centerOfTile.Y - centerOfText.Y);
             return textTarget;
         }

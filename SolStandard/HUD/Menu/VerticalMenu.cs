@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Components.Global;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -44,14 +45,14 @@ namespace SolStandard.HUD.Menu
         {
             ResizeOptionsToWidestWidth(options);
 
-            IRenderable[,] optionWindows = new IRenderable[options.Length, 1];
+            var optionWindows = new IRenderable[options.Length, 1];
 
             for (int i = 0; i < options.Length; i++)
             {
                 optionWindows[i, 0] = options[i];
             }
 
-            WindowContentGrid optionsContent = new WindowContentGrid(optionWindows, Padding);
+            var optionsContent = new WindowContentGrid(optionWindows, Padding);
 
             return new Window.Window(optionsContent, DefaultColor);
         }
@@ -81,7 +82,7 @@ namespace SolStandard.HUD.Menu
 
         private Dictionary<MenuOption, Vector2> MapOptionCoordinates()
         {
-            Dictionary<MenuOption, Vector2> optionCoordinatesMapping = new Dictionary<MenuOption, Vector2>();
+            var optionCoordinatesMapping = new Dictionary<MenuOption, Vector2>();
 
             Vector2 lastCoordinates =
                 new Vector2(AssetManager.WindowTexture.Width, AssetManager.WindowTexture.Height) / 3;
@@ -165,7 +166,9 @@ namespace SolStandard.HUD.Menu
         {
             if (!IsVisible) return;
             menuWindow.Draw(spriteBatch, position, colorOverride);
-            cursorSprite.Draw(spriteBatch, position + cursorPosition);
+            
+            Color cursorColor = TeamUtility.DetermineTeamCursorColor(GlobalContext.ActiveTeam);
+            cursorSprite.Draw(spriteBatch, position + cursorPosition, cursorColor);
 
             ConfirmButton.Draw(spriteBatch,
                 position +

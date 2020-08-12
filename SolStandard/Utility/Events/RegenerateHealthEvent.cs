@@ -1,4 +1,4 @@
-﻿using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility.Assets;
 
@@ -20,7 +20,7 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             targetUnit.RecoverHP(hpHealed);
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+            GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCellCoordinates(
                 targetUnit.Id + " recovers " + hpHealed + " HP!",
                 targetUnit.UnitEntity.MapCoordinates,
                 50

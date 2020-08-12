@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Priority_Queue;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.World;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Entity.Unit;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Exceptions;
@@ -16,15 +17,15 @@ namespace SolStandard.Utility
         public static List<Direction> DirectionsToDestination(Vector2 origin, Vector2 destination,
             bool ignoreLastStep, bool walkThroughAllies, Team alliedTeam)
         {
-            SimplePriorityQueue<MapDistanceTile> frontier = new SimplePriorityQueue<MapDistanceTile>();
+            var frontier = new SimplePriorityQueue<MapDistanceTile>();
 
             frontier.Enqueue(
                 new MapDistanceTile(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement), origin),
                 0
             );
 
-            Dictionary<MapDistanceTile, MapDistanceTile> cameFrom = new Dictionary<MapDistanceTile, MapDistanceTile>();
-            Dictionary<MapDistanceTile, int> costSoFar = new Dictionary<MapDistanceTile, int>();
+            var cameFrom = new Dictionary<MapDistanceTile, MapDistanceTile>();
+            var costSoFar = new Dictionary<MapDistanceTile, int>();
             cameFrom[frontier.First] = null;
             costSoFar[frontier.First] = 0;
 
@@ -61,8 +62,8 @@ namespace SolStandard.Utility
             IReadOnlyDictionary<MapDistanceTile, MapDistanceTile> cameFrom, bool ignoreLastStep)
         {
             //Step backwards through the path and plot the directions from each of the nodes that map to the destination
-            List<MapDistanceTile> path = new List<MapDistanceTile>();
-            List<Direction> directions = new List<Direction>();
+            var path = new List<MapDistanceTile>();
+            var directions = new List<Direction>();
 
             MapDistanceTile nextTile = current;
 
@@ -85,16 +86,16 @@ namespace SolStandard.Utility
         private static IEnumerable<MapDistanceTile> GetNeighbours(MapElement currentTile, Vector2 destination,
             bool walkThroughAllies, Team alliedTeam)
         {
-            List<MapDistanceTile> neighbours = new List<MapDistanceTile>();
+            var neighbours = new List<MapDistanceTile>();
 
-            Vector2 north = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y - 1);
-            Vector2 south = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y + 1);
-            Vector2 east = new Vector2(currentTile.MapCoordinates.X + 1, currentTile.MapCoordinates.Y);
-            Vector2 west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
+            var north = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y - 1);
+            var south = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y + 1);
+            var east = new Vector2(currentTile.MapCoordinates.X + 1, currentTile.MapCoordinates.Y);
+            var west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
 
             if (
-                GameMapContext.CoordinatesWithinMapBounds(north) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(north) || north == destination ||
+                WorldContext.CoordinatesWithinMapBounds(north) &&
+                (UnitMovingPhase.CanEndMoveAtCoordinates(north) || north == destination ||
                  FriendlyUnitIsStandingHere(north, walkThroughAllies, alliedTeam))
             )
             {
@@ -104,8 +105,8 @@ namespace SolStandard.Utility
             }
 
             if (
-                GameMapContext.CoordinatesWithinMapBounds(south) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(south) || south == destination ||
+                WorldContext.CoordinatesWithinMapBounds(south) &&
+                (UnitMovingPhase.CanEndMoveAtCoordinates(south) || south == destination ||
                  FriendlyUnitIsStandingHere(south, walkThroughAllies, alliedTeam))
             )
             {
@@ -115,8 +116,8 @@ namespace SolStandard.Utility
             }
 
             if (
-                GameMapContext.CoordinatesWithinMapBounds(east) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(east) || east == destination ||
+                WorldContext.CoordinatesWithinMapBounds(east) &&
+                (UnitMovingPhase.CanEndMoveAtCoordinates(east) || east == destination ||
                  FriendlyUnitIsStandingHere(east, walkThroughAllies, alliedTeam))
             )
             {
@@ -126,8 +127,8 @@ namespace SolStandard.Utility
             }
 
             if (
-                GameMapContext.CoordinatesWithinMapBounds(west) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(west) || west == destination ||
+                WorldContext.CoordinatesWithinMapBounds(west) &&
+                (UnitMovingPhase.CanEndMoveAtCoordinates(west) || west == destination ||
                  FriendlyUnitIsStandingHere(west, walkThroughAllies, alliedTeam))
             )
             {
@@ -154,10 +155,10 @@ namespace SolStandard.Utility
 
         private static Direction DetermineDirection(MapElement current, MapElement next)
         {
-            Vector2 north = new Vector2(current.MapCoordinates.X, current.MapCoordinates.Y - 1);
-            Vector2 south = new Vector2(current.MapCoordinates.X, current.MapCoordinates.Y + 1);
-            Vector2 east = new Vector2(current.MapCoordinates.X + 1, current.MapCoordinates.Y);
-            Vector2 west = new Vector2(current.MapCoordinates.X - 1, current.MapCoordinates.Y);
+            var north = new Vector2(current.MapCoordinates.X, current.MapCoordinates.Y - 1);
+            var south = new Vector2(current.MapCoordinates.X, current.MapCoordinates.Y + 1);
+            var east = new Vector2(current.MapCoordinates.X + 1, current.MapCoordinates.Y);
+            var west = new Vector2(current.MapCoordinates.X - 1, current.MapCoordinates.Y);
 
             if (next.MapCoordinates == north)
             {

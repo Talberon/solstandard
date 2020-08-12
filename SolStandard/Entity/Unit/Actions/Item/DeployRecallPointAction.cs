@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map;
@@ -39,7 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 recallSource.DeployRecall();
                 RecallPoint recallPoint = GenerateRecallPoint(recallSource.RecallId, targetSlice);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(recallPoint, Layer.Entities, AssetManager.CombatBlockSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent());
@@ -47,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
                     "Invalid target! Place on movable tile without terrain entity in range.",
                     50
                 );
@@ -58,7 +59,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         private static bool CanPlaceRecallPointAtTarget(MapSlice targetSlice)
         {
             return targetSlice.TerrainEntity == null && targetSlice.DynamicEntity != null &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+                   UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
 
         private static RecallPoint GenerateRecallPoint(string sourceId, MapSlice targetSlice)

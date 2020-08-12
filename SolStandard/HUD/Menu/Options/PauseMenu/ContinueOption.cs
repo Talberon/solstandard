@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -14,7 +14,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
 
         public override void Execute()
         {
-            GameContext.CurrentGameState = GameContext.GameState.InGame;
+            GlobalContext.CurrentGameState = GlobalContext.GameState.InGame;
         }
 
         public override IRenderable Clone()

@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.View;
+using SolStandard.Containers.Components.Network;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -9,9 +9,9 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
 {
     public class CopyIPAddressOption : MenuOption
     {
-        private readonly NetworkMenuView menu;
+        private readonly NetworkHUD menu;
 
-        public CopyIPAddressOption(Color menuColor, NetworkMenuView menu) : base(
+        public CopyIPAddressOption(Color menuColor, NetworkHUD menu) : base(
             new RenderText(AssetManager.MainMenuFont, "Copy IP"),
             menuColor,
             HorizontalAlignment.Centered

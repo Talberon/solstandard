@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
@@ -18,7 +18,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.GameMapContext.PlayAnimationAtCoordinates(animation, mapCoordinates);
+            GlobalContext.WorldContext.PlayAnimationAtCoordinates(animation, mapCoordinates);
             Complete = true;
         }
     }

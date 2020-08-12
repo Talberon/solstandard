@@ -1,4 +1,5 @@
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext.Movement;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
@@ -27,12 +28,12 @@ namespace SolStandard.Entity.Unit.Actions
         {
             if (TargetIsUnoccupiedTileInRange(targetSlice))
             {
-                GameContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
+                GlobalContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
                 GlobalEventQueue.QueueSingleEvent(new AdhocDraftEvent());
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -40,7 +41,7 @@ namespace SolStandard.Entity.Unit.Actions
         private static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)
         {
             return targetSlice.DynamicEntity != null && targetSlice.UnitEntity == null &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+                   UnitMovingPhase.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

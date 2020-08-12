@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Statuses.Lancer;
 using SolStandard.Map;
@@ -36,22 +36,22 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            Range = GameContext.ActiveUnit.Stats.CurrentAtkRange;
+            Range = GlobalContext.ActiveUnit.Stats.CurrentAtkRange;
             base.GenerateActionGrid(origin, mapLayer);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit attacker = GameContext.ActiveUnit;
+            GameUnit attacker = GlobalContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             int atkDamage = ApplyPercentageRoundedUp(attacker.Stats.Atk, damagePercent);
-            WeaponStatistics executionersKnife =
+            var executionersKnife =
                 new WeaponStatistics(atkDamage, 0, attacker.Stats.CurrentAtkRange, 1);
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(attacker, new ExecutionerStatus(Icon, 0, buffDuration, atkModifier))
                 );
@@ -66,7 +66,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

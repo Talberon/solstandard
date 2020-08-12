@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.Map.Elements;
@@ -25,7 +25,7 @@ namespace SolStandard.Entity.General
 
         public List<UnitAction> TileActions()
         {
-            List<UnitAction> actions = new List<UnitAction>();
+            var actions = new List<UnitAction>();
 
             if (UnitOnOppositeCrossDirection(crossDirection))
             {
@@ -37,7 +37,7 @@ namespace SolStandard.Entity.General
 
         private bool UnitOnOppositeCrossDirection(Direction directionToCross)
         {
-            Vector2 unitCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+            Vector2 unitCoordinates = GlobalContext.ActiveUnit.UnitEntity.MapCoordinates;
 
             return directionToCross switch
             {

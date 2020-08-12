@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -29,7 +28,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            Range = GameContext.ActiveUnit.Stats.CurrentAtkRange;
+            Range = GlobalContext.ActiveUnit.Stats.CurrentAtkRange;
             base.GenerateActionGrid(origin, mapLayer);
         }
 
@@ -49,14 +48,14 @@ namespace SolStandard.Entity.Unit.Actions
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         public static void DamageTerrain(MapSlice targetSlice)
         {
-            BreakableObstacle targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
+            var targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
             targetObstacle.DealDamage(1);
 
             if (targetObstacle.IsBroken)
