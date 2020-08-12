@@ -9,7 +9,7 @@ namespace SolStandard.Utility.HUD.Neo
 {
     public class NeoWindowContentGrid : IRenderable
     {
-        private readonly Vector2 position;
+        private readonly Vector2 topLeftPoint;
         private int spacing;
         private readonly List<List<IRenderable>> gridContents; //Column<Row<Content>>
         private HorizontalAlignment horizontalAlignment;
@@ -23,12 +23,12 @@ namespace SolStandard.Utility.HUD.Neo
         public Color DefaultColor { get; set; } // Do not use
 
         private NeoWindowContentGrid(List<List<IRenderable>> contentGrid, int spacing, HorizontalAlignment alignment,
-            Vector2 position)
+            Vector2 topLeftPoint)
         {
             gridContents = contentGrid;
             this.spacing = spacing;
             horizontalAlignment = alignment;
-            this.position = position;
+            this.topLeftPoint = topLeftPoint;
         }
 
         public NeoWindowContentGrid(IRenderable[,] contentGrid, Vector2? position = null, int spacing = 1,
@@ -120,7 +120,7 @@ namespace SolStandard.Utility.HUD.Neo
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Draw(spriteBatch, position);
+            Draw(spriteBatch, topLeftPoint);
         }
 
         private void DrawRow(SpriteBatch spriteBatch, IEnumerable<IRenderable> row, Vector2 coordinates)

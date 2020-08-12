@@ -1,3 +1,4 @@
+#nullable enable
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite;
@@ -24,7 +25,6 @@ namespace SolStandard.Utility.HUD.Sprite
             set => Sprite.Texture = value.MonoGameTexture;
         }
 
-        private readonly ITexture2D spriteTexture;
         protected readonly AnimatedSprite Sprite;
 
         private bool isHidden;
@@ -35,7 +35,6 @@ namespace SolStandard.Utility.HUD.Sprite
 
             if (animationName is object) Sprite.Play(animationName);
 
-            spriteTexture = new Texture2DWrapper(sprite.Texture);
             isHidden = false;
         }
 
