@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility.HUD.Sprite
@@ -103,7 +100,7 @@ namespace SolStandard.Utility.HUD.Sprite
         {
             Vector2 cellSize = me.GetSize();
             Vector2 renderSize = size ?? cellSize;
-            return new SpriteAtlas(me, cellSize, renderSize, 0);
+            return new SpriteAtlas(me, cellSize, renderSize);
         }
 
         public static SpriteAtlas WithColor(this SpriteAtlas me, Color color)

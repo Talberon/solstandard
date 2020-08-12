@@ -153,7 +153,7 @@ namespace SolStandard.Utility.HUD.Neo
         {
             Vector2 contentRenderCoordinates = windowCoordinates;
 
-            contentRenderCoordinates.X += (Width / 2) - (WindowContents.Width / 2);
+            contentRenderCoordinates.X += (Width / 2) - ((float) WindowContents.Width / 2);
             contentRenderCoordinates.Y = VerticalCenterContent(windowCoordinates);
 
             return contentRenderCoordinates;
