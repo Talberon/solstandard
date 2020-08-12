@@ -101,7 +101,9 @@ namespace SolStandard.Containers.Components.SplashScreen
                     GlobalContext.CurrentGameState = GlobalContext.EULAContext.EULAConfirmed
                         ? GlobalContext.GameState.MainMenu
                         : GlobalContext.GameState.EULAConfirm;
-                        
+
+                    GlobalContext.CenterCursorAndCamera();
+
                     MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.EndsWith("MapSelectTheme")));
                     break;
                 default:
