@@ -60,7 +60,7 @@ namespace SolStandard.Containers.Components.Global
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         public static readonly Color NeutralColor = new Color(255, 255, 255);
 
-        private static readonly string MapDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/TmxMaps/");
+        private static readonly string MapDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"Content/TmxMaps/");
         private const string MapSelectFile = @"Map_Select_06.tmx";
 
         public static CombatPhase CombatPhase { get; private set; }
