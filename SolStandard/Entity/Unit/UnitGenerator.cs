@@ -650,7 +650,7 @@ namespace SolStandard.Entity.Unit
 
             Vector2 unitScale = new Vector2(unitSprite.Width) / 2.5f;
             const int unitAnimationFrames = 4;
-            const int unitAnimationDelay = 12;
+            const int unitAnimationDelay = 10;
 
             var animatedSpriteSheet = new UnitSpriteSheet(
                 unitSprite,

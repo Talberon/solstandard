@@ -6,7 +6,7 @@ namespace SolStandard.Entity.Unit.Statuses
     public class MoveStatModifier : StatusEffect
     {
         private readonly int pointsToIncrease;
-        private const int FastFrameDelay = 10;
+        private const int FastFrameDelay = 8;
 
         public MoveStatModifier(int turnDuration, int pointsToIncrease, string name = null) : base(
             statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Mv, GameDriver.CellSizeVector),

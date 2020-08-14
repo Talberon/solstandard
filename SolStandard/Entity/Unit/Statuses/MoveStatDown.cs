@@ -6,7 +6,7 @@ namespace SolStandard.Entity.Unit.Statuses
     public class MoveStatDown : StatusEffect
     {
         private readonly int pointsToReduce;
-        private const int SlowFrameDelay = 16;
+        private const int SlowFrameDelay = 14;
 
         public MoveStatDown(int turnDuration, int pointsToReduce, string name = null) : base(
             statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Mv, GameDriver.CellSizeVector),
