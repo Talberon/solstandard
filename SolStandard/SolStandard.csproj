@@ -183,6 +183,9 @@
     <None Update="Content\TmxMaps\Draft_Cellar.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Content\TmxMaps\Solo_Jungle_Fortress.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
