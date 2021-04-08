@@ -192,11 +192,8 @@ namespace SolStandard.Containers.Components.World.SubContext.Initiative
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(80));
             Units.ForEach(unit => unit.ActivateUnit());
 
-            GlobalEventQueue.QueueSingleEvent(
-                new EffectTilesStartOfRoundEvent(
-                    new FirstTurnOfNewRoundEvent(this)
-                )
-            );
+            GlobalEventQueue.QueueSingleEvent(new EffectTilesStartOfRoundEvent());
+            GlobalEventQueue.QueueSingleEvent(new FirstTurnOfNewRoundEvent(this));
         }
 
         public void StartFirstTurnOfNewRound()
