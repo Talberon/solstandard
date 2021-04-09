@@ -238,10 +238,10 @@ namespace SolStandard
             var mainMenu = new MainMenuHUD(mainMenuLogo);
             var networkMenu = new NetworkHUD(mainMenuLogo);
 
-
-            PauseScreenUtils.Initialize(this);
-
             GlobalContext.Initialize(mainMenu, networkMenu);
+            
+            PauseScreenUtils.Initialize(this);
+            
             InitializeControlMappers(GlobalContext.P1Team);
 
             ConnectionManager = new ConnectionManager();
