@@ -60,7 +60,9 @@ namespace SolStandard.Containers.Components.Global
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         public static readonly Color NeutralColor = new Color(255, 255, 255);
 
-        private static readonly string MapDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"Content/TmxMaps/");
+        private static readonly string MapDirectory =
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"Content/TmxMaps/");
+
         private const string MapSelectFile = @"Map_Select_06.tmx";
 
         public static CombatPhase CombatPhase { get; private set; }
@@ -216,6 +218,17 @@ namespace SolStandard.Containers.Components.Global
 
             CurrentGameState = GameState.InGame;
 
+            bool isSinglePlayer = Units.TrueForAll(unit => unit.Team == Team.Red || unit.Team == Team.Creep) ||
+                                  Units.TrueForAll(unit => unit.Team == Team.Blue || unit.Team == Team.Creep);
+
+            if (!isSinglePlayer && !CreepPreferences.CreepsCanSpawn)
+            {
+                foreach (GameUnit creep in Units.Where(unit => unit.Team == Team.Creep))
+                {
+                    creep.KillUnit();
+                }
+            }
+            
             foreach (GameUnit unit in Units)
             {
                 unit.ExhaustAndDisableUnit();

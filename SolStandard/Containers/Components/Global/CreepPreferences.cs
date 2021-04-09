@@ -4,6 +4,7 @@ namespace SolStandard.Containers.Components.Global
     {
         private const string CreepPreferencesFileName = "CreepSpawn";
 
+        //TODO IMPORTANT Check that both players have same option selected for Netplay
         public bool CreepsCanSpawn { get; private set; }
 
         public CreepPreferences()

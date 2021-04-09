@@ -118,6 +118,7 @@ namespace SolStandard
             Window.IsBorderless = false;
             Window.AllowUserResizing = true;
         }
+        
         public static void NewGame(string mapName, Scenario scenario, Team firstTeam)
         {
             GlobalContext.StartGame(mapName, scenario, firstTeam);

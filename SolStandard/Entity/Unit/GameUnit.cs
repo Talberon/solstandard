@@ -537,6 +537,14 @@ namespace SolStandard.Entity.Unit
             };
         }
 
+        public void KillUnit()
+        {
+            Stats.CurrentArmor = 0;
+            Stats.CurrentHP = 0;
+            healthbars.ForEach(healthbar => healthbar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
+            KillIfDead(false);
+        }
+
         public void DamageUnit(bool ignoreArmor = false)
         {
             if (Stats.CurrentArmor > 0 && !ignoreArmor)
@@ -732,7 +740,7 @@ namespace SolStandard.Entity.Unit
             return false;
         }
 
-        private void KillIfDead()
+        private void KillIfDead(bool playSfx = true)
         {
             if (Stats.CurrentHP > 0 || MapEntity == null) return;
 
@@ -742,7 +750,7 @@ namespace SolStandard.Entity.Unit
             mediumPortrait.DefaultColor = DeadPortraitColor;
             smallPortrait.DefaultColor = DeadPortraitColor;
             Logger.Debug("Unit " + Id + " is dead!");
-            AssetManager.CombatDeathSFX.Play();
+            if (playSfx) AssetManager.CombatDeathSFX.Play();
             GlobalContext.WorldContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Death, GameDriver.CellSizeVector),
                 MapEntity.MapCoordinates

@@ -160,7 +160,7 @@ namespace SolStandard.Containers.Components.World.SubContext.Initiative
         {
             StartNewRound();
 
-            IEnumerable<CreepUnit> creepUnits = GlobalContext.Units.Where(unit => unit is CreepUnit).Cast<CreepUnit>();
+            IEnumerable<CreepUnit> creepUnits = GlobalContext.Units.Where(unit => unit is CreepUnit && unit.IsAlive).Cast<CreepUnit>();
             foreach (CreepUnit creepUnit in creepUnits)
             {
                 creepUnit.ReadyNextRoutine();
