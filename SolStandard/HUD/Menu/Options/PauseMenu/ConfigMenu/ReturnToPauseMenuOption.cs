@@ -12,7 +12,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
         public static bool FromMainMenu { get; set; }
 
         public ReturnToPauseMenuOption(Color color) : base(
-            new RenderText(AssetManager.MainMenuFont, "Back"),
+            new RenderText(AssetManager.WindowFont, "Back"),
             color
         )
         {

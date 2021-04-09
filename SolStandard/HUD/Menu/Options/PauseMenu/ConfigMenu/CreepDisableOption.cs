@@ -9,17 +9,17 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
 {
     public class CreepDisableOption : MenuOption
     {
-        private static string OptionText =>
-            $"Disable Creeps in Multiplayer: {!GlobalContext.CreepPreferences.CreepsCanSpawn}";
+        public static string OptionText =>
+            $"Disable Creeps in 2P: <{(!CreepPreferences.Instance.CreepsCanSpawn).ToString().ToUpper()}>";
 
-        public CreepDisableOption(Color color) : base(new RenderText(AssetManager.MainMenuFont, OptionText), color)
+        public CreepDisableOption(Color color) : base(new RenderText(AssetManager.WindowFont, OptionText), color)
         {
         }
 
         public override void Execute()
         {
-            GlobalContext.CreepPreferences.ToggleCreepsCanSpawn();
-            UpdateLabel(new RenderText(AssetManager.MainMenuFont, OptionText));
+            CreepPreferences.Instance.ToggleCreepsCanSpawn();
+            UpdateLabel(new RenderText(AssetManager.WindowFont, OptionText));
         }
 
         public override IRenderable Clone()

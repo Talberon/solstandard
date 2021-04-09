@@ -12,7 +12,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
         private const string OffLabel = "SFX: Off";
 
         public SoundEffectMuteOption(Color color) : base(
-            new RenderText(AssetManager.MainMenuFont, (SoundEffectWrapper.Muted) ? OffLabel : OnLabel),
+            new RenderText(AssetManager.WindowFont, (SoundEffectWrapper.Muted) ? OffLabel : OnLabel),
             color
         )
         {
@@ -22,7 +22,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
         {
             SoundEffectWrapper.ToggleMute();
 
-            UpdateLabel(new RenderText(AssetManager.MainMenuFont, (SoundEffectWrapper.Muted) ? OffLabel : OnLabel));
+            UpdateLabel(new RenderText(AssetManager.WindowFont, (SoundEffectWrapper.Muted) ? OffLabel : OnLabel));
         }
 
         public override IRenderable Clone()

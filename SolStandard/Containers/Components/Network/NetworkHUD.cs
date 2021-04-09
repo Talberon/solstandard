@@ -6,6 +6,7 @@ using SolStandard.Containers.Components.MainMenu;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.DialMenu;
+using SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -71,6 +72,11 @@ namespace SolStandard.Containers.Components.Network
                         new MainMenuOption(AssetManager.WindowFont, menuColor, this),
                         new ConnectOption(menuColor, this),
                         new PasteIPAddressOption(menuColor, this),
+                    },
+                    {
+                        new UnselectableOption(RenderBlank.Blank, menuColor),
+                        new CreepDisableOption(menuColor),
+                        new UnselectableOption(RenderBlank.Blank, menuColor),
                     }
                 },
                 new SpriteAtlas(AssetManager.MenuCursorTexture, new Vector2(AssetManager.MenuCursorTexture.Width)),
@@ -95,7 +101,10 @@ namespace SolStandard.Containers.Components.Network
                         new CopyIPAddressOption(menuColor, this),
                     },
                     {
-                        new MainMenuOption(AssetManager.MainMenuFont, menuColor, this),
+                        new CreepDisableOption(menuColor)
+                    },
+                    {
+                        new MainMenuOption(AssetManager.WindowFont, menuColor, this),
                     }
                 },
                 new SpriteAtlas(AssetManager.MenuCursorTexture, new Vector2(AssetManager.MenuCursorTexture.Width)),
@@ -147,7 +156,8 @@ namespace SolStandard.Containers.Components.Network
                 ? ""
                 : "You can get your public IP address by searching online for \"What is my IP?\"";
             const string tipText2 = "If your peer cannot connect, make sure you are both running the same major/minor version of the game.";
-            string tipText3 = $"Check to make sure you have port forwarding enabled on your router for port {ConnectionManager.NetworkPort}.";
+            string tipText3 = $"YOUR CREEP CONFIG MUST MATCH YOUR PEER. Change it in the menu below if it does not match your peer.";
+            string tipText4 = $"Check to make sure you have port forwarding enabled on your router for port {ConnectionManager.NetworkPort}.";
 
             return new Window(
                 new WindowContentGrid(
@@ -157,6 +167,7 @@ namespace SolStandard.Containers.Components.Network
                         {new RenderText(AssetManager.WindowFont, tipText1)},
                         {new RenderText(AssetManager.WindowFont, tipText2)},
                         {new RenderText(AssetManager.WindowFont, tipText3)},
+                        {new RenderText(AssetManager.WindowFont, tipText4)},
                         {new RenderText(AssetManager.MainMenuFont, statusMessage)}
                     },
                     2,

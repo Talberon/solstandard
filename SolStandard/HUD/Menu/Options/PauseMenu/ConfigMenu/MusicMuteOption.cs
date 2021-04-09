@@ -12,7 +12,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
         private const string OffLabel = "Music: Off";
 
         public MusicMuteOption(Color color) : base(
-            new RenderText(AssetManager.MainMenuFont, (MusicBox.Muted) ? OffLabel : OnLabel),
+            new RenderText(AssetManager.WindowFont, (MusicBox.Muted) ? OffLabel : OnLabel),
             color
         )
         {
@@ -21,7 +21,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
         public override void Execute()
         {
             MusicBox.ToggleMute();
-            UpdateLabel(new RenderText(AssetManager.MainMenuFont, (MusicBox.Muted) ? OffLabel : OnLabel));
+            UpdateLabel(new RenderText(AssetManager.WindowFont, (MusicBox.Muted) ? OffLabel : OnLabel));
         }
 
         public override IRenderable Clone()

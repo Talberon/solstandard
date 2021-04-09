@@ -2,12 +2,12 @@ namespace SolStandard.Containers.Components.Global
 {
     public class CreepPreferences
     {
+        public static CreepPreferences Instance { get; } = new CreepPreferences();
         private const string CreepPreferencesFileName = "CreepSpawn";
 
-        //TODO IMPORTANT Check that both players have same option selected for Netplay
         public bool CreepsCanSpawn { get; private set; }
 
-        public CreepPreferences()
+        private CreepPreferences()
         {
             LoadSavedPreferences();
         }

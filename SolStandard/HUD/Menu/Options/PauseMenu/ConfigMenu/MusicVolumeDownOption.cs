@@ -10,7 +10,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
     {
         private const string VolumeLabel = "Music Volume Down";
 
-        public MusicVolumeDownOption(Color color) : base(new RenderText(AssetManager.MainMenuFont, VolumeLabel), color)
+        public MusicVolumeDownOption(Color color) : base(new RenderText(AssetManager.WindowFont, VolumeLabel), color)
         {
         }
 

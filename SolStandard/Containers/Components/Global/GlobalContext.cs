@@ -82,7 +82,6 @@ namespace SolStandard.Containers.Components.Global
         public static SplashScreenContext SplashScreenContext { get; private set; }
         public static EULAContext EULAContext { get; private set; }
         public static HowToPlayContext HowToPlayContext { get; private set; }
-        public static CreepPreferences CreepPreferences { get; private set; }
 
         public static Team P1Team { get; private set; }
         public static Team P2Team => (P1Team == Team.Blue) ? Team.Red : Team.Blue;
@@ -124,7 +123,6 @@ namespace SolStandard.Containers.Components.Global
             ControlConfigContext = new ControlConfigContext(new ControlConfigView());
             StaticBackgroundView = new StaticBackgroundView();
             HowToPlayContext = new HowToPlayContext();
-            CreepPreferences = new CreepPreferences();
             LoadMapSelect();
             CurrentGameState = GameState.SplashScreen;
             P1Team = Team.Red;
@@ -221,7 +219,7 @@ namespace SolStandard.Containers.Components.Global
             bool isSinglePlayer = Units.TrueForAll(unit => unit.Team == Team.Red || unit.Team == Team.Creep) ||
                                   Units.TrueForAll(unit => unit.Team == Team.Blue || unit.Team == Team.Creep);
 
-            if (!isSinglePlayer && !CreepPreferences.CreepsCanSpawn)
+            if (!isSinglePlayer && !CreepPreferences.Instance.CreepsCanSpawn)
             {
                 foreach (GameUnit creep in Units.Where(unit => unit.Team == Team.Creep))
                 {

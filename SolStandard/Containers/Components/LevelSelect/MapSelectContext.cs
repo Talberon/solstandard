@@ -69,7 +69,7 @@ namespace SolStandard.Containers.Components.LevelSelect
                         firstTurn
                     );
 
-                    if (!GlobalContext.CreepPreferences.CreepsCanSpawn)
+                    if (!CreepPreferences.Instance.CreepsCanSpawn)
                     {
                         foreach (GameUnit creep in GlobalContext.Units.Where(unit => unit.Team == Team.Creep))
                         {
