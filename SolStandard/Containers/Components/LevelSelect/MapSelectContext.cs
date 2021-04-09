@@ -13,7 +13,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Components.LevelSelect
 {
-    public class MapSelectContext 
+    public class MapSelectContext
     {
         public readonly MapSelectHUD MapSelectHUD;
         public readonly MapContainer MapContainer;
@@ -69,6 +69,14 @@ namespace SolStandard.Containers.Components.LevelSelect
                         firstTurn
                     );
 
+                    if (!CreepPreferences.Instance.CreepsCanSpawn)
+                    {
+                        foreach (GameUnit creep in GlobalContext.Units.Where(unit => unit.Team == Team.Creep))
+                        {
+                            creep.KillUnit();
+                        }
+                    }
+
                     GlobalContext.DraftContext.StartNewDraft(
                         selectMapEntity.MaxBlueUnits,
                         selectMapEntity.MaxRedUnits,
@@ -76,7 +84,7 @@ namespace SolStandard.Containers.Components.LevelSelect
                         firstTurn,
                         selectMapEntity.MapObjectives.Scenario
                     );
-                    
+
                     GlobalContext.CurrentGameState = GlobalContext.GameState.ArmyDraft;
                 }
                 else
@@ -104,7 +112,7 @@ namespace SolStandard.Containers.Components.LevelSelect
                         selectMapEntity.SoloTeam,
                         selectMapEntity.MapObjectives.Scenario
                     );
-                    
+
                     GlobalContext.CurrentGameState = GlobalContext.GameState.ArmyDraft;
                 }
                 else
@@ -156,7 +164,8 @@ namespace SolStandard.Containers.Components.LevelSelect
 
         private static void PlayMapSong(SelectMapEntity mapEntity)
         {
-            IPlayableAudio songToPlay = AssetManager.MusicTracks.Find(song => song.Name.Contains(mapEntity.MapSongName));
+            IPlayableAudio songToPlay =
+                AssetManager.MusicTracks.Find(song => song.Name.Contains(mapEntity.MapSongName));
             MusicBox.PlayLoop(songToPlay);
         }
 
@@ -164,7 +173,9 @@ namespace SolStandard.Containers.Components.LevelSelect
         {
             return cursorSlice.TerrainEntity != null &&
                    cursorSlice.TerrainEntity.Type == EntityTypes.SelectMap.ToString();
-        }public void Update(GameTime gameTime)
+        }
+
+        public void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
         }

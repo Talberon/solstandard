@@ -118,6 +118,7 @@ namespace SolStandard
             Window.IsBorderless = false;
             Window.AllowUserResizing = true;
         }
+        
         public static void NewGame(string mapName, Scenario scenario, Team firstTeam)
         {
             GlobalContext.StartGame(mapName, scenario, firstTeam);
@@ -238,10 +239,10 @@ namespace SolStandard
             var mainMenu = new MainMenuHUD(mainMenuLogo);
             var networkMenu = new NetworkHUD(mainMenuLogo);
 
-
-            PauseScreenUtils.Initialize(this);
-
             GlobalContext.Initialize(mainMenu, networkMenu);
+            
+            PauseScreenUtils.Initialize(this);
+            
             InitializeControlMappers(GlobalContext.P1Team);
 
             ConnectionManager = new ConnectionManager();

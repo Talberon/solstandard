@@ -53,7 +53,8 @@ namespace SolStandard.Containers.Components.World.SubContext.Pause
                     new MusicVolumeDownOption(OptionsColor),
                     new SoundEffectMuteOption(OptionsColor),
                     new ToggleFullscreenOption(OptionsColor, gameDriver),
-                    new ReturnToPauseMenuOption(OptionsColor)
+                    new CreepDisableOption(OptionsColor),
+                    new ReturnToPauseMenuOption(OptionsColor),
                 },
                 cursorSprite,
                 OptionsColor

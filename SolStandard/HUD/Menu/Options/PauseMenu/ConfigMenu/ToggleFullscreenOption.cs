@@ -10,7 +10,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
         private readonly GameDriver gameDriver;
 
         public ToggleFullscreenOption(Color color, GameDriver gameDriver) : base(
-            new RenderText(AssetManager.MainMenuFont, "Toggle Fullscreen"), color)
+            new RenderText(AssetManager.WindowFont, "Toggle Fullscreen"), color)
         {
             this.gameDriver = gameDriver;
         }

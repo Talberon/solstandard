@@ -12,7 +12,7 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
         private readonly NetworkHUD menu;
 
         public CopyIPAddressOption(Color menuColor, NetworkHUD menu) : base(
-            new RenderText(AssetManager.MainMenuFont, "Copy IP"),
+            new RenderText(AssetManager.WindowFont, "Copy IP"),
             menuColor,
             HorizontalAlignment.Centered
         )

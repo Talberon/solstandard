@@ -20,12 +20,9 @@ namespace SolStandard.Utility.Network
 
         private NetServer server;
         private NetClient client;
-        private readonly string appIdentifier;
 
-        public ConnectionManager()
-        {
-            appIdentifier = $"Sol Standard {GameDriver.VersionNumber}";
-        }
+        private static string AppIdentifier => $"Sol Standard v{GameDriver.VersionNumber} // " +
+                                               $"CreepsEnabled:{CreepPreferences.Instance.CreepsCanSpawn}";
 
         public const int NetworkPort = 1993;
 
@@ -39,7 +36,7 @@ namespace SolStandard.Utility.Network
         {
             StopClientAndServer();
 
-            var config = new NetPeerConfiguration(appIdentifier)
+            var config = new NetPeerConfiguration(AppIdentifier)
             {
                 Port = NetworkPort,
                 EnableUPnP = true
@@ -74,7 +71,7 @@ namespace SolStandard.Utility.Network
         {
             StopClientAndServer();
 
-            var config = new NetPeerConfiguration(appIdentifier);
+            var config = new NetPeerConfiguration(AppIdentifier);
 
             Logger.Debug("Starting client!");
             client = new NetClient(config);
