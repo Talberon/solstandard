@@ -11,8 +11,9 @@
     <IsPackable>false</IsPackable>
     <Company>Talberon</Company>
     <Product>Sol Standard</Product>
-    <AssemblyVersion>1.1.1</AssemblyVersion>
+    <AssemblyVersion>1.2.0</AssemblyVersion>
     <NeutralLanguage>en</NeutralLanguage>
+    <PackageVersion>1.2.0</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
