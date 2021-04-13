@@ -1,16 +1,17 @@
+using System;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 
-namespace SolStandard.Utility.Events
+namespace SolStandard.Utility.Events.Network
 {
-    public class SpawnUnitEvent : IEvent
+    [Serializable]
+    public class SpawnUnitEvent : NetworkEvent
     {
         private readonly Role unitRole;
         private readonly Team unitTeam;
         private readonly float x;
         private readonly float y;
-        public bool Complete { get; private set; }
 
         public SpawnUnitEvent(Role unitRole, Team unitTeam, Vector2 coordinates)
         {
@@ -21,7 +22,7 @@ namespace SolStandard.Utility.Events
         }
 
 
-        public void Continue()
+        public override void Continue()
         {
             SpawnUnitAction.PlaceUnitInTile(unitRole, unitTeam, new Vector2(x, y));
             Complete = true;

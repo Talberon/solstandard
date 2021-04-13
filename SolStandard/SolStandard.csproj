@@ -11,7 +11,7 @@
     <IsPackable>false</IsPackable>
     <Company>Talberon</Company>
     <Product>Sol Standard</Product>
-    <AssemblyVersion>1.2.0</AssemblyVersion>
+    <AssemblyVersion>1.3.0</AssemblyVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageVersion>1.2.0</PackageVersion>
   </PropertyGroup>
@@ -23,6 +23,7 @@
     <MonoGameContentReference Remove="Content\Fonts\**" />
     <MonoGameContentReference Remove="Content\Graphics\**" />
     <MonoGameContentReference Remove="Content\obj\**" />
+    <MonoGameContentReference Remove="Containers\View\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -187,6 +188,7 @@
     <None Update="Content\TmxMaps\Solo_Jungle_Fortress.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Remove="Containers\View\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -195,6 +197,7 @@
     <Compile Remove="Content\Fonts\**" />
     <Compile Remove="Content\Graphics\**" />
     <Compile Remove="Content\obj\**" />
+    <Compile Remove="Containers\View\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -203,10 +206,7 @@
     <EmbeddedResource Remove="Content\Fonts\**" />
     <EmbeddedResource Remove="Content\Graphics\**" />
     <EmbeddedResource Remove="Content\obj\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Containers\View" />
+    <EmbeddedResource Remove="Containers\View\**" />
   </ItemGroup>
 
 </Project>
