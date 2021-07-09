@@ -8,10 +8,7 @@ namespace SolStandard.Utility
 {
     public static class UnitSelector
     {
-        public static GameUnit SelectUnit(MapEntity unit)
-        {
-            return unit == null ? null : GlobalContext.Units.First(gameUnit => gameUnit.UnitEntity == unit);
-        }
+        public static GameUnit SelectUnit(MapEntity unit) => GlobalContext.Units.FirstOrDefault(gameUnit => gameUnit.UnitEntity == unit);
 
         public static UnitEntity FindOtherUnitEntityAtCoordinates(Vector2 coordinates, MapEntity excludedEntity)
         {

@@ -119,6 +119,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private KeyValuePair<IItem, Vector2>? FindUnobstructedItemInRange(Vector2 origin, int mvRange)
         {
+            MapContainer.ClearDynamicAndPreviewGrids();
             new UnitMovingPhase(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
             List<MapElement> movementTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
 
@@ -150,6 +151,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private KeyValuePair<Currency, Vector2>? FindUnobstructedCurrencyInRange(Vector2 origin, int mvRange)
         {
+            MapContainer.ClearDynamicAndPreviewGrids();
             new UnitMovingPhase(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
             List<MapElement> movementTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
 
@@ -182,10 +184,10 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             if (unitSearching.UnitEntity == null) return false;
 
-            return (
-                FindUnobstructedItemInRange(unitSearching.UnitEntity.MapCoordinates, unitSearching.MvRange) != null ||
-                FindUnobstructedCurrencyInRange(unitSearching.UnitEntity.MapCoordinates, unitSearching.MvRange) != null
-            );
+            KeyValuePair<IItem,Vector2>? itemInRange = FindUnobstructedItemInRange(unitSearching.UnitEntity.MapCoordinates, unitSearching.MvRange);
+            KeyValuePair<Currency,Vector2>? moneyInRange = FindUnobstructedCurrencyInRange(unitSearching.UnitEntity.MapCoordinates, unitSearching.MvRange);
+            
+            return itemInRange != null || moneyInRange != null;
         }
     }
 }
