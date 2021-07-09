@@ -51,7 +51,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 
                 int atkDamage = Execute.ApplyPercentageRoundedUp(attacker.Stats.Atk, percent);
                 var flowStrikeFist =
-                    new WeaponStatistics(atkDamage, 0, attacker.Stats.CurrentAtkRange, 1);
+                    new WeaponStatistics(atkDamage, attacker.Stats.LuckModifier, attacker.Stats.CurrentAtkRange, 1);
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
