@@ -38,39 +38,30 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             {
                 if (PugilistHasFlowStacks(targetUnit))
                 {
-                    if (UnitIsMissingArmor(targetUnit))
+                    var statusToRemove =
+                        (FlowStatus) targetUnit.StatusEffects.First(status => status is FlowStatus);
+                    int currentFlowStacks = statusToRemove.FlowStacks;
+
+                    GlobalEventQueue.QueueSingleEvent(new RemoveStatusEffectEvent(targetUnit, statusToRemove));
+
+                    if (currentFlowStacks > 1)
                     {
-                        var statusToRemove =
-                            (FlowStatus) targetUnit.StatusEffects.First(status => status is FlowStatus);
-                        int currentFlowStacks = statusToRemove.FlowStacks;
-
-                        GlobalEventQueue.QueueSingleEvent(new RemoveStatusEffectEvent(targetUnit, statusToRemove));
-
-                        if (currentFlowStacks > 1)
-                        {
-                            GlobalEventQueue.QueueSingleEvent(
-                                new CastStatusEffectEvent(
-                                    targetUnit,
-                                    new FlowStatus(
-                                        FlowStrike.BuffIcon,
-                                        flowDuration,
-                                        currentFlowStacks - 1,
-                                        FlowStrike.BuffName
-                                    )
+                        GlobalEventQueue.QueueSingleEvent(
+                            new CastStatusEffectEvent(
+                                targetUnit,
+                                new FlowStatus(
+                                    FlowStrike.BuffIcon,
+                                    flowDuration,
+                                    currentFlowStacks - 1,
+                                    FlowStrike.BuffName
                                 )
-                            );
-                        }
+                            )
+                        );
+                    }
 
-                        GlobalEventQueue.QueueSingleEvent(new RegenerateArmorEvent(targetUnit, recoveryPerStack));
-                        GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
-                        GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
-                    }
-                    else
-                    {
-                        GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(
-                            $"Target does not have {FlowStrike.BuffName} stacks!", 50);
-                        AssetManager.WarningSFX.Play();
-                    }
+                    GlobalEventQueue.QueueSingleEvent(new RegenerateArmorEvent(targetUnit, recoveryPerStack));
+                    GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
+                    GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
                 }
                 else
                 {
@@ -89,11 +80,6 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
         private static bool PugilistHasFlowStacks(GameUnit targetUnit)
         {
             return targetUnit.Role == Role.Pugilist && targetUnit.StatusEffects.Any(status => status is FlowStatus);
-        }
-
-        private static bool UnitIsMissingArmor(GameUnit targetUnit)
-        {
-            return targetUnit.Stats.CurrentArmor != targetUnit.Stats.MaxArmor;
         }
     }
 }
