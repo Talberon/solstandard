@@ -23,6 +23,8 @@ namespace SolStandard.Utility.Events
 
         public static void StartExtraAction(string message)
         {
+            if (GlobalContext.WorldContext.SelectedUnit.UnitEntity == null) return;
+            
             GlobalContext.WorldContext.ResetToActionMenu();
             GlobalContext.WorldContext.MapContainer.AddNewToastAtMapCursor(message, 50);
             WorldContext.UpdateWindowsEachTurn();
