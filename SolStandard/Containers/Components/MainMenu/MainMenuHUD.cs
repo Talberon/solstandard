@@ -48,6 +48,7 @@ namespace SolStandard.Containers.Components.MainMenu
                 new MainMenuConfigOption(MenuColor),
                 new CreditsOption(MenuColor),
                 new HowToPlayOption(MenuColor),
+                new SequelPromoOption(MenuColor),
                 new QuitGameOption(MenuColor)
             };
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
